@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPPSC 2026 — World Geography & India's Neighbours Toolkit</title>
+<style>
+  :root {
+    --saffron: #E8540A;
+    --saffron-light: #FFF3EC;
+    --saffron-mid: #F47C3C;
+    --navy: #1A2B52;
+    --navy-light: #2D4A8A;
+    --green: #1B6B3A;
+    --green-light: #E8F5EE;
+    --gold: #D4A017;
+    --gold-light: #FFF9E6;
+    --slate: #374151;
+    --slate-mid: #6B7280;
+    --bg: #F8F9FA;
+    --white: #FFFFFF;
+    --border: #E5E7EB;
+    --correct: #16A34A;
+    --wrong: #DC2626;
+    --warn: #D97706;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--slate); }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #3D5FA8 100%);
+    padding: 32px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🌍';
+    position: absolute;
+    font-size: 180px;
+    opacity: 0.06;
+    top: -20px;
+    right: -20px;
+    transform: rotate(-15deg);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--saffron);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    color: white;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 13px; }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 18px;
+    color: white;
+    text-align: center;
+  }
+  .hero-stat strong { display: block; font-size: 20px; font-weight: 800; }
+  .hero-stat span { font-size: 11px; opacity: 0.8; }
+
+  /* ── NAV TABS ── */
+  .tab-nav {
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .tab-nav::-webkit-scrollbar { height: 3px; }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-mid);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tab-btn:hover { color: var(--navy); background: var(--saffron-light); }
+  .tab-btn.active { color: var(--navy); border-bottom-color: var(--saffron); background: var(--saffron-light); }
+
+  /* ── SECTIONS ── */
+  .section { display: none; padding: 24px 20px; max-width: 960px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .sec-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .sec-icon.saffron { background: var(--saffron-light); }
+  .sec-icon.navy { background: #E8ECF5; }
+  .sec-icon.green { background: var(--green-light); }
+  .sec-icon.gold { background: var(--gold-light); }
+  .sec-header h2 { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .sec-header p { font-size: 12px; color: var(--slate-mid); margin-top: 2px; }
+
+  /* ── CARDS ── */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-head .flag { font-size: 28px; }
+  .card-head h3 { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .card-head .cap { font-size: 11px; color: var(--slate-mid); margin-top: 2px; }
+
+  /* ── PILL TAGS ── */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .tag.saffron { background: var(--saffron-light); color: var(--saffron); }
+  .tag.green { background: var(--green-light); color: var(--green); }
+  .tag.navy { background: #E8ECF5; color: var(--navy-light); }
+  .tag.gold { background: var(--gold-light); color: #92570A; }
+  .tag.red { background: #FEE2E2; color: #B91C1C; }
+  .tag.warn { background: #FEF3C7; color: var(--warn); }
+
+  /* ── INFO ROWS ── */
+  .info-row { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; font-size: 13px; }
+  .info-row .lbl { font-weight: 600; color: var(--navy); min-width: 80px; flex-shrink: 0; }
+  .info-row .val { color: var(--slate); line-height: 1.5; }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert.news { background: #EFF6FF; border-left: 4px solid #3B82F6; }
+  .alert.dispute { background: #FEF2F2; border-left: 4px solid #EF4444; }
+  .alert.strat { background: var(--green-light); border-left: 4px solid var(--green); }
+  .alert.exam { background: var(--gold-light); border-left: 4px solid var(--gold); }
+
+  /* ── NEIGHBOUR DETAIL CARD ── */
+  .nbr-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .nbr-top {
+    padding: 20px 22px 16px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .nbr-flag { font-size: 52px; flex-shrink: 0; }
+  .nbr-meta h3 { font-size: 19px; font-weight: 800; color: var(--navy); }
+  .nbr-meta .subtitle { font-size: 13px; color: var(--slate-mid); margin: 2px 0 8px; }
+  .nbr-body {
+    padding: 0 22px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .nbr-section { }
+  .nbr-section h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--slate-mid);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nbr-section h4::before {
+    content: '';
+    width: 16px; height: 2px;
+    background: var(--saffron);
+    border-radius: 2px;
+  }
+  .nbr-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 22px 16px;
+  }
+
+  /* ── TABLE ── */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+  .tbl th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .tbl td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .tbl tr:nth-child(even) td { background: #FAFAFA; }
+  .tbl tr:hover td { background: var(--saffron-light); }
+
+  /* ── MCQ SECTION ── */
+  .mcq-container { }
+  .mcq-header {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: white;
+    padding: 18px 22px;
+    border-radius: 14px 14px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .mcq-header h3 { font-size: 16px; font-weight: 700; }
+  .mcq-score-display {
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .mcq-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 14px 14px; padding: 20px; }
+  .mcq-q {
+    margin-bottom: 20px;
+    padding: 16px 18px;
+    background: #FAFAFA;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .mcq-q.answered { border-color: transparent; }
+  .q-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+  .q-num {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 22px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media (max-width: 520px) { .options { grid-template-columns: 1fr; } }
+  .opt-btn {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.18s;
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--saffron-mid); background: var(--saffron-light); }
+  .opt-btn.correct { background: #DCFCE7; border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .opt-btn.wrong { background: #FEE2E2; border-color: var(--wrong); color: var(--wrong); }
+  .opt-btn:disabled { cursor: default; }
+  .opt-letter {
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .correct .opt-letter { background: var(--correct); color: white; }
+  .wrong .opt-letter { background: var(--wrong); color: white; }
+  .explanation {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--gold-light);
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: #7C3A02;
+    line-height: 1.6;
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .mcq-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .btn-primary { background: var(--navy); color: white; }
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-outline { background: white; color: var(--navy); border: 2px solid var(--navy); }
+  .btn-outline:hover { background: #E8ECF5; }
+  .btn-danger { background: var(--saffron); color: white; }
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 20px;
+    height: 6px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--saffron), var(--gold));
+    border-radius: 20px;
+    transition: width 0.4s;
+  }
+
+  /* ── TOPIC PILLS ── */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .topic-pill {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    box-shadow: var(--shadow);
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .topic-pill:hover { background: var(--saffron-light); border-color: var(--saffron-mid); }
+  .topic-pill .ico { font-size: 20px; }
+  .topic-pill .txt small { display: block; font-size: 11px; font-weight: 400; color: var(--slate-mid); margin-top: 1px; }
+
+  /* ── MISC ── */
+  .sep { height: 24px; }
+  .label-bar {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--slate-mid);
+    margin: 20px 0 10px;
+  }
+  .label-bar::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  h3.sub { font-size: 15px; font-weight: 700; color: var(--navy); margin: 18px 0 10px; border-left: 3px solid var(--saffron); padding-left: 10px; }
+
+  .highlight {
+    background: var(--gold-light);
+    border: 1px solid #F0D070;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  .highlight strong { color: #7C3A02; }
+
+  .india-map-card {
+    background: linear-gradient(135deg, #E8F5EE, #EFF6FF);
+    border: 1px solid #C3D8CC;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+  .india-map-card .emoji-map { font-size: 80px; display: block; }
+  .india-map-card p { font-size: 13px; color: var(--slate); margin-top: 8px; }
+  .india-map-card strong { color: var(--navy); }
+
+  .score-summary {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: white;
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    margin-top: 16px;
+    display: none;
+  }
+  .score-summary.show { display: block; }
+  .score-big { font-size: 48px; font-weight: 900; }
+  .score-sub { font-size: 14px; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 20px; }
+    .nbr-body { grid-template-columns: 1fr; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🎯 UPPSC 2026 Prep · SDM Rank Target</div>
+  <h1>World Geography<br>& India's Neighbours</h1>
+  <p>Physical · Human · Economic · Strategic | India-Relevant Focus</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>8</strong><span>Neighbours</span></div>
+    <div class="hero-stat"><strong>30</strong><span>MCQs</span></div>
+    <div class="hero-stat"><strong>7</strong><span>Modules</span></div>
+    <div class="hero-stat"><strong>Top 10</strong><span>Goal</span></div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('world-physical')">🌏 Physical</button>
+  <button class="tab-btn" onclick="showTab('straits-passes')">🚢 Straits</button>
+  <button class="tab-btn" onclick="showTab('oceans-climate')">🌊 Oceans</button>
+  <button class="tab-btn" onclick="showTab('deserts-rivers')">🏜️ Deserts</button>
+  <button class="tab-btn" onclick="showTab('neighbours')">🇮🇳 Neighbours</button>
+  <button class="tab-btn" onclick="showTab('world-mcq')">📝 World MCQs</button>
+  <button class="tab-btn" onclick="showTab('nbr-mcq')">📝 Neighbours MCQs</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     TAB 1: WORLD PHYSICAL GEOGRAPHY
+═══════════════════════════════════════════ -->
+<div id="world-physical" class="section active">
+  <div class="sec-header">
+    <div class="sec-icon saffron">🌏</div>
+    <div><h2>World Physical Features</h2><p>Continents · Oceans · Mountains · Key Features</p></div>
+  </div>
+
+  <div class="label-bar">🌍 Continents Overview</div>
+  <table class="tbl">
+    <tr><th>Continent</th><th>Area</th><th>Key Feature</th><th>🇮🇳 India Relevance</th></tr>
+    <tr><td>🌏 Asia</td><td>44.6M km²</td><td>Himalayas, Tibetan Plateau, Gobi Desert</td><td>India is in South Asia; shares Himalayas with China/Nepal/Bhutan</td></tr>
+    <tr><td>🌍 Africa</td><td>30.3M km²</td><td>Sahara, Nile, Congo Basin</td><td>India-Africa Forum Summit; trade partner</td></tr>
+    <tr><td>🌎 North America</td><td>24.7M km²</td><td>Rockies, Mississippi, Great Lakes</td><td>US — major trade, tech partner of India</td></tr>
+    <tr><td>🌎 South America</td><td>17.8M km²</td><td>Amazon, Andes, Atacama</td><td>IBSA; India-Brazil cooperation</td></tr>
+    <tr><td>🌍 Europe</td><td>10.5M km²</td><td>Alps, Rhine, Danube</td><td>EU — India FTA negotiations</td></tr>
+    <tr><td>🌏 Australia</td><td>7.7M km²</td><td>Great Dividing Range, Uluru</td><td>QUAD member; ECTA 2022</td></tr>
+    <tr><td>❄️ Antarctica</td><td>14M km²</td><td>World's largest desert (cold); ice cap</td><td>India has Maitri & Bharati stations</td></tr>
+  </table>
+
+  <div class="label-bar">🏔️ Major Mountain Ranges</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><span>🏔️</span><div><h3>Himalayas</h3><div class="cap">Asia — India's Northern Wall</div></div></div>
+      <div class="info-row"><span class="lbl">Extent</span><span class="val">2,400 km — India, Nepal, Bhutan, Pakistan, China</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">Mt. Everest 8,849m (Nepal-China border)</span></div>
+      <div class="info-row"><span class="lbl">Significance</span><span class="val">Climate barrier, source of major rivers (Ganga, Indus, Brahmaputra)</span></div>
+      <div class="tags"><span class="tag navy">🌧️ Monsoon Shield</span><span class="tag green">River Source</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span>⛰️</span><div><h3>Andes</h3><div class="cap">South America — Longest Range</div></div></div>
+      <div class="info-row"><span class="lbl">Extent</span><span class="val">7,000 km — Colombia to Chile/Argentina</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">Aconcagua 6,961m (Argentina)</span></div>
+      <div class="info-row"><span class="lbl">Significance</span><span class="val">Rain shadow → Atacama Desert; Amazon origin</span></div>
+      <div class="tags"><span class="tag gold">🌎 Longest Range</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span>🏔️</span><div><h3>Alps</h3><div class="cap">Europe</div></div></div>
+      <div class="info-row"><span class="lbl">Extent</span><span class="val">1,200 km — France to Austria/Slovenia</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">Mont Blanc 4,808m (France-Italy)</span></div>
+      <div class="info-row"><span class="lbl">Significance</span><span class="val">Origin of Rhine, Danube, Rhône, Po rivers</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span>🏔️</span><div><h3>Rockies</h3><div class="cap">North America</div></div></div>
+      <div class="info-row"><span class="lbl">Extent</span><span class="val">4,800 km — Alaska to New Mexico</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">Mt. Elbert 4,399m (Colorado)</span></div>
+      <div class="info-row"><span class="lbl">Significance</span><span class="val">Continental divide; Mississippi & Colorado river watersheds</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span>⛰️</span><div><h3>Karakoram</h3><div class="cap">Asia — India-Pakistan-China</div></div></div>
+      <div class="info-row"><span class="lbl">Location</span><span class="val">PoK/Gilgit-Baltistan; Ladakh</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">K2 (8,611m) — 2nd highest in world</span></div>
+      <div class="info-row"><span class="lbl">India</span><span class="val">Siachen Glacier conflict zone; Siachen is world's longest non-polar glacier</span></div>
+      <div class="tags"><span class="tag red">⚠️ Disputed Territory</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span>🏔️</span><div><h3>Hindu Kush</h3><div class="cap">Afghanistan-Pakistan</div></div></div>
+      <div class="info-row"><span class="lbl">Extent</span><span class="val">800 km — Afghanistan to Pakistan</span></div>
+      <div class="info-row"><span class="lbl">Highest</span><span class="val">Tirich Mir 7,708m</span></div>
+      <div class="info-row"><span class="lbl">India</span><span class="val">Controls Khyber Pass; historical invasion route into India</span></div>
+      <div class="tags"><span class="tag saffron">🛡️ Historical Gate</span></div>
+    </div>
+  </div>
+
+  <div class="label-bar">🌊 Major Oceans</div>
+  <table class="tbl">
+    <tr><th>Ocean</th><th>Area</th><th>Key Feature</th><th>🇮🇳 Relevance</th></tr>
+    <tr><td>Pacific</td><td>165M km²</td><td>Mariana Trench (11,034m deepest), Ring of Fire</td><td>QUAD nations; Indo-Pacific strategy</td></tr>
+    <tr><td>Atlantic</td><td>106M km²</td><td>Mid-Atlantic Ridge, Gulf Stream</td><td>EU & US trade routes</td></tr>
+    <tr><td>🌊 Indian</td><td>70.6M km²</td><td>Monsoon winds, warm water, IOR</td><td>India's home ocean — SAGAR doctrine; IOR security</td></tr>
+    <tr><td>Arctic</td><td>14.1M km²</td><td>Shrinking ice, Northern Sea Route</td><td>India has Arctic research station Himadri (Svalbard)</td></tr>
+    <tr><td>Southern</td><td>21.9M km²</td><td>Circumpolar current (ACC), officially recognised 2021</td><td>Antarctic proximity; India's research stations</td></tr>
+  </table>
+
+  <div class="alert exam">
+    <span>📌</span>
+    <div><strong>UPPSC Hot Point:</strong> Mariana Trench is in Pacific Ocean (near Philippines). Indian Ocean is only ocean named after a country. Southern Ocean was officially recognised by National Geographic in 2021.</div>
+  </div>
+
+  <div class="label-bar">🗺️ Important Plateaus</div>
+  <table class="tbl">
+    <tr><th>Plateau</th><th>Location</th><th>Key Fact</th><th>🇮🇳 Relevance</th></tr>
+    <tr><td>Tibetan Plateau</td><td>China (north of Himalayas)</td><td>"Roof of the World" avg 4,500m; 2.5M km²</td><td>Source of Indus, Ganga tributaries, Brahmaputra; China-India border</td></tr>
+    <tr><td>Deccan Plateau</td><td>Peninsular India</td><td>Volcanic basalt (Trap rocks); bounded by Western & Eastern Ghats</td><td>India's heartland</td></tr>
+    <tr><td>Arabian Plateau</td><td>Saudi Arabia</td><td>World's largest oil reserves beneath</td><td>India's largest source of oil imports</td></tr>
+    <tr><td>Patagonian Plateau</td><td>Argentina</td><td>Cold desert plateau</td><td>—</td></tr>
+    <tr><td>Colorado Plateau</td><td>SW USA</td><td>Grand Canyon carved by Colorado River</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 2: STRAITS, CHANNELS, PASSES
+═══════════════════════════════════════════ -->
+<div id="straits-passes" class="section">
+  <div class="sec-header">
+    <div class="sec-icon navy">🚢</div>
+    <div><h2>Straits, Channels & Passes</h2><p>Global chokepoints & mountain passes</p></div>
+  </div>
+
+  <div class="label-bar">🚢 Important Straits — India Relevant</div>
+  <table class="tbl">
+    <tr><th>Strait</th><th>Connects</th><th>Between</th><th>🇮🇳 India Significance</th></tr>
+    <tr><td>🔑 Malacca Strait</td><td>Pacific ↔ Indian Ocean</td><td>Malaysia & Indonesia/Sumatra</td><td>80% of India's oil imports pass through; critical energy security</td></tr>
+    <tr><td>Hormuz Strait</td><td>Persian Gulf ↔ Gulf of Oman</td><td>Iran & Oman</td><td>Gulf oil to India; 20% of world's oil</td></tr>
+    <tr><td>Bab-el-Mandeb</td><td>Red Sea ↔ Gulf of Aden</td><td>Yemen & Djibouti</td><td>India-Europe trade via Suez; Houthi attacks in 2023-25 disrupted trade</td></tr>
+    <tr><td>Palk Strait</td><td>Bay of Bengal ↔ Gulf of Mannar</td><td>India & Sri Lanka</td><td>India-Sri Lanka; Adam's Bridge (Ram Setu)</td></tr>
+    <tr><td>Ten Degree Channel</td><td>Andaman Sea ↔ Bay of Bengal</td><td>Andaman & Nicobar Islands</td><td>India's maritime boundary; strategic location</td></tr>
+    <tr><td>Eight Degree Channel</td><td>Arabian Sea</td><td>Minicoy & Maldives</td><td>India's Lakshadweep islands</td></tr>
+    <tr><td>Suez Canal</td><td>Mediterranean ↔ Red Sea</td><td>Egypt (not natural strait — canal)</td><td>India-Europe shortest sea route; disruptions affect Indian exports</td></tr>
+    <tr><td>Strait of Gibraltar</td><td>Atlantic ↔ Mediterranean</td><td>Spain & Morocco</td><td>Europe gateway; Indian trade route</td></tr>
+    <tr><td>Bering Strait</td><td>Pacific ↔ Arctic Ocean</td><td>Russia & USA (Alaska)</td><td>Northern Sea Route potential for India</td></tr>
+    <tr><td>Drake Passage</td><td>Atlantic ↔ Pacific (South)</td><td>Chile & Antarctica</td><td>Antarctica research route</td></tr>
+    <tr><td>Taiwan Strait</td><td>South China Sea</td><td>China & Taiwan</td><td>India watches China-Taiwan tensions; Indo-Pacific stability</td></tr>
+    <tr><td>Lombok Strait</td><td>Bali Sea ↔ Indian Ocean</td><td>Bali & Lombok (Indonesia)</td><td>Alternative to Malacca for large ships</td></tr>
+  </table>
+
+  <div class="alert strat">
+    <span>🔑</span>
+    <div><strong>CHOKEPOINT STRATEGY:</strong> Malacca Strait = India's energy lifeline. Hormuz = Gulf oil. Bab-el-Mandeb = Red Sea trade. India's "String of Pearls" fear: China securing all these chokepoints.</div>
+  </div>
+
+  <div class="label-bar">🏔️ Important Mountain Passes</div>
+  <table class="tbl">
+    <tr><th>Pass</th><th>Location</th><th>Connects</th><th>🇮🇳 India Relevance</th></tr>
+    <tr><td>Khyber Pass</td><td>Hindu Kush, Pakistan-Afghanistan</td><td>Peshawar ↔ Kabul</td><td>Historic invasion route into India; Silk Road</td></tr>
+    <tr><td>Bolan Pass</td><td>Balochistan, Pakistan</td><td>Quetta ↔ Afghanistan</td><td>British India's strategic pass</td></tr>
+    <tr><td>Karakoram Pass</td><td>Karakoram, Ladakh-China</td><td>India ↔ Xinjiang</td><td>India-China border; India's highest motorable pass nearby</td></tr>
+    <tr><td>Nathu La Pass</td><td>Sikkim-Tibet</td><td>India ↔ China (Tibet)</td><td>India-China trade route reopened 2006; Silk Road connection</td></tr>
+    <tr><td>Zoji La</td><td>Himalayas, J&K</td><td>Kashmir ↔ Ladakh</td><td>Strategic NH-1; Army supply route</td></tr>
+    <tr><td>Shipki La</td><td>Himachal Pradesh-Tibet</td><td>India ↔ China</td><td>Sutlej River enters India here</td></tr>
+    <tr><td>Bomdi La</td><td>Arunachal Pradesh</td><td>India ↔ China (Tibet)</td><td>1962 China invasion route</td></tr>
+    <tr><td>Rohtang Pass</td><td>Himachal Pradesh</td><td>Kullu ↔ Lahaul-Spiti</td><td>Atal Tunnel below Rohtang for year-round connectivity</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 3: OCEANS & CLIMATE
+═══════════════════════════════════════════ -->
+<div id="oceans-climate" class="section">
+  <div class="sec-header">
+    <div class="sec-icon navy">🌊</div>
+    <div><h2>Ocean Currents & World Climate</h2><p>Warm & Cold Currents · Climate Zones</p></div>
+  </div>
+
+  <div class="label-bar">🌊 Major Ocean Currents</div>
+
+  <h3 class="sub">🔴 Warm Currents</h3>
+  <table class="tbl">
+    <tr><th>Current</th><th>Ocean</th><th>Direction</th><th>Impact</th></tr>
+    <tr><td>Gulf Stream</td><td>Atlantic</td><td>N America → Europe (NE)</td><td>Keeps NW Europe warm; UK gets warm winters</td></tr>
+    <tr><td>North Atlantic Drift</td><td>Atlantic</td><td>Gulf Stream extension → Norway</td><td>Ice-free Norwegian ports; moderate European climate</td></tr>
+    <tr><td>Kuroshio Current</td><td>Pacific</td><td>Philippines → Japan (NE)</td><td>Japan's mild climate; "Black Current"</td></tr>
+    <tr><td>Brazilian Current</td><td>S Atlantic</td><td>South along SE Brazil</td><td>Warm SE Brazil coast</td></tr>
+    <tr><td>North Equatorial Current</td><td>Indian/Pacific</td><td>East → West (tropical)</td><td>Feeds into Indian Ocean circulation</td></tr>
+    <tr><td>Agulhas Current</td><td>Indian Ocean</td><td>SW along E Africa</td><td>Warm E Africa coast; meets cold Benguela</td></tr>
+    <tr><td>Mozambique Current</td><td>Indian Ocean</td><td>Through Mozambique Channel</td><td>Warm; India's IOR trade route</td></tr>
+  </table>
+
+  <h3 class="sub">🔵 Cold Currents</h3>
+  <table class="tbl">
+    <tr><th>Current</th><th>Ocean</th><th>Direction</th><th>Impact</th></tr>
+    <tr><td>Labrador Current</td><td>N Atlantic</td><td>S from Arctic → E Canada</td><td>Cold winters NE USA/Canada; Grand Banks fishing</td></tr>
+    <tr><td>Canary Current</td><td>Atlantic</td><td>S along NW Africa</td><td>Sahara Desert extension to coast; upwelling → rich fishing</td></tr>
+    <tr><td>Benguela Current</td><td>S Atlantic</td><td>N along SW Africa</td><td>Namib Desert formation; rich fishing</td></tr>
+    <tr><td>Humboldt (Peru) Current</td><td>Pacific</td><td>N along W S. America</td><td>Atacama Desert; El Niño disrupts it; rich fishing (anchovies)</td></tr>
+    <tr><td>California Current</td><td>N Pacific</td><td>S along W USA</td><td>Cool California coast; fog</td></tr>
+    <tr><td>Oyashio Current</td><td>N Pacific</td><td>S along NE Japan</td><td>Cold; rich fishing where meets Kuroshio</td></tr>
+    <tr><td>West Australian Current</td><td>Indian Ocean</td><td>N along W Australia</td><td>Dry W Australian coast; upwelling</td></tr>
+    <tr><td>Somali Current</td><td>Indian Ocean</td><td>Reverses with Monsoon</td><td>Unique: changes direction seasonally due to SW Monsoon</td></tr>
+  </table>
+
+  <div class="alert exam">
+    <span>📌</span>
+    <div><strong>Mnemonic — Cold Currents on WEST coasts:</strong> Labrador (NE Canada), Canary (NW Africa), Benguela (SW Africa), Humboldt (W S.America), California (W USA), W Australian. <strong>Warm on EAST coasts:</strong> Gulf Stream (E USA), Kuroshio (E Japan), Brazilian (E Brazil), Agulhas (E Africa).</div>
+  </div>
+
+  <div class="alert strat">
+    <span>🌊</span>
+    <div><strong>El Niño Impact on India:</strong> El Niño → warm Pacific waters → weak Indian Monsoon → drought. La Niña → cool Pacific → strong Monsoon → floods. ENSO cycle affects India's agriculture critically.</div>
+  </div>
+
+  <div class="label-bar">🌤️ World Climate Zones</div>
+  <table class="tbl">
+    <tr><th>Climate Zone</th><th>Location</th><th>Characteristics</th><th>Example Countries</th><th>🇮🇳 India Relevance</th></tr>
+    <tr><td>🌴 Tropical Wet (Af)</td><td>0-10°N/S of Equator</td><td>High rain year-round, no dry season, high temp</td><td>Congo, Amazon, Indonesia</td><td>Kerala, NE India (tropical wet)</td></tr>
+    <tr><td>🌧️ Tropical Monsoon (Am)</td><td>10-25°N/S</td><td>Short dry season, heavy monsoon rains</td><td>India, Bangladesh, Myanmar</td><td>India's dominant climate type</td></tr>
+    <tr><td>🌿 Tropical Savanna (Aw)</td><td>10-20°N/S</td><td>Distinct wet & dry seasons; grasslands</td><td>Brazil, Africa, N Australia</td><td>Parts of peninsular India</td></tr>
+    <tr><td>🏜️ Hot Desert (BWh)</td><td>20-30° lat, W coasts</td><td>Less than 250mm rain, extreme heat</td><td>Sahara, Arabian, Thar, Australian</td><td>Rajasthan (Thar Desert)</td></tr>
+    <tr><td>🌵 Semi-Arid (BS)</td><td>Near deserts</td><td>Steppe; 250-500mm rain</td><td>Central Asia, Patagonia</td><td>Deccan Plateau fringes</td></tr>
+    <tr><td>🌊 Mediterranean (Cs)</td><td>30-40°, W coasts</td><td>Dry summers, wet winters</td><td>Mediterranean, California, SW Australia</td><td>Not in India but UPSC asks</td></tr>
+    <tr><td>🌳 Humid Subtropical (Cfa)</td><td>20-35°, E coasts</td><td>Hot summers, mild winters</td><td>SE USA, E China, Uruguay</td><td>NE India, Gangetic plain</td></tr>
+    <tr><td>🌲 Temperate Oceanic (Cfb)</td><td>40-60°, W coasts</td><td>Mild, wet year-round</td><td>UK, France, NZ, W Canada</td><td>—</td></tr>
+    <tr><td>❄️ Subarctic (Dfc)</td><td>60-70° lat</td><td>Very cold winters, short cool summer</td><td>Canada, Russia (Siberia)</td><td>Taiga biome; timber resources</td></tr>
+    <tr><td>🧊 Tundra (ET)</td><td>70-90° lat</td><td>Permafrost, no trees</td><td>Arctic Canada, N Russia</td><td>India's Arctic research: Himadri</td></tr>
+    <tr><td>🏔️ Highland (H)</td><td>High altitudes</td><td>Altitude determines climate</td><td>Himalayas, Andes, Rockies</td><td>J&K, Ladakh, Uttarakhand</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 4: DESERTS & RIVERS
+═══════════════════════════════════════════ -->
+<div id="deserts-rivers" class="section">
+  <div class="sec-header">
+    <div class="sec-icon gold">🏜️</div>
+    <div><h2>Deserts of the World + Major Rivers</h2><p>Locations · Types · India Connections</p></div>
+  </div>
+
+  <div class="label-bar">🏜️ Major Deserts of the World</div>
+  <table class="tbl">
+    <tr><th>Desert</th><th>Continent</th><th>Area</th><th>Type</th><th>🇮🇳 India Relevance</th></tr>
+    <tr><td>❄️ Antarctic Desert</td><td>Antarctica</td><td>14.2M km²</td><td>Cold (Polar)</td><td>India's research station Maitri & Bharati here</td></tr>
+    <tr><td>❄️ Arctic Desert</td><td>Arctic</td><td>13.9M km²</td><td>Cold (Polar)</td><td>India's station Himadri in Svalbard (Arctic)</td></tr>
+    <tr><td>🌵 Sahara</td><td>N Africa</td><td>9.2M km²</td><td>Hot</td><td>Largest hot desert; affects African monsoon; Libya/Algeria oil</td></tr>
+    <tr><td>🌵 Arabian Desert</td><td>Middle East</td><td>2.3M km²</td><td>Hot</td><td>Gulf region; India's oil import source; Indian diaspora</td></tr>
+    <tr><td>🌵 Gobi Desert</td><td>China/Mongolia</td><td>1.3M km²</td><td>Cold</td><td>India-China strategic context; Silk Road</td></tr>
+    <tr><td>🌵 Patagonian</td><td>Argentina</td><td>673K km²</td><td>Cold</td><td>—</td></tr>
+    <tr><td>🌵 Great Victoria</td><td>Australia</td><td>647K km²</td><td>Hot</td><td>Australia — QUAD partner</td></tr>
+    <tr><td>🌵 Syrian Desert</td><td>Middle East</td><td>500K km²</td><td>Hot</td><td>West Asia; India's energy interest</td></tr>
+    <tr><td>🌵 Great Basin</td><td>USA (Nevada)</td><td>492K km²</td><td>Cold</td><td>—</td></tr>
+    <tr><td>🌵 Thar Desert</td><td>India/Pakistan</td><td>200K km²</td><td>Hot</td><td>Rajasthan; India-Pakistan border; Indira Gandhi Canal</td></tr>
+    <tr><td>🌵 Atacama</td><td>Chile/Peru</td><td>140K km²</td><td>Cold coastal</td><td>World's driest desert (non-polar); Humboldt Current causes it</td></tr>
+    <tr><td>🌵 Namib</td><td>SW Africa</td><td>80K km²</td><td>Cold coastal</td><td>Benguela Current causes it; diamond mining</td></tr>
+    <tr><td>🌵 Kalahari</td><td>S Africa (Botswana)</td><td>570K km²</td><td>Semi-arid</td><td>Africa-India trade; diamond source</td></tr>
+    <tr><td>🌵 Karakum</td><td>Turkmenistan</td><td>350K km²</td><td>Cold</td><td>Central Asia; IEA energy corridor</td></tr>
+    <tr><td>🌵 Taklamakan</td><td>China (Xinjiang)</td><td>337K km²</td><td>Cold</td><td>China's Xinjiang; CPEC route; Silk Road</td></tr>
+  </table>
+
+  <div class="alert exam">
+    <span>📌</span>
+    <div><strong>UPPSC Trick:</strong> Largest hot desert = Sahara | Largest cold desert = Antarctic. Atacama = world's driest. India's desert = Thar (Rajasthan). Cold deserts in India = Ladakh & Spiti Valley.</div>
+  </div>
+
+  <div class="label-bar">🌊 Major Rivers of the World</div>
+  <table class="tbl">
+    <tr><th>River</th><th>Origin</th><th>Mouth</th><th>Length</th><th>🇮🇳 India Relevance</th></tr>
+    <tr><td>Nile</td><td>E Africa (Burundi/Rwanda)</td><td>Mediterranean (Egypt)</td><td>6,650 km</td><td>Longest river; Egypt-Ethiopia Nile dam conflict impacts India's interest</td></tr>
+    <tr><td>Amazon</td><td>Andes (Peru)</td><td>Atlantic (Brazil)</td><td>6,400 km</td><td>Largest by discharge; deforestation → climate change impacts India</td></tr>
+    <tr><td>Yangtze</td><td>Tibetan Plateau</td><td>East China Sea</td><td>6,300 km</td><td>China's economic heartland; Three Gorges Dam</td></tr>
+    <tr><td>Mississippi</td><td>Minnesota, USA</td><td>Gulf of Mexico</td><td>6,275 km</td><td>USA economy; US-India trade relations</td></tr>
+    <tr><td>Yenisei</td><td>Mongolia</td><td>Kara Sea (Arctic)</td><td>5,539 km</td><td>—</td></tr>
+    <tr><td>Ob-Irtysh</td><td>Altai Mountains</td><td>Kara Sea</td><td>5,410 km</td><td>—</td></tr>
+    <tr><td>Brahmaputra</td><td>Tibetan Plateau (Mansarovar)</td><td>Bay of Bengal (Bangladesh)</td><td>2,900 km</td><td>Shared with China & Bangladesh; China dams cause downstream concern; UPPSC favourite</td></tr>
+    <tr><td>Indus</td><td>Tibetan Plateau (near Mansarovar)</td><td>Arabian Sea (Pakistan)</td><td>3,180 km</td><td>Indus Waters Treaty 1960 (kept in abeyance 2025 post-Pahalgam)</td></tr>
+    <tr><td>Mekong</td><td>Tibetan Plateau</td><td>South China Sea (Vietnam)</td><td>4,909 km</td><td>SE Asia connectivity; China dams affect lower riparian countries</td></tr>
+    <tr><td>Congo</td><td>Central Africa</td><td>Atlantic</td><td>4,700 km</td><td>Africa; India-Africa Forum</td></tr>
+    <tr><td>Niger</td><td>W Africa (Guinea)</td><td>Gulf of Guinea</td><td>4,180 km</td><td>Nigeria — important for India oil</td></tr>
+    <tr><td>Volga</td><td>Russia (NW)</td><td>Caspian Sea</td><td>3,531 km</td><td>Russia → India energy/defence partner</td></tr>
+    <tr><td>Danube</td><td>Germany (Black Forest)</td><td>Black Sea</td><td>2,860 km</td><td>10 countries; EU integration</td></tr>
+    <tr><td>Rhine</td><td>Swiss Alps</td><td>North Sea (Netherlands)</td><td>1,230 km</td><td>Industrial heartland of Europe</td></tr>
+    <tr><td>Tigris-Euphrates</td><td>Turkey (Anatolia)</td><td>Persian Gulf</td><td>1,950 km</td><td>Iraq; "Cradle of civilisation"; India's West Asia diplomacy</td></tr>
+  </table>
+
+  <div class="highlight">
+    <strong>🇮🇳 Rivers shared with India's neighbours:</strong> Indus (Pakistan), Brahmaputra (China→Bangladesh), Ganga (Nepal tributaries→Bangladesh), Teesta (Bangladesh — treaty pending), Barak (Bangladesh), Irrawaddy originates near Arunachal Pradesh → Myanmar.
+  </div>
+
+  <div class="label-bar">🌍 Important International Organisations</div>
+  <table class="tbl">
+    <tr><th>Organisation</th><th>HQ</th><th>Founded</th><th>🇮🇳 India Status</th></tr>
+    <tr><td>UN (United Nations)</td><td>New York, USA</td><td>1945</td><td>Founding member; seeks permanent UNSC seat</td></tr>
+    <tr><td>World Bank (IBRD)</td><td>Washington D.C., USA</td><td>1944</td><td>Major recipient of development loans</td></tr>
+    <tr><td>IMF</td><td>Washington D.C., USA</td><td>1944</td><td>Member; India 3rd largest economy (PPP)</td></tr>
+    <tr><td>WTO</td><td>Geneva, Switzerland</td><td>1995</td><td>Active member; often disagrees with developed nations on agriculture</td></tr>
+    <tr><td>WHO</td><td>Geneva, Switzerland</td><td>1948</td><td>Active member; COVID vaccine diplomacy</td></tr>
+    <tr><td>NATO</td><td>Brussels, Belgium</td><td>1949</td><td>Non-member; India maintains strategic autonomy</td></tr>
+    <tr><td>SCO</td><td>Beijing, China</td><td>2001</td><td>Full member since 2017; key platform</td></tr>
+    <tr><td>BRICS</td><td>Rotating</td><td>2009</td><td>Founder; expanded 2024 (Egypt, Ethiopia, Iran, UAE, Saudi Arabia)</td></tr>
+    <tr><td>G20</td><td>Rotating</td><td>1999</td><td>India hosted G20 2023 (New Delhi); key player</td></tr>
+    <tr><td>SAARC</td><td>Kathmandu, Nepal</td><td>1985</td><td>Founder; effectively stalled (India-Pakistan tensions)</td></tr>
+    <tr><td>ASEAN</td><td>Jakarta, Indonesia</td><td>1967</td><td>Dialogue partner; Act East Policy</td></tr>
+    <tr><td>IAEA</td><td>Vienna, Austria</td><td>1957</td><td>Member; nuclear programme oversight</td></tr>
+    <tr><td>UNESCO</td><td>Paris, France</td><td>1945</td><td>Inscribed many Indian world heritage sites</td></tr>
+    <tr><td>INTERPOL</td><td>Lyon, France</td><td>1923</td><td>Member; criminal fugitive coordination</td></tr>
+    <tr><td>QUAD</td><td>No formal HQ</td><td>2007 (reformed 2017)</td><td>India, USA, Japan, Australia — Indo-Pacific security</td></tr>
+    <tr><td>ICC (Cricket)</td><td>Dubai, UAE</td><td>1909</td><td>Most influential cricket nation</td></tr>
+    <tr><td>ILO</td><td>Geneva, Switzerland</td><td>1919</td><td>Labour standards; Indian workforce</td></tr>
+    <tr><td>OPEC</td><td>Vienna, Austria</td><td>1960</td><td>Non-member but major oil importer; OPEC decisions affect India</td></tr>
+    <tr><td>Commonwealth</td><td>London, UK</td><td>1931</td><td>Member; 54 nations</td></tr>
+    <tr><td>Non-Aligned Movement</td><td>No permanent HQ</td><td>1961</td><td>Co-founder (Nehru); 120+ members</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 5: INDIA'S NEIGHBOURS
+═══════════════════════════════════════════ -->
+<div id="neighbours" class="section">
+  <div class="sec-header">
+    <div class="sec-icon saffron">🇮🇳</div>
+    <div><h2>India's Neighbouring Countries</h2><p>UPPSC 2026 Strategic Analysis — Top 10 Focus</p></div>
+  </div>
+
+  <div class="india-map-card">
+    <span class="emoji-map">🗺️</span>
+    <p>India shares land borders with <strong>6 countries</strong>: Pakistan, China, Nepal, Bhutan, Bangladesh, Myanmar<br>
+    Sea proximity with: <strong>Sri Lanka</strong> (Palk Strait) & <strong>Maldives</strong> (Arabian Sea)<br>
+    <strong>Afghanistan</strong>: No current land border (PoK in between) but historically vital</p>
+  </div>
+
+  <!-- PAKISTAN -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇵🇰</div>
+      <div class="nbr-meta">
+        <h3>Pakistan — इस्लामिक रिपब्लिक</h3>
+        <div class="subtitle">India's most complex & adversarial neighbour</div>
+        <div class="tags">
+          <span class="tag red">⚔️ Adversarial</span>
+          <span class="tag gold">🛢️ IWT Suspended</span>
+          <span class="tag navy">🔵 Nuclear State</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Islamabad</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Pakistani Rupee (PKR)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Urdu (official), English</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">3,323 km with India</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">J&K, Ladakh, Punjab, Rajasthan, Gujarat</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>💧 Shared Rivers</h4>
+        <div class="info-row"><span class="lbl">Indus</span><span class="val">Originates Tibet → J&K → Pakistan</span></div>
+        <div class="info-row"><span class="lbl">Chenab</span><span class="val">Himachal → J&K → Pakistan</span></div>
+        <div class="info-row"><span class="lbl">Jhelum</span><span class="val">Kashmir → Pakistan</span></div>
+        <div class="info-row"><span class="lbl">Treaty</span><span class="val">Indus Waters Treaty 1960 (World Bank-mediated)</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>⚔️ Key Disputes</h4>
+        <div class="info-row"><span class="lbl">Kashmir</span><span class="val">Core dispute since 1947; UN Resolution pending</span></div>
+        <div class="info-row"><span class="lbl">LoC</span><span class="val">Line of Control; ceasefire agreement 2021</span></div>
+        <div class="info-row"><span class="lbl">Terrorism</span><span class="val">LeT, JeM based in Pakistan</span></div>
+        <div class="info-row"><span class="lbl">Water</span><span class="val">IWT 1960; India suspended 2025</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Pahalgam Attack (Apr 22, 2025):</strong> 26 tourists killed by terrorists in J&K<br>
+            <strong>Operation Sindoor (May 7, 2025):</strong> India struck 9 terror camps in Pakistan & PoK; killed 100+ terrorists including high-value targets (Yusuf Azhar, Mudasir Ahmed)<br>
+            <strong>Ceasefire (May 12, 2025):</strong> Pakistan DGMO requested ceasefire; India agreed bilaterally<br>
+            <strong>IWT Suspended:</strong> India put Indus Waters Treaty "in abeyance" post-Pahalgam<br>
+            <strong>SAARC:</strong> All summits boycotted by India since 2016 Uri attack
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">CPEC</span><span class="val">China-Pakistan Economic Corridor ($60B) through PoK — India opposes</span></div>
+        <div class="info-row"><span class="lbl">Nuclear</span><span class="val">Both are nuclear armed states — deterrence-based relationship</span></div>
+        <div class="info-row"><span class="lbl">Doctrine</span><span class="val">India: no talks with Pakistan while terrorism continues</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHINA -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇨🇳</div>
+      <div class="nbr-meta">
+        <h3>China — People's Republic</h3>
+        <div class="subtitle">Strategic competitor; longest land border with India</div>
+        <div class="tags">
+          <span class="tag red">⚠️ Border Disputes</span>
+          <span class="tag navy">🌐 Economic Giant</span>
+          <span class="tag warn">🏔️ LAC Tensions</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Beijing</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Yuan/Renminbi (CNY)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Mandarin (Putonghua)</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">~3,488 km (longest) — disputed as LAC</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">Ladakh, Himachal Pradesh, Uttarakhand, Sikkim, Arunachal Pradesh</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>💧 Shared Rivers</h4>
+        <div class="info-row"><span class="lbl">Brahmaputra</span><span class="val">Yarlung Tsangpo in Tibet → Arunachal → Assam</span></div>
+        <div class="info-row"><span class="lbl">Sutlej</span><span class="val">Enters India at Shipki La (Himachal)</span></div>
+        <div class="info-row"><span class="lbl">Indus</span><span class="val">Originates in Tibet; flows into J&K/Ladakh</span></div>
+        <div class="info-row"><span class="lbl">Concern</span><span class="val">China building mega-dams on Brahmaputra — downstream India concerns</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>⚔️ Key Disputes</h4>
+        <div class="info-row"><span class="lbl">Aksai Chin</span><span class="val">India claims — China occupies (J&K/Ladakh)</span></div>
+        <div class="info-row"><span class="lbl">Arunachal</span><span class="val">China calls it "South Tibet"; India: integral part</span></div>
+        <div class="info-row"><span class="lbl">Galwan</span><span class="val">Clash June 2020; 20 Indian soldiers martyred</span></div>
+        <div class="info-row"><span class="lbl">CPEC</span><span class="val">Passes through PoK — India strongly objects</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Disengagement:</strong> Depsang & Demchok buffer zones — partial disengagement 2024-25<br>
+            <strong>Brahmaputra Dam:</strong> China began construction of world's largest dam on Yarlung Tsangpo (2024)<br>
+            <strong>Renaming:</strong> China renamed places in Arunachal Pradesh<br>
+            <strong>Bangladesh pivot:</strong> Bangladesh PM Yunus visited Beijing Mar 2025; China deepening presence in India's neighbourhood
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">Trade</span><span class="val">China = India's largest trading partner despite tensions</span></div>
+        <div class="info-row"><span class="lbl">BRI</span><span class="val">Belt & Road Initiative: China's strategic encirclement strategy</span></div>
+        <div class="info-row"><span class="lbl">Panchsheel</span><span class="val">1954 agreement (5 principles); often violated</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEPAL -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇳🇵</div>
+      <div class="nbr-meta">
+        <h3>Nepal — Federal Democratic Republic</h3>
+        <div class="subtitle">Open border; special relationship with India; Hindu nation till 2008</div>
+        <div class="tags">
+          <span class="tag green">🤝 Open Border</span>
+          <span class="tag gold">🏔️ Mt. Everest</span>
+          <span class="tag warn">⚠️ China influence rising</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Kathmandu</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Nepalese Rupee (NPR)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Nepali</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">1,751 km with India</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">Uttarakhand, UP, Bihar, West Bengal, Sikkim</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>💧 Shared Rivers</h4>
+        <div class="info-row"><span class="lbl">Kosi</span><span class="val">Nepal → Bihar; "Sorrow of Bihar" due to floods</span></div>
+        <div class="info-row"><span class="lbl">Gandak</span><span class="val">Nepal → Bihar/UP</span></div>
+        <div class="info-row"><span class="lbl">Karnali</span><span class="val">Tibet → Nepal → India (joins Ghaghara)</span></div>
+        <div class="info-row"><span class="lbl">Mahakali</span><span class="val">Shared border river; Pancheshwar Dam project</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>⚔️ Key Disputes</h4>
+        <div class="info-row"><span class="lbl">Kalapani</span><span class="val">India controls; Nepal claims; Lipulekh pass area</span></div>
+        <div class="info-row"><span class="lbl">Susta</span><span class="val">Area near Gandak; Nepal claims encroachment</span></div>
+        <div class="info-row"><span class="lbl">New Map</span><span class="val">Nepal issued map 2020 showing Lipulekh, Kalapani, Limpiyadhura as its own</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Political Instability:</strong> Nepal has had multiple PM changes; India relations affected<br>
+            <strong>China BRI:</strong> Nepal signed BRI 2017; Trans-Himalayan rail project progressing<br>
+            <strong>Youth protests 2025:</strong> Youth-driven protests against governance; India must engage<br>
+            <strong>Pashupati pipeline:</strong> India-Nepal oil pipeline operational; India supplies 70% of Nepal's fuel
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">Nepal Army</span><span class="val">Gurkha regiment in Indian Army — special provision</span></div>
+        <div class="info-row"><span class="lbl">Power</span><span class="val">India-Nepal Power Trade Agreement; Nepal exports hydro power to India</span></div>
+        <div class="info-row"><span class="lbl">Buffer</span><span class="val">Buffer state between India and China; China's rail to Nepal threatens India</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BHUTAN -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇧🇹</div>
+      <div class="nbr-meta">
+        <h3>Bhutan — Kingdom of Bhutan</h3>
+        <div class="subtitle">India's most trusted neighbour; unique security relationship</div>
+        <div class="tags">
+          <span class="tag green">✅ Most Trusted</span>
+          <span class="tag gold">💛 GNH Model</span>
+          <span class="tag navy">⚡ Hydro Power</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Thimphu</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Ngultrum (BTN) — pegged to Indian Rupee</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Dzongkha</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">699 km with India</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">Sikkim, West Bengal, Assam, Arunachal Pradesh</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>🤝 Special Relationship</h4>
+        <div class="info-row"><span class="lbl">Treaty</span><span class="val">India-Bhutan Friendship Treaty 2007 (updated)</span></div>
+        <div class="info-row"><span class="lbl">Defence</span><span class="val">India responsible for Bhutan's external security</span></div>
+        <div class="info-row"><span class="lbl">No China</span><span class="val">Bhutan does not have diplomatic relations with China</span></div>
+        <div class="info-row"><span class="lbl">India role</span><span class="val">India's largest trade & aid partner; funds 5-year plans</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>⚔️ Key Issues</h4>
+        <div class="info-row"><span class="lbl">Doklam</span><span class="val">2017 standoff: China constructing road in Bhutan territory (Doklam); India intervened (72 days)</span></div>
+        <div class="info-row"><span class="lbl">China-Bhutan</span><span class="val">Bhutan-China border talks ongoing; India concerned</span></div>
+        <div class="info-row"><span class="lbl">ULFA</span><span class="val">Bhutan evicted ULFA/NDFB from its soil in 2003 — helped India</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>⚡ Strategic: Hydro Power</h4>
+        <div class="info-row"><span class="lbl">Projects</span><span class="val">Chukha, Tala, Mangdechhu, Punatsangchhu dams — India-funded</span></div>
+        <div class="info-row"><span class="lbl">Export</span><span class="val">Bhutan exports hydro electricity to India; primary revenue source</span></div>
+        <div class="info-row"><span class="lbl">Target</span><span class="val">10,000 MW target by 2026</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANGLADESH -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇧🇩</div>
+      <div class="nbr-meta">
+        <h3>Bangladesh — People's Republic</h3>
+        <div class="subtitle">Surrounded by India on 3 sides; strategic but strained relations</div>
+        <div class="tags">
+          <span class="tag warn">⚠️ Strained Post-2024</span>
+          <span class="tag navy">🌊 Teesta Pending</span>
+          <span class="tag saffron">🔗 Connectivity</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Dhaka</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Bangladeshi Taka (BDT)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Bengali</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">4,156 km (longest land border of India)</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">West Bengal, Assam, Meghalaya, Tripura, Mizoram</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>💧 Shared Rivers</h4>
+        <div class="info-row"><span class="lbl">Ganga/Padma</span><span class="val">Farakka Barrage; Ganga Water Treaty 1996 (renewal 2026)</span></div>
+        <div class="info-row"><span class="lbl">Brahmaputra</span><span class="val">Becomes Jamuna in Bangladesh; major river</span></div>
+        <div class="info-row"><span class="lbl">Teesta</span><span class="val">Treaty pending; West Bengal CM blocks; critical for N Bangladesh</span></div>
+        <div class="info-row"><span class="lbl">Barak</span><span class="val">Joins Meghna river system in Bangladesh</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Hasina govt fell:</strong> Aug 2024 — student revolution; Sheikh Hasina fled to India<br>
+            <strong>Yunus Govt:</strong> Muhammad Yunus heads interim government; anti-India tilt<br>
+            <strong>India tension:</strong> India reluctant to extradite Hasina; Bangladesh angry<br>
+            <strong>Yunus Beijing visit:</strong> Stated NE India is "landlocked" & Bangladesh its "guardian of ocean" — upset India<br>
+            <strong>Ganga Treaty:</strong> Indo-Bangladesh Ganga Water Treaty due for renewal 2026<br>
+            <strong>Minorities:</strong> Attacks on Hindu minorities in Bangladesh; India raised concerns
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">Enclave</span><span class="val">Bangladesh surrounded by India on 3 sides → India provides corridor access</span></div>
+        <div class="info-row"><span class="lbl">Northeast</span><span class="val">Bangladesh connectivity vital for India's landlocked NE states; Chicken Neck</span></div>
+        <div class="info-row"><span class="lbl">Trade</span><span class="val">India-Bangladesh bilateral trade ~$12B; major partners</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MYANMAR -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇲🇲</div>
+      <div class="nbr-meta">
+        <h3>Myanmar — Republic of the Union</h3>
+        <div class="subtitle">Act East gateway; military junta since 2021; Rohingya crisis</div>
+        <div class="tags">
+          <span class="tag red">⚠️ Military Junta</span>
+          <span class="tag saffron">🛤️ Act East</span>
+          <span class="tag navy">🌊 Rohingya</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Naypyidaw (legislative); Yangon (economic)</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Kyat (MMK)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Burmese</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">1,643 km with India</span></div>
+        <div class="info-row"><span class="lbl">Indian States</span><span class="val">Arunachal Pradesh, Nagaland, Manipur, Mizoram</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>🔗 Key Projects</h4>
+        <div class="info-row"><span class="lbl">Trilateral Hwy</span><span class="val">India-Myanmar-Thailand Highway: Delhi → Bangkok (3,360 km)</span></div>
+        <div class="info-row"><span class="lbl">Kaladan</span><span class="val">Kaladan Multi-Modal Transit: Kolkata → Sittwe port → Mizoram</span></div>
+        <div class="info-row"><span class="lbl">Sittwe Port</span><span class="val">India-funded port in Myanmar; access to NE India</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Military coup 2021:</strong> Junta seized power; civil war ongoing<br>
+            <strong>Refugees:</strong> 78,731+ Myanmar refugees in India's NE states (2023)<br>
+            <strong>Fence:</strong> India building border fence; ended Free Movement Regime (FMR) 2024<br>
+            <strong>Rohingya:</strong> India deports Rohingya; not signatory to UN Refugee Convention<br>
+            <strong>Insurgency:</strong> Northeast Indian insurgent groups used Myanmar territory
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">SE Asia</span><span class="val">Myanmar is India's gateway to ASEAN; Act East Policy pivots on it</span></div>
+        <div class="info-row"><span class="lbl">China</span><span class="val">China is Myanmar junta's main backer; India must balance</span></div>
+        <div class="info-row"><span class="lbl">IOR</span><span class="val">Myanmar coast on Bay of Bengal; strategic for Indian Navy</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SRI LANKA -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇱🇰</div>
+      <div class="nbr-meta">
+        <h3>Sri Lanka — Democratic Socialist Republic</h3>
+        <div class="subtitle">Island nation; Palk Strait; economic crisis 2022; Indian connection</div>
+        <div class="tags">
+          <span class="tag green">🌊 Sea Neighbour</span>
+          <span class="tag gold">⚓ Hambantota Port</span>
+          <span class="tag navy">🇮🇳 Tamil ties</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Sri Jayawardenepura Kotte (legislative); Colombo (commercial)</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Sri Lankan Rupee (LKR)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Sinhala, Tamil, English</span></div>
+        <div class="info-row"><span class="lbl">Proximity</span><span class="val">Palk Strait width: ~22 km minimum (Dhanushkodi-Talaimannar)</span></div>
+        <div class="info-row"><span class="lbl">Sea Border</span><span class="val">Adam's Bridge (Ram Setu) — chain of limestone shoals</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>🔗 Key Issues</h4>
+        <div class="info-row"><span class="lbl">Tamil Issue</span><span class="val">Tamil Eelam conflict ended 2009; India's Tamil Nadu sensitivities</span></div>
+        <div class="info-row"><span class="lbl">Fishermen</span><span class="val">Indian fishermen arrested by Sri Lanka Navy periodically</span></div>
+        <div class="info-row"><span class="lbl">Hambantota</span><span class="val">China's 99-year lease on Hambantota port — India's strategic concern</span></div>
+        <div class="info-row"><span class="lbl">Katchatheevu</span><span class="val">Small island ceded to Sri Lanka by India in 1974; fishermen's rights issue</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Economic recovery:</strong> Sri Lanka recovering from 2022 economic crisis with IMF bailout<br>
+            <strong>India aid:</strong> India gave $4B credit line in 2022 crisis — largest bilateral support<br>
+            <strong>Adani:</strong> Adani Group renewable energy project; controversy (US indictment)<br>
+            <strong>UPI:</strong> Sri Lanka adopted India's UPI payment system<br>
+            <strong>New president:</strong> Anura Kumara Dissanayake (AKD) elected Sept 2024; more balanced India-China policy
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">IOR</span><span class="val">Sri Lanka sits in middle of Indian Ocean — controls access to Bay of Bengal</span></div>
+        <div class="info-row"><span class="lbl">SAGAR</span><span class="val">India's SAGAR doctrine (Security And Growth for All in the Region)</span></div>
+        <div class="info-row"><span class="lbl">String of Pearls</span><span class="val">Hambantota = China's "Pearl" around India; India counter-balances</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFGHANISTAN -->
+  <div class="nbr-card">
+    <div class="nbr-top">
+      <div class="nbr-flag">🇦🇫</div>
+      <div class="nbr-meta">
+        <h3>Afghanistan — Islamic Emirate (Taliban)</h3>
+        <div class="subtitle">No direct border; historically vital; Taliban since Aug 2021</div>
+        <div class="tags">
+          <span class="tag red">🚫 Taliban Rule</span>
+          <span class="tag warn">📍 No Direct Border</span>
+          <span class="tag navy">🛢️ IEA Corridor</span>
+        </div>
+      </div>
+    </div>
+    <div class="nbr-divider"></div>
+    <div class="nbr-body">
+      <div class="nbr-section">
+        <h4>📋 Basic Facts</h4>
+        <div class="info-row"><span class="lbl">Capital</span><span class="val">Kabul</span></div>
+        <div class="info-row"><span class="lbl">Currency</span><span class="val">Afghan Afghani (AFN)</span></div>
+        <div class="info-row"><span class="lbl">Language</span><span class="val">Dari, Pashto</span></div>
+        <div class="info-row"><span class="lbl">Border</span><span class="val">No direct border with India; 106 km separated by PoK</span></div>
+        <div class="info-row"><span class="lbl">Context</span><span class="val">PoK/Gilgit-Baltistan sits between India and Afghanistan</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>🏗️ India's Investment</h4>
+        <div class="info-row"><span class="lbl">Parliament</span><span class="val">Salma Dam (Afghan-India Friendship Dam); Parliament building — India built</span></div>
+        <div class="info-row"><span class="lbl">Chabahar</span><span class="val">India operates Chabahar Port (Iran) — access route to Afghanistan bypassing Pakistan</span></div>
+        <div class="info-row"><span class="lbl">Investment</span><span class="val">India invested ~$3B in Afghanistan development under previous govt</span></div>
+      </div>
+      <div class="nbr-section">
+        <h4>📰 2025-2026 News</h4>
+        <div class="alert news" style="margin:0; font-size:12.5px;">
+          <span>🗞️</span>
+          <div>
+            <strong>Taliban 2021:</strong> US withdrawal → Taliban takeover; India evacuated citizens<br>
+            <strong>Engagement dilemma:</strong> India engages Taliban cautiously for humanitarian & security reasons<br>
+            <strong>Chabahar:</strong> India-Iran-Afghanistan connectivity via Chabahar port continues<br>
+            <strong>TAPI Pipeline:</strong> Turkmenistan-Afghanistan-Pakistan-India pipeline — stalled due to Taliban<br>
+            <strong>2025:</strong> India opened technical mission in Kabul for consular work
+          </div>
+        </div>
+      </div>
+      <div class="nbr-section">
+        <h4>🎯 Strategic Importance</h4>
+        <div class="info-row"><span class="lbl">Terror</span><span class="val">Afghanistan-based terror groups (Al-Qaeda, IS-K, LeT) threaten India</span></div>
+        <div class="info-row"><span class="lbl">Energy</span><span class="val">TAPI pipeline; Central Asia energy corridor passes through</span></div>
+        <div class="info-row"><span class="lbl">Pakistan</span><span class="val">India-Pakistan rivalry extends to Afghanistan; both seek influence</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISLANDS, SEAS, GULFS -->
+  <div class="label-bar">🏝️ Important Islands, Seas & Gulfs — India Relevant</div>
+  <table class="tbl">
+    <tr><th>Feature</th><th>Type</th><th>Location</th><th>🇮🇳 India Significance</th></tr>
+    <tr><td>Andaman & Nicobar</td><td>Islands</td><td>Bay of Bengal / Andaman Sea</td><td>India's strategic asset; near Malacca Strait; Tri-services command</td></tr>
+    <tr><td>Lakshadweep</td><td>Islands</td><td>Arabian Sea (SW India)</td><td>India's westernmost territory; UNCLOS EEZ</td></tr>
+    <tr><td>Arabian Sea</td><td>Sea</td><td>W of India</td><td>India's western maritime boundary; oil tanker route</td></tr>
+    <tr><td>Bay of Bengal</td><td>Sea</td><td>E of India</td><td>India's eastern maritime boundary; BIMSTEC region</td></tr>
+    <tr><td>Gulf of Mannar</td><td>Gulf</td><td>Between India & Sri Lanka (SE)</td><td>Marine biosphere reserve; Pearl fisheries; Adam's Bridge</td></tr>
+    <tr><td>Gulf of Khambhat (Cambay)</td><td>Gulf</td><td>Gujarat coast</td><td>Tidal energy potential; offshore oil reserves</td></tr>
+    <tr><td>Gulf of Kutch</td><td>Gulf</td><td>Gujarat (NW)</td><td>Kandla port; coral reefs; tidal power</td></tr>
+    <tr><td>Palk Bay</td><td>Bay</td><td>Between India & Sri Lanka</td><td>Fishermen disputes; Adam's Bridge</td></tr>
+    <tr><td>Maldives</td><td>Island Nation</td><td>Arabian Sea (SW of India)</td><td>India's "Neighbourhood First"; Muizzu govt 2023 tilted towards China; India removed troops</td></tr>
+    <tr><td>Strait of Malacca</td><td>Strait</td><td>Between Malaysia & Indonesia</td><td>India's energy security chokepoint; 80% oil imports</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 6: WORLD MCQs
+═══════════════════════════════════════════ -->
+<div id="world-mcq" class="section">
+  <div class="sec-header">
+    <div class="sec-icon saffron">📝</div>
+    <div><h2>World Geography MCQs</h2><p>20 UPPSC-style questions with explanations</p></div>
+  </div>
+
+  <div class="mcq-container">
+    <div class="mcq-header">
+      <div>
+        <h3>🌍 World Geography Practice</h3>
+        <div style="font-size:12px; opacity:0.8; margin-top:4px;">Click an option to attempt · Yellow box shows explanation</div>
+      </div>
+      <div class="mcq-score-display" id="w-score">Score: 0 / 0</div>
+    </div>
+    <div class="mcq-body" id="world-mcqs"></div>
+    <div class="mcq-controls">
+      <button class="btn btn-outline" onclick="resetMCQ('world')">🔄 Reset All</button>
+    </div>
+    <div class="score-summary" id="w-summary">
+      <div class="score-big" id="w-final">0/20</div>
+      <div class="score-sub">अच्छा प्रयास! SDM की तैयारी जारी रखो 💪</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 7: NEIGHBOURS MCQs
+═══════════════════════════════════════════ -->
+<div id="nbr-mcq" class="section">
+  <div class="sec-header">
+    <div class="sec-icon green">📝</div>
+    <div><h2>India's Neighbours MCQs</h2><p>10 UPPSC-style questions — SDM level</p></div>
+  </div>
+
+  <div class="mcq-container">
+    <div class="mcq-header" style="background: linear-gradient(135deg, #1B6B3A, #2D9A56);">
+      <div>
+        <h3>🇮🇳 India's Neighbours Practice</h3>
+        <div style="font-size:12px; opacity:0.8; margin-top:4px;">2025-26 current affairs integrated</div>
+      </div>
+      <div class="mcq-score-display" id="n-score">Score: 0 / 0</div>
+    </div>
+    <div class="mcq-body" id="nbr-mcqs"></div>
+    <div class="mcq-controls">
+      <button class="btn btn-outline" onclick="resetMCQ('nbr')">🔄 Reset All</button>
+    </div>
+    <div class="score-summary" id="n-summary">
+      <div class="score-big" id="n-final">0/10</div>
+      <div class="score-sub">SDM rank target — keep going! 🎯</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── MCQ DATA ──
+const worldQuestions = [
+  {
+    q: "विश्व का सबसे गर्म मरुस्थल कौन सा है?",
+    opts: ["A) अंटार्कटिक मरुस्थल", "B) सहारा मरुस्थल", "C) अरेबियन मरुस्थल", "D) गोबी मरुस्थल"],
+    ans: 1,
+    exp: "सहारा मरुस्थल (9.2M km²) विश्व का सबसे बड़ा गर्म मरुस्थल है। अंटार्कटिक व आर्कटिक ध्रुवीय ठंडे मरुस्थल हैं जो सहारा से बड़े हैं।"
+  },
+  {
+    q: "मलक्का जलसंधि किन दो देशों के बीच स्थित है?",
+    opts: ["A) भारत और श्रीलंका", "B) मलेशिया और इंडोनेशिया", "C) थाईलैंड और मलेशिया", "D) सिंगापुर और इंडोनेशिया"],
+    ans: 1,
+    exp: "मलक्का जलसंधि मलेशिया (प्रायद्वीप) और इंडोनेशिया (सुमात्रा द्वीप) के बीच है। यह प्रशांत और हिंद महासागर को जोड़ती है। भारत का 80% तेल आयात यहाँ से गुजरता है।"
+  },
+  {
+    q: "किस महासागरीय धारा के कारण उत्तर-पश्चिम यूरोप की जलवायु गर्म रहती है?",
+    opts: ["A) लैब्रेडोर धारा", "B) गल्फ स्ट्रीम", "C) कैनरी धारा", "D) बेंगुएला धारा"],
+    ans: 1,
+    exp: "गल्फ स्ट्रीम (गर्म धारा) उत्तरी अमेरिका से यूरोप तक गर्म जल ले जाती है। इसके कारण ब्रिटेन, नॉर्वे आदि की सर्दियाँ अपेक्षाकृत गर्म रहती हैं।"
+  },
+  {
+    q: "विश्व की सबसे गहरी खाई मारियाना ट्रेंच किस महासागर में स्थित है?",
+    opts: ["A) हिंद महासागर", "B) अटलांटिक महासागर", "C) प्रशांत महासागर", "D) आर्कटिक महासागर"],
+    ans: 2,
+    exp: "मारियाना ट्रेंच प्रशांत महासागर (Pacific) में फिलीपींस के पास स्थित है। इसकी गहराई 11,034 मीटर (चैलेंजर डीप) है — पृथ्वी का सबसे गहरा स्थान।"
+  },
+  {
+    q: "अटाकामा मरुस्थल (विश्व का सर्वाधिक शुष्क) किस धारा के कारण बनता है?",
+    opts: ["A) गल्फ स्ट्रीम", "B) ह्युम्बोल्ट (पेरू) धारा", "C) कुरोशियो धारा", "D) मोजाम्बिक धारा"],
+    ans: 1,
+    exp: "ह्युम्बोल्ट/पेरू धारा (ठंडी) दक्षिण अमेरिका के पश्चिमी तट पर बहती है। यह तट को ठंडा रखती है जिससे संवहन वर्षा नहीं होती → अटाकामा मरुस्थल बनता है।"
+  },
+  {
+    q: "SAARC का मुख्यालय कहाँ स्थित है?",
+    opts: ["A) नई दिल्ली, भारत", "B) कोलंबो, श्रीलंका", "C) काठमांडू, नेपाल", "D) ढाका, बांग्लादेश"],
+    ans: 2,
+    exp: "SAARC (South Asian Association for Regional Cooperation) का मुख्यालय काठमांडू, नेपाल में है। स्थापना 1985 में ढाका में हुई थी।"
+  },
+  {
+    q: "बाब-अल-मंदेब जलसंधि किन दो जल क्षेत्रों को जोड़ती है?",
+    opts: ["A) लाल सागर और अदन की खाड़ी", "B) भूमध्य सागर और लाल सागर", "C) फारस की खाड़ी और अरब सागर", "D) अरब सागर और बंगाल की खाड़ी"],
+    ans: 0,
+    exp: "बाब-अल-मंदेब यमन (अरब) और जिबूती/इरिट्रिया (अफ्रीका) के बीच लाल सागर को अदन की खाड़ी से जोड़ती है। यहाँ से होकर भारत-यूरोप व्यापार मार्ग जाता है।"
+  },
+  {
+    q: "'टिबेटन प्लेटो' को किस नाम से जाना जाता है?",
+    opts: ["A) विश्व की छत (Roof of the World)", "B) विश्व का हृदय", "C) विश्व का नाभि", "D) एशिया का पठार"],
+    ans: 0,
+    exp: "तिब्बती पठार (औसत ऊँचाई ~4,500 मीटर) को 'विश्व की छत' (Roof of the World) कहते हैं। यह इंडस, गंगा की सहायक नदियों और ब्रह्मपुत्र का उद्गम स्थल है।"
+  },
+  {
+    q: "निम्नलिखित में से कौन सी धारा ठंडी (Cold Current) है?",
+    opts: ["A) गल्फ स्ट्रीम", "B) कुरोशियो", "C) बेंगुएला", "D) अगुल्हास"],
+    ans: 2,
+    exp: "बेंगुएला धारा ठंडी है जो दक्षिण-पश्चिम अफ्रीका (अंगोला/नामीबिया) के तट पर उत्तर की ओर बहती है। इसके कारण नामीब मरुस्थल बनता है। गल्फ स्ट्रीम, कुरोशियो, अगुल्हास — सभी गर्म धाराएँ हैं।"
+  },
+  {
+    q: "SCO (Shanghai Cooperation Organisation) का मुख्यालय कहाँ है?",
+    opts: ["A) मास्को, रूस", "B) बीजिंग, चीन", "C) अस्ताना, कज़ाकस्तान", "D) शंघाई, चीन"],
+    ans: 1,
+    exp: "SCO का स्थायी मुख्यालय बीजिंग, चीन में है। भारत 2017 में SCO का पूर्ण सदस्य बना। बेलारूस 2024 में नया सदस्य बना।"
+  },
+  {
+    q: "विश्व का सबसे लंबा पर्वत श्रृंखला कौन सी है?",
+    opts: ["A) हिमालय", "B) आल्प्स", "C) एंडीज", "D) रॉकीज"],
+    ans: 2,
+    exp: "एंडीज (~7,000 km) विश्व की सबसे लंबी पर्वत श्रृंखला है, जो कोलंबिया से चिली/अर्जेंटीना तक दक्षिण अमेरिका के पश्चिमी तट पर फैली है। हिमालय की ऊँचाई अधिक है परंतु लंबाई कम।"
+  },
+  {
+    q: "पृथ्वी का सबसे बड़ा महाद्वीप कौन सा है?",
+    opts: ["A) उत्तरी अमेरिका", "B) एशिया", "C) अफ्रीका", "D) अंटार्कटिका"],
+    ans: 1,
+    exp: "एशिया (44.6 मिलियन km²) विश्व का सबसे बड़ा महाद्वीप है, जो पृथ्वी के कुल क्षेत्रफल का 30% है। इसमें भारत, चीन, रूस का अधिकांश भाग शामिल है।"
+  },
+  {
+    q: "भारत का अंटार्कटिका में शोध केंद्र कौन सा नहीं है?",
+    opts: ["A) मैत्री", "B) भारती", "C) हिमाद्री", "D) दक्षिण गंगोत्री (निष्क्रिय)"],
+    ans: 2,
+    exp: "हिमाद्री भारत का आर्कटिक (Arctic) स्टेशन है, जो नॉर्वे के स्वालबार्ड में है। मैत्री व भारती — अंटार्कटिका में हैं। दक्षिण गंगोत्री पहला था, अब बंद है।"
+  },
+  {
+    q: "विश्व में सर्वाधिक ताजे जल का भंडार कहाँ है?",
+    opts: ["A) अमेज़न नदी बेसिन", "B) अंटार्कटिका की बर्फ", "C) भूजल भंडार", "D) झीलें"],
+    ans: 1,
+    exp: "विश्व के ताजे जल का लगभग 68-70% अंटार्कटिका और ग्रीनलैंड की बर्फ में संग्रहीत है। यही कारण है कि जलवायु परिवर्तन से बर्फ पिघलने से समुद्र स्तर बढ़ता है।"
+  },
+  {
+    q: "El Niño का प्रभाव भारत के मानसून पर क्या होता है?",
+    opts: ["A) मानसून अत्यधिक शक्तिशाली", "B) मानसून सामान्य रहता है", "C) मानसून कमजोर होता है (सूखे की संभावना)", "D) मानसून जल्दी आता है"],
+    ans: 2,
+    exp: "El Niño में प्रशांत महासागर की सतह का तापमान सामान्य से अधिक होता है, जो भारतीय मानसून को कमजोर करता है। परिणामस्वरूप भारत में सूखे की संभावना बढ़ जाती है। La Niña → मजबूत मानसून।"
+  },
+  {
+    q: "QUAD (Quadrilateral Security Dialogue) में कौन से देश शामिल हैं?",
+    opts: ["A) भारत, USA, UK, ऑस्ट्रेलिया", "B) भारत, USA, जापान, ऑस्ट्रेलिया", "C) भारत, चीन, रूस, USA", "D) भारत, जापान, दक्षिण कोरिया, ऑस्ट्रेलिया"],
+    ans: 1,
+    exp: "QUAD में भारत, अमेरिका, जापान और ऑस्ट्रेलिया शामिल हैं। यह 2007 में बना और 2017 में पुनर्जीवित हुआ। मुख्य उद्देश्य: स्वतंत्र और खुले हिंद-प्रशांत क्षेत्र को सुनिश्चित करना।"
+  },
+  {
+    q: "दस डिग्री चैनल (Ten Degree Channel) किसे अलग करता है?",
+    opts: ["A) भारत और श्रीलंका को", "B) अंडमान और निकोबार द्वीप समूह को", "C) लक्षद्वीप और मालदीव को", "D) मिनिकॉय और मालदीव को"],
+    ans: 1,
+    exp: "दस डिग्री चैनल अंडमान और निकोबार द्वीप समूह को अलग करता है — लिटिल अंडमान (उत्तर) को कार निकोबार (दक्षिण) से। यह 10°N अक्षांश पर स्थित है।"
+  },
+  {
+    q: "विश्व का सबसे बड़ा लोकतंत्र (जनसंख्या की दृष्टि से) कौन सा देश है?",
+    opts: ["A) अमेरिका", "B) चीन", "C) भारत", "D) इंडोनेशिया"],
+    ans: 2,
+    exp: "भारत विश्व का सबसे बड़ा लोकतंत्र है (2023 में चीन को पछाड़ते हुए सर्वाधिक जनसंख्या)। 2024 में भारत में 96 करोड़ से अधिक मतदाताओं ने मतदान किया।"
+  },
+  {
+    q: "विश्व की सबसे लंबी नदी कौन सी है?",
+    opts: ["A) अमेज़न", "B) यांग्त्ज़ी", "C) नील", "D) मिसीसिपी"],
+    ans: 2,
+    exp: "नील नदी (6,650 km) को परंपरागत रूप से विश्व की सबसे लंबी नदी माना जाता है। हालाँकि कुछ अध्ययनों में अमेज़न (6,400 km) को अधिक लंबा बताया गया है।"
+  },
+  {
+    q: "होर्मुज की जलसंधि किन दो जल क्षेत्रों को जोड़ती है?",
+    opts: ["A) लाल सागर और भूमध्य सागर", "B) फारस की खाड़ी और ओमान की खाड़ी", "C) अरब सागर और बंगाल की खाड़ी", "D) काले सागर और कैस्पियन सागर"],
+    ans: 1,
+    exp: "होर्मुज जलसंधि ईरान और ओमान के बीच है, फारस की खाड़ी (Persian Gulf) को ओमान की खाड़ी (Gulf of Oman) से जोड़ती है। विश्व का 20% तेल यहाँ से गुजरता है।"
+  }
+];
+
+const nbrQuestions = [
+  {
+    q: "भारत की सबसे लंबी स्थल सीमा किस देश के साथ है?",
+    opts: ["A) पाकिस्तान (3,323 km)", "B) चीन (3,488 km)", "C) बांग्लादेश (4,156 km)", "D) नेपाल (1,751 km)"],
+    ans: 2,
+    exp: "बांग्लादेश के साथ भारत की सबसे लंबी भूमि सीमा 4,156 km है। इसके बाद चीन (3,488 km), पाकिस्तान (3,323 km), नेपाल (1,751 km), म्यांमार (1,643 km), भूटान (699 km) हैं।"
+  },
+  {
+    q: "ऑपरेशन सिंदूर (मई 2025) के संदर्भ में: पाकिस्तान के DGMO ने संघर्षविराम का अनुरोध कब किया था?",
+    opts: ["A) 7 मई 2025", "B) 10 मई 2025", "C) 12 मई 2025", "D) 15 मई 2025"],
+    ans: 2,
+    exp: "ऑपरेशन सिंदूर 7 मई 2025 को शुरू हुआ। पाकिस्तान के DGMO ने 12 मई 2025 को भारत के DGMO से सीधे संपर्क कर संघर्षविराम का अनुरोध किया। भारत ने इसे द्विपक्षीय रूप से स्वीकार किया।"
+  },
+  {
+    q: "भूटान की मुद्रा 'नगुल्ट्रम' किस मुद्रा से जुड़ी (pegged) है?",
+    opts: ["A) अमेरिकी डॉलर", "B) चीनी युआन", "C) भारतीय रुपया", "D) नेपाली रुपया"],
+    ans: 2,
+    exp: "भूटान की मुद्रा नगुल्ट्रम भारतीय रुपये से 1:1 के अनुपात पर pegged है। भारत भूटान का सबसे बड़ा व्यापार और सहायता भागीदार है। भूटान में भारतीय रुपया भी मान्य मुद्रा है।"
+  },
+  {
+    q: "2024 में किस देश के PM मुहम्मद युनुस ने बीजिंग यात्रा में कहा कि भारत का उत्तर-पूर्व 'landlocked' है और उनका देश उसका 'एकमात्र समुद्री संरक्षक' है?",
+    opts: ["A) नेपाल", "B) म्यांमार", "C) श्रीलंका", "D) बांग्लादेश"],
+    ans: 3,
+    exp: "बांग्लादेश के अंतरिम सरकार प्रमुख मुहम्मद युनुस ने मार्च 2025 में बीजिंग यात्रा के दौरान यह टिप्पणी की, जिससे भारत की भावनाएँ आहत हुईं। इससे भारत-बांग्लादेश संबंध और तनावपूर्ण हो गए।"
+  },
+  {
+    q: "डोकलाम विवाद (2017) किन तीन देशों से संबंधित था?",
+    opts: ["A) भारत, चीन, नेपाल", "B) भारत, चीन, भूटान", "C) भारत, पाकिस्तान, चीन", "D) भारत, बांग्लादेश, म्यांमार"],
+    ans: 1,
+    exp: "डोकलाम विवाद भारत, चीन और भूटान से संबंधित था। चीन भूटान के डोकलाम क्षेत्र में सड़क निर्माण कर रहा था; भारत ने भूटान की ओर से हस्तक्षेप किया। 73 दिन के बाद दोनों पक्षों ने सैनिक हटाए।"
+  },
+  {
+    q: "सिक्किम भारत के किस पड़ोसी देश के साथ सीमा नहीं बनाता?",
+    opts: ["A) चीन", "B) नेपाल", "C) भूटान", "D) बांग्लादेश"],
+    ans: 3,
+    exp: "सिक्किम की सीमा चीन (उत्तर), नेपाल (पश्चिम) और भूटान (पूर्व) से मिलती है। बांग्लादेश से सीमा नहीं मिलती। बांग्लादेश से सटे भारतीय राज्य: पश्चिम बंगाल, असम, मेघालय, त्रिपुरा, मिजोरम।"
+  },
+  {
+    q: "भारत का अंटार्कटिका में 'मैत्री' और 'भारती' के अलावा आर्कटिक में शोध केंद्र कौन सा है?",
+    opts: ["A) दक्षिण गंगोत्री", "B) हिमाद्री", "C) सागर-मंथन", "D) नंदादेवी"],
+    ans: 1,
+    exp: "हिमाद्री भारत का आर्कटिक अनुसंधान केंद्र है जो नॉर्वे के स्वालबार्ड में स्थित है (2008 में स्थापित)। दक्षिण गंगोत्री भारत का पहला अंटार्कटिक केंद्र था जो अब बंद हो चुका है।"
+  },
+  {
+    q: "हम्बनटोटा बंदरगाह को चीन ने किस देश से 99 वर्षीय पट्टे पर लिया है, जिससे भारत की सुरक्षा चिंता बढ़ी है?",
+    opts: ["A) मालदीव", "B) बांग्लादेश", "C) श्रीलंका", "D) म्यांमार"],
+    ans: 2,
+    exp: "श्रीलंका ने 2017 में हम्बनटोटा बंदरगाह को 99 वर्षों के लिए चीन को पट्टे पर दिया। यह भारत की 'String of Pearls' चिंता का प्रमुख उदाहरण है — चीन का हिंद महासागर में सामरिक विस्तार।"
+  },
+  {
+    q: "सिंधु जल संधि (1960) किन दो देशों के बीच विश्व बैंक की मध्यस्थता में हुई थी?",
+    opts: ["A) भारत और अफगानिस्तान", "B) भारत और पाकिस्तान", "C) भारत और चीन", "D) पाकिस्तान और अफगानिस्तान"],
+    ans: 1,
+    exp: "सिंधु जल संधि (IWT) 1960 में भारत और पाकिस्तान के बीच विश्व बैंक की मध्यस्थता से हुई। इसके अनुसार पूर्वी नदियाँ (रावी, व्यास, सतलज) भारत को और पश्चिमी नदियाँ (सिंधु, झेलम, चिनाब) पाकिस्तान को मिलीं। अप्रैल 2025 में पहलगाम हमले के बाद भारत ने इसे 'अस्थायी निलंबन' में रखा।"
+  },
+  {
+    q: "नाथू ला दर्रा (जो 2006 में व्यापार के लिए पुनः खुला) किन दो देशों को जोड़ता है?",
+    opts: ["A) भारत और नेपाल (उत्तराखंड में)", "B) भारत और भूटान", "C) भारत और चीन (सिक्किम-तिब्बत)", "D) भारत और म्यांमार"],
+    ans: 2,
+    exp: "नाथू ला दर्रा भारत (सिक्किम) और चीन (तिब्बत) को जोड़ता है। 1962 के युद्ध के बाद बंद हुआ और 2006 में व्यापार के लिए पुनः खोला गया। यह भारत-चीन व्यापार का एक ऐतिहासिक मार्ग है।"
+  }
+];
+
+// ── MCQ STATE ──
+let wCorrect = 0, wAttempted = 0;
+let nCorrect = 0, nAttempted = 0;
+
+function buildMCQs(data, containerId, prefix) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  data.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'mcq-q';
+    div.id = `${prefix}-q${i}`;
+    const opts = q.opts.map((o, j) => {
+      const letters = ['A','B','C','D'];
+      return `<button class="opt-btn" onclick="checkAnswer('${prefix}', ${i}, ${j})" id="${prefix}-q${i}-o${j}">
+        <span class="opt-letter">${letters[j]}</span>${o.slice(3)}
+      </button>`;
+    }).join('');
+    div.innerHTML = `
+      <div class="q-text"><span class="q-num">${i+1}</span>${q.q}</div>
+      <div class="options">${opts}</div>
+      <div class="explanation" id="${prefix}-exp${i}">💡 <strong>व्याख्या:</strong> ${q.exp}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function checkAnswer(prefix, qIdx, optIdx) {
+  const data = prefix === 'w' ? worldQuestions : nbrQuestions;
+  const q = data[qIdx];
+  const qDiv = document.getElementById(`${prefix}-q${qIdx}`);
+  if (qDiv.classList.contains('answered')) return;
+  qDiv.classList.add('answered');
+
+  const buttons = qDiv.querySelectorAll('.opt-btn');
+  buttons.forEach(b => b.disabled = true);
+
+  const chosen = document.getElementById(`${prefix}-q${qIdx}-o${optIdx}`);
+  const correct = document.getElementById(`${prefix}-q${qIdx}-o${q.ans}`);
+
+  if (optIdx === q.ans) {
+    chosen.classList.add('correct');
+    if (prefix === 'w') { wCorrect++; wAttempted++; }
+    else { nCorrect++; nAttempted++; }
+  } else {
+    chosen.classList.add('wrong');
+    correct.classList.add('correct');
+    if (prefix === 'w') wAttempted++;
+    else nAttempted++;
+  }
+
+  document.getElementById(`${prefix}-exp${qIdx}`).classList.add('show');
+  updateScore(prefix);
+}
+
+function updateScore(prefix) {
+  const c = prefix === 'w' ? wCorrect : nCorrect;
+  const a = prefix === 'w' ? wAttempted : nAttempted;
+  const total = prefix === 'w' ? 20 : 10;
+  document.getElementById(`${prefix}-score`).textContent = `Score: ${c} / ${a}`;
+
+  if (a === total) {
+    const summary = document.getElementById(`${prefix}-summary`);
+    document.getElementById(`${prefix}-final`).textContent = `${c}/${total}`;
+    summary.classList.add('show');
+  }
+}
+
+function resetMCQ(which) {
+  if (which === 'world') {
+    wCorrect = 0; wAttempted = 0;
+    buildMCQs(worldQuestions, 'world-mcqs', 'w');
+    document.getElementById('w-score').textContent = 'Score: 0 / 0';
+    document.getElementById('w-summary').classList.remove('show');
+  } else {
+    nCorrect = 0; nAttempted = 0;
+    buildMCQs(nbrQuestions, 'nbr-mcqs', 'n');
+    document.getElementById('n-score').textContent = 'Score: 0 / 0';
+    document.getElementById('n-summary').classList.remove('show');
+  }
+}
+
+// ── INIT ──
+buildMCQs(worldQuestions, 'world-mcqs', 'w');
+buildMCQs(nbrQuestions, 'nbr-mcqs', 'n');
+</script>
+
+</body>
+</html>
