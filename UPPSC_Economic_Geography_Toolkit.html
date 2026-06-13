@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPPSC 2026 | India Economic Geography Toolkit</title>
+<style>
+  :root {
+    --bg: #f8f6f1;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: #e2ddd4;
+    --text: #1a1612;
+    --text2: #5a5248;
+    --text3: #8a8078;
+    --accent: #c0392b;
+    --accent2: #2c7a4b;
+    --accent3: #1a5276;
+    --accent4: #7d3c98;
+    --accent5: #d35400;
+    --accent6: #1a7a6e;
+    --gold: #b7860b;
+    --tag-bg: #fef9f0;
+    --tag-border: #f0d080;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow2: 0 4px 20px rgba(0,0,0,0.10);
+    --radius: 10px;
+    --radius2: 6px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #1a1612 0%, #2c2218 60%, #3d2e1e 100%); color: #fff; padding: 28px 24px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 18px rgba(0,0,0,0.35); }
+  .header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .header-icon { font-size: 36px; }
+  .header h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; line-height: 1.2; }
+  .header h1 span { color: #f0c060; }
+  .header-sub { font-size: 12px; color: #b0a090; font-weight: 500; letter-spacing: 0.5px; }
+  .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #ccc; padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .tab-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+  .tab-btn.active { background: #c0392b; border-color: #c0392b; color: #fff; }
+
+  /* CONTENT */
+  .content { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .card-header .icon { font-size: 24px; }
+  .card-header h2 { font-size: 17px; font-weight: 700; color: var(--text); }
+  .card-header .badge { background: var(--accent); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* REGION CARDS */
+  .region-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .region-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border-left: 4px solid var(--accent); }
+  .region-card.green { border-left-color: var(--accent2); }
+  .region-card.blue { border-left-color: var(--accent3); }
+  .region-card.purple { border-left-color: var(--accent4); }
+  .region-card.orange { border-left-color: var(--accent5); }
+  .region-card.teal { border-left-color: var(--accent6); }
+  .region-card.gold { border-left-color: var(--gold); }
+  .region-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .region-card ul { list-style: none; }
+  .region-card ul li { font-size: 13px; color: var(--text2); padding: 3px 0; border-bottom: 1px solid var(--surface2); display: flex; align-items: flex-start; gap: 7px; }
+  .region-card ul li:last-child { border-bottom: none; }
+  .region-card ul li::before { content: '▸'; color: var(--accent); font-size: 10px; margin-top: 3px; flex-shrink: 0; }
+  .region-card.green ul li::before { color: var(--accent2); }
+  .region-card.blue ul li::before { color: var(--accent3); }
+  .region-card.purple ul li::before { color: var(--accent4); }
+  .region-card.orange ul li::before { color: var(--accent5); }
+  .region-card.teal ul li::before { color: var(--accent6); }
+  .region-card.gold ul li::before { color: var(--gold); }
+
+  /* MNEMONIC BOX */
+  .mnemonic { background: #fff8e1; border: 1.5px dashed var(--gold); border-radius: var(--radius2); padding: 10px 14px; margin: 10px 0; font-size: 13px; }
+  .mnemonic strong { color: var(--gold); font-weight: 700; }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th { background: #f0ede6; color: var(--text); font-weight: 700; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+  .data-table td { padding: 9px 12px; border-bottom: 1px solid var(--surface2); color: var(--text2); vertical-align: top; }
+  .data-table tr:hover td { background: #fafaf7; }
+  .data-table .highlight { color: var(--accent); font-weight: 600; }
+  .data-table .highlight2 { color: var(--accent2); font-weight: 600; }
+  .data-table .highlight3 { color: var(--accent3); font-weight: 600; }
+
+  /* TAGS */
+  .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--gold); font-size: 11px; padding: 2px 7px; border-radius: 12px; font-weight: 600; margin: 2px; }
+  .tag.red { background: #fff0ee; border-color: #f4bcb4; color: var(--accent); }
+  .tag.green { background: #edfbf2; border-color: #a8e8c0; color: var(--accent2); }
+  .tag.blue { background: #eef4fc; border-color: #a8c8f0; color: var(--accent3); }
+  .tag.purple { background: #f8f0ff; border-color: #d4a8f0; color: var(--accent4); }
+
+  /* MCQ SECTION */
+  .mcq-container { display: flex; flex-direction: column; gap: 18px; }
+  .mcq-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+  .mcq-num { display: inline-block; background: var(--accent); color: #fff; width: 26px; height: 26px; border-radius: 50%; text-align: center; line-height: 26px; font-size: 12px; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+  .mcq-q { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 12px; display: flex; align-items: flex-start; gap: 0; }
+  .mcq-q-text { flex: 1; }
+  .mcq-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media(max-width:500px) { .mcq-opts { grid-template-columns: 1fr; } }
+  .mcq-opt { background: var(--surface2); border: 1.5px solid var(--border); border-radius: var(--radius2); padding: 9px 13px; font-size: 13px; cursor: pointer; transition: all 0.18s; display: flex; align-items: flex-start; gap: 8px; }
+  .mcq-opt:hover { background: #f0e8e0; border-color: #c0a090; }
+  .mcq-opt.correct { background: #e8faf0; border-color: #4CAF50; color: #1b5e20; }
+  .mcq-opt.wrong { background: #ffeae8; border-color: #e53935; color: #7f0000; }
+  .mcq-opt-key { font-weight: 700; min-width: 18px; }
+  .mcq-explanation { margin-top: 10px; background: #f0f7ff; border-left: 3px solid var(--accent3); padding: 8px 12px; border-radius: 0 var(--radius2) var(--radius2) 0; font-size: 12.5px; color: var(--text2); display: none; }
+  .mcq-explanation.show { display: block; }
+  .mcq-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .check-btn { background: var(--accent3); color: #fff; border: none; padding: 6px 16px; border-radius: var(--radius2); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .check-btn:hover { background: #1a3d6b; }
+  .score-bar { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .score-display { font-size: 24px; font-weight: 800; color: var(--accent); }
+  .score-label { font-size: 13px; color: var(--text2); }
+  .reset-btn { margin-left: auto; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); padding: 6px 14px; border-radius: var(--radius2); font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  /* MAP VISUAL */
+  .map-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+
+  /* SUMMARY BANNER */
+  .summary-banner { background: linear-gradient(135deg, #1a5276, #2c7a4b); color: #fff; border-radius: var(--radius); padding: 16px 20px; margin-bottom: 18px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .summary-stat { text-align: center; }
+  .summary-stat .num { font-size: 26px; font-weight: 800; }
+  .summary-stat .lbl { font-size: 11px; opacity: 0.8; font-weight: 500; }
+  .divider { width: 1px; background: rgba(255,255,255,0.2); }
+
+  /* SECTION TITLE */
+  .sec-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .sec-title span { font-size: 24px; }
+
+  /* POWER PROJECTS */
+  .power-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .power-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); }
+  .power-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .power-type { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+  .hydro { background: #e3f2fd; color: #1565c0; }
+  .thermal { background: #fff3e0; color: #e65100; }
+  .nuclear { background: #fce4ec; color: #ad1457; }
+  .solar { background: #fffde7; color: #f57f17; }
+
+  /* PORT TABLE */
+  .port-visual { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .port-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .port-icon { font-size: 22px; flex-shrink: 0; }
+  .port-info h4 { font-size: 13px; font-weight: 700; }
+  .port-info p { font-size: 12px; color: var(--text2); }
+
+  /* RAILWAY ZONES */
+  .zone-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 11px 14px; display: flex; align-items: center; gap: 12px; }
+  .zone-num { background: var(--accent3); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .zone-info h4 { font-size: 13px; font-weight: 700; }
+  .zone-info p { font-size: 12px; color: var(--text2); }
+  .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+
+  /* UP SECTION */
+  .corridor-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border-top: 3px solid var(--accent2); }
+  .corridor-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--accent2); }
+
+  /* PROGRESS PILL */
+  .info-pill { background: #eef4fc; border: 1px solid #a8c8f0; border-radius: 4px; padding: 3px 9px; font-size: 11.5px; color: var(--accent3); font-weight: 600; display: inline-block; margin: 2px; }
+  .warn-pill { background: #fff8e1; border: 1px solid #ffe082; border-radius: 4px; padding: 3px 9px; font-size: 11.5px; color: #b7860b; font-weight: 600; display: inline-block; margin: 2px; }
+  .success-pill { background: #edfbf2; border: 1px solid #a8e8c0; border-radius: 4px; padding: 3px 9px; font-size: 11.5px; color: var(--accent2); font-weight: 600; display: inline-block; margin: 2px; }
+
+  /* SVG MAP PLACEHOLDER */
+  .india-map-visual { background: linear-gradient(135deg, #edf4ff, #e8f5e9); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; position: relative; overflow: hidden; min-height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .india-map-visual .watermark { font-size: 80px; opacity: 0.07; position: absolute; }
+  .india-map-visual .content-inside { position: relative; z-index: 1; }
+
+  /* RESPONSIVE */
+  @media(max-width: 640px) {
+    .region-grid { grid-template-columns: 1fr; }
+    .power-grid { grid-template-columns: 1fr; }
+    .port-visual { grid-template-columns: 1fr; }
+    .zone-grid { grid-template-columns: 1fr; }
+    .summary-banner { gap: 10px; }
+    .summary-stat .num { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-icon">🗺️</div>
+    <div>
+      <h1>UPPSC 2026 | <span>Economic Geography Toolkit</span></h1>
+      <div class="header-sub">SDM Rank | Agriculture · Industry · Power · Ports · Railways · UP Geography</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('agri')">🌾 Agriculture Belts</button>
+    <button class="tab-btn" onclick="showTab('industry')">🏭 Industrial Regions</button>
+    <button class="tab-btn" onclick="showTab('power')">⚡ Power Projects</button>
+    <button class="tab-btn" onclick="showTab('ports')">⚓ Ports & Railways</button>
+    <button class="tab-btn" onclick="showTab('up')">🏛️ UP Geography</button>
+    <button class="tab-btn" onclick="showTab('mcq')">📝 MCQ Practice</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ==================== AGRICULTURE SECTION ==================== -->
+<div id="sec-agri" class="section active">
+  <div class="sec-title"><span>🌾</span> Agricultural Belts of India</div>
+
+  <div class="summary-banner">
+    <div class="summary-stat"><div class="num">60%</div><div class="lbl">Population in Agriculture</div></div>
+    <div class="divider"></div>
+    <div class="summary-stat"><div class="num">2nd</div><div class="lbl">Largest Wheat Producer World</div></div>
+    <div class="divider"></div>
+    <div class="summary-stat"><div class="num">1st</div><div class="lbl">Rice Producer in Asia</div></div>
+    <div class="divider"></div>
+    <div class="summary-stat"><div class="num">₹1.5L Cr</div><div class="lbl">UP Agri Output/Year</div></div>
+  </div>
+
+  <!-- WHEAT BELT -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🌾</div><h2>Wheat Belt — North-West India + UP</h2><div class="badge">EXAM HOT</div></div>
+    <div class="region-grid">
+      <div class="region-card">
+        <h3>🌾 Core Wheat States</h3>
+        <ul>
+          <li><strong>Punjab</strong> — Granary of India; Amritsar, Ludhiana districts</li>
+          <li><strong>Haryana</strong> — Karnal, Kurukshetra (Green Revolution hub)</li>
+          <li><strong>UP (Meerut, Agra, Bareilly)</strong> — Western UP wheat zone</li>
+          <li><strong>Rajasthan</strong> — Ganganagar, Hanumangarh (Indira Gandhi Canal)</li>
+          <li><strong>MP (Madhya Pradesh)</strong> — Malwa Plateau (Ujjain, Indore)</li>
+        </ul>
+      </div>
+      <div class="region-card green">
+        <h3>📍 UP Wheat Zones</h3>
+        <ul>
+          <li><strong>Doab Regions</strong>: Ganga-Yamuna Doab (Meerut, Aligarh, Etah)</li>
+          <li><strong>Rohilkhand</strong>: Bareilly, Rampur, Moradabad</li>
+          <li><strong>Agra Division</strong>: Agra, Mathura, Firozabad</li>
+          <li><strong>Least in Poorvanchal</strong>: Eastern UP prefers rice</li>
+        </ul>
+      </div>
+      <div class="region-card blue">
+        <h3>🌡️ Geographical Requirements</h3>
+        <ul>
+          <li>Cool dry winters (15–20°C) at sowing time (Oct–Nov)</li>
+          <li>Warm summers at harvesting (March–April)</li>
+          <li>Sandy loam soils — well-drained alluvial</li>
+          <li>Rainfall 50–75 cm OR irrigation</li>
+          <li>Rabi crop — grown Oct to March</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Mnemonic (Wheat States):</strong> "PUMP-R" = <strong>P</strong>unjab, <strong>U</strong>P, <strong>M</strong>P, <strong>P</strong>ajasthan (Raj), <strong>R</strong>Haryana → All major wheat producers</div>
+  </div>
+
+  <!-- RICE BELT -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🌿</div><h2>Rice Belt — East India + UP Poorvanchal</h2><div class="badge">EXAM HOT</div></div>
+    <div class="region-grid">
+      <div class="region-card green">
+        <h3>🌿 Core Rice States</h3>
+        <ul>
+          <li><strong>West Bengal</strong> — Bardhaman (Rice Bowl of India); 3 crops/year</li>
+          <li><strong>Assam</strong> — Brahmaputra Valley (Bodo areas)</li>
+          <li><strong>Odisha</strong> — Coastal plains, Cuttack, Puri</li>
+          <li><strong>Andhra Pradesh + Telangana</strong> — Krishna, Godavari delta</li>
+          <li><strong>Tamil Nadu</strong> — Kaveri delta (Thanjavur = "Granary of South")</li>
+          <li><strong>Kerala</strong> — Kuttanad (below sea level rice farming)</li>
+        </ul>
+      </div>
+      <div class="region-card">
+        <h3>📍 UP Rice Zones (Poorvanchal)</h3>
+        <ul>
+          <li><strong>Varanasi Division</strong>: Varanasi, Chandauli, Ghazipur</li>
+          <li><strong>Gorakhpur Division</strong>: Gorakhpur, Deoria, Kushinagar</li>
+          <li><strong>Azamgarh Division</strong>: Azamgarh, Mau, Ballia</li>
+          <li><strong>Faizabad Division</strong>: Ayodhya, Ambedkar Nagar</li>
+          <li>Kharif crop; heavy monsoon rainfall 100–200 cm</li>
+        </ul>
+      </div>
+      <div class="region-card blue">
+        <h3>🌾 Special Rice Varieties (UPPSC)</h3>
+        <ul>
+          <li><strong>GI Tag Rice</strong>: Govind Bhog (Bengal), Kalanamak (UP's Siddharth Nagar)</li>
+          <li><strong>Kalanamak</strong>: Ancient Buddhist-era rice, UP specialty</li>
+          <li><strong>Basmati</strong>: Dehradun, Saharanpur, Bijnor (UP) + Haryana + Punjab</li>
+          <li>Thanjavur = "Rice Granary of South India"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Mnemonic (Rice Belt):</strong> "BOAT-WO" = <strong>B</strong>engal, <strong>O</strong>disha, <strong>A</strong>ssam, <strong>T</strong>N, <strong>W</strong>B+Telangana, <strong>O</strong>rientation East → Rice grows in Eastern India + Kerala</div>
+  </div>
+
+  <!-- COTTON BELT -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🌱</div><h2>Cotton Belt — Maharashtra + Gujarat</h2></div>
+    <div class="region-grid">
+      <div class="region-card orange">
+        <h3>🌱 Deccan Cotton Triangle</h3>
+        <ul>
+          <li><strong>Maharashtra</strong>: Vidarbha (Nagpur, Wardha, Yavatmal) — Black Cotton Soil (Regur)</li>
+          <li><strong>Gujarat</strong>: Saurashtra (Rajkot, Surendranagar, Bhavnagar)</li>
+          <li><strong>Telangana</strong>: Adilabad, Nizamabad, Warangal</li>
+          <li><strong>Punjab + Haryana</strong>: Long-staple American cotton</li>
+          <li><strong>Rajasthan</strong>: Sri Ganganagar (canal-fed cotton)</li>
+        </ul>
+      </div>
+      <div class="region-card purple">
+        <h3>🏭 Cotton + Textile Link</h3>
+        <ul>
+          <li>Black soil (Regur) = best for cotton; retains moisture</li>
+          <li>Maharashtra: Largest cotton producer by area</li>
+          <li>Gujarat: Highest productivity (BT cotton revolution)</li>
+          <li><strong>Manchester of India</strong> = Ahmedabad (historically)</li>
+          <li><strong>Manchester of East</strong> = Osaka (Japan), NOT Indian</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Mnemonic:</strong> "Black soil → Cotton" = "विदर्भ में काली मिट्टी, कपास की खेती" — Regur soil = regulates moisture = cotton thrives</div>
+  </div>
+
+  <!-- TEA BELT -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🍵</div><h2>Tea Belts — Assam, Darjeeling, Nilgiri</h2></div>
+    <div class="region-grid">
+      <div class="region-card teal">
+        <h3>🍵 Assam Tea</h3>
+        <ul>
+          <li><strong>Location</strong>: Brahmaputra Valley + Barak Valley</li>
+          <li><strong>Districts</strong>: Dibrugarh, Jorhat, Sibsagar, Tinsukia, Cachar</li>
+          <li>Largest tea producing state in India (~55%)</li>
+          <li>Flat plains, alluvial soil; heavy rainfall 200–300 cm</li>
+          <li><strong>CTC tea</strong> (Crush, Tear, Curl) = Assam specialty</li>
+        </ul>
+      </div>
+      <div class="region-card green">
+        <h3>🏔️ Darjeeling Tea</h3>
+        <ul>
+          <li><strong>Location</strong>: Darjeeling Hills, West Bengal (North)</li>
+          <li><strong>GI Tag</strong>: First Indian product to get GI Tag (2004)</li>
+          <li>Altitude 600–2000m; cool climate; muscatel flavor</li>
+          <li>Districts: Darjeeling, Kurseong, Kalimpong</li>
+          <li>Called "Champagne of Teas"</li>
+        </ul>
+      </div>
+      <div class="region-card blue">
+        <h3>🌿 Nilgiri Tea</h3>
+        <ul>
+          <li><strong>Location</strong>: Nilgiri Hills, Tamil Nadu</li>
+          <li>Districts: Ooty (Nilgiris), Coonoor, Kotagiri</li>
+          <li>Also: Munnar (Kerala Wayanad district)</li>
+          <li>Year-round production due to tropical climate</li>
+          <li>3rd largest tea zone after Assam + Darjeeling</li>
+        </ul>
+      </div>
+      <div class="region-card gold">
+        <h3>☕ Other Tea Regions</h3>
+        <ul>
+          <li><strong>Kangra Valley</strong>: Himachal Pradesh (oldest tea estate)</li>
+          <li><strong>Dooars + Terai</strong>: WB plains (foothills zone)</li>
+          <li><strong>Palampur</strong>: Himachal Pradesh</li>
+          <li>India = 2nd largest tea producer (China = 1st)</li>
+          <li>India = Largest tea exporter historically</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Mnemonic (Tea 3 zones):</strong> "AND" = <strong>A</strong>ssam + <strong>N</strong>ilgiri + <strong>D</strong>arjeeling → A-N-D… AND all produce tea!</div>
+  </div>
+
+  <!-- OTHER CROPS TABLE -->
+  <div class="card">
+    <div class="card-header"><div class="icon">📊</div><h2>Quick Reference — Crop → State Map (UPPSC Favorites)</h2></div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>Crop</th><th>Leading State</th><th>2nd State</th><th>Special Fact</th></tr>
+      <tr><td>🌾 Sugarcane</td><td class="highlight2">UP (1st in Production)</td><td>Maharashtra</td><td>UP = "Sugar Bowl of India"; Muzaffarnagar key district</td></tr>
+      <tr><td>🥜 Groundnut</td><td class="highlight">Gujarat</td><td>Andhra Pradesh</td><td>Saurashtra is main hub</td></tr>
+      <tr><td>🌻 Sunflower</td><td class="highlight">Karnataka</td><td>Andhra Pradesh</td><td>Deccan Plateau</td></tr>
+      <tr><td>🌿 Jute</td><td class="highlight2">West Bengal</td><td>Assam</td><td>Hugli industrial belt; "Golden Fiber"</td></tr>
+      <tr><td>🌾 Maize</td><td class="highlight3">Karnataka</td><td>MP + Rajasthan</td><td>Kharif crop</td></tr>
+      <tr><td>🥥 Coconut</td><td class="highlight2">Kerala</td><td>Karnataka</td><td>Malabar Coast</td></tr>
+      <tr><td>🌱 Rubber</td><td class="highlight2">Kerala</td><td>TN + Karnataka</td><td>GI: Kerala Rubber; Kottayam key</td></tr>
+      <tr><td>🫘 Soybean</td><td class="highlight3">MP</td><td>Maharashtra</td><td>Malwa Plateau = Soybean hub</td></tr>
+      <tr><td>🧅 Onion</td><td class="highlight">Maharashtra</td><td>Karnataka</td><td>Nashik = Onion Capital</td></tr>
+      <tr><td>🥔 Potato</td><td class="highlight2">UP (1st)</td><td>WB</td><td>Agra, Farrukhabad, Kannauj; South Asia CIPOT at Aligarh</td></tr>
+      <tr><td>🌿 Turmeric</td><td class="highlight3">Telangana</td><td>AP + Odisha</td><td>Nizamabad = Turmeric City</td></tr>
+      <tr><td>🎋 Bamboo</td><td class="highlight2">Assam</td><td>Arunachal</td><td>NE India dominates</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== INDUSTRY SECTION ==================== -->
+<div id="sec-industry" class="section">
+  <div class="sec-title"><span>🏭</span> Major Industrial Regions</div>
+
+  <div class="region-grid">
+    <!-- Mumbai-Pune -->
+    <div class="card" style="border-left: 4px solid var(--accent);">
+      <div class="card-header"><div class="icon">🏭</div><h2>Mumbai-Pune Industrial Belt</h2><div class="badge">Maharashtra</div></div>
+      <div class="region-card" style="border:none;padding:0">
+        <ul>
+          <li><strong>Mumbai</strong>: Financial capital; textile mills, chemicals, pharma, petroleum refining</li>
+          <li><strong>Pune</strong>: Automobile hub — Tata Motors (Pimpri), Mercedes, Volkswagen; IT (Hinjewadi)</li>
+          <li><strong>Nashik</strong>: Grapes, wine, Hindustan Aeronautics Ltd (HAL), currency printing</li>
+          <li><strong>Nagpur</strong>: Orange capital; Butibori MIDC (industrial); Central Railway HQ</li>
+          <li><strong>Aurangabad</strong>: Aurangabad Industrial Cluster (AIC); automobile components</li>
+          <li><strong>Thane-Belapur</strong>: Chemical + pharmaceutical belt</li>
+          <li><strong>JNPT/Navi Mumbai</strong>: Jawaharlal Nehru Port — India's busiest container port</li>
+        </ul>
+      </div>
+      <div class="mnemonic"><strong>🧠 PUMP-N:</strong> <strong>P</strong>une (auto) + <strong>U</strong>RNSA Mumbai (finance) + <strong>M</strong>umbai (textile) + <strong>P</strong>harmacy + <strong>N</strong>ashik (currency/HAL)</div>
+    </div>
+
+    <!-- Chota Nagpur -->
+    <div class="card" style="border-left: 4px solid var(--accent3);">
+      <div class="card-header"><div class="icon">⛏️</div><h2>Chota Nagpur Plateau — Mineral Hub</h2><div class="badge">Jharkhand + WB + Odisha</div></div>
+      <div class="region-card blue" style="border:none;padding:0">
+        <ul>
+          <li><strong>Ranchi</strong>: Capital of Jharkhand; Heavy Engineering Corp (HEC)</li>
+          <li><strong>Bokaro</strong>: Bokaro Steel Plant (Jharkhand) — Largest integrated steel plant</li>
+          <li><strong>Jamshedpur</strong>: Tata Steel (Jharkhand); TISCO founded 1907 — 1st private steel plant</li>
+          <li><strong>Dhanbad</strong>: "Coal Capital of India"; Jharia Coalfield (largest in India)</li>
+          <li><strong>Durgapur</strong>: Durgapur Steel Plant (West Bengal); industrial town</li>
+          <li><strong>Rourkela</strong>: Rourkela Steel Plant (Odisha); German collaboration</li>
+          <li><strong>Mineral Wealth</strong>: Coal (Jharia), Iron Ore (Noamundi), Copper (Singhbhum), Mica (Hazaribag)</li>
+          <li><strong>IISCO (Burnpur)</strong>: Indian Iron & Steel Company — West Bengal</li>
+        </ul>
+      </div>
+      <div class="mnemonic"><strong>🧠 "RBJD-DR":</strong> <strong>R</strong>anchi + <strong>B</strong>okaro + <strong>J</strong>amshedpur + <strong>D</strong>hanbad + <strong>D</strong>urgapur + <strong>R</strong>ourkela = Mineral India cluster</div>
+    </div>
+
+    <!-- Ahmedabad-Surat -->
+    <div class="card" style="border-left: 4px solid var(--accent5);">
+      <div class="card-header"><div class="icon">🧵</div><h2>Ahmedabad–Surat Textile Belt</h2><div class="badge">Gujarat</div></div>
+      <div class="region-card orange" style="border:none;padding:0">
+        <ul>
+          <li><strong>Ahmedabad</strong>: "Manchester of India" (historically); now diversified — pharma, chemicals, IT</li>
+          <li><strong>Surat</strong>: Diamond polishing capital of world (90% global diamonds polished); synthetic textile</li>
+          <li><strong>Vadodara (Baroda)</strong>: Petrochemicals (ONGC, Reliance), chemicals, pharmaceuticals</li>
+          <li><strong>Rajkot</strong>: Brass products, engineering goods, groundnut oil mills</li>
+          <li><strong>Jamnagar</strong>: Reliance Industries refinery (world's largest refinery complex)</li>
+          <li><strong>Anand</strong>: Amul Dairy (White Revolution); NDDB headquarters</li>
+          <li><strong>Special Zones</strong>: Kandla SEZ (first SEZ of India, 1965); GIFT City (Gandhinagar)</li>
+        </ul>
+      </div>
+      <div class="mnemonic"><strong>🧠 SAVRAJ:</strong> <strong>S</strong>urat(diamonds) + <strong>A</strong>hmedabad(textiles) + <strong>V</strong>adodara(petrochem) + <strong>R</strong>ajkot(brass) + <strong>A</strong>nand(milk) + <strong>J</strong>amnagar(refinery)</div>
+    </div>
+
+    <!-- UP Industrial -->
+    <div class="card" style="border-left: 4px solid var(--accent2);">
+      <div class="card-header"><div class="icon">🏙️</div><h2>UP Industrial Areas</h2><div class="badge">UPPSC CRITICAL</div></div>
+      <div class="region-card green" style="border:none;padding:0">
+        <ul>
+          <li><strong>Noida/Greater Noida</strong>: IT-BPO, electronics, Samsung factory (Sector 81); NCR industrial</li>
+          <li><strong>Ghaziabad</strong>: Engineering goods, electrical equipment, National Rail Museum</li>
+          <li><strong>Kanpur</strong>: Leather capital; IIT Kanpur; textiles, sugar industries</li>
+          <li><strong>Lucknow</strong>: Chikankari (GI tag); IT parks (TCS, Infosys); UPSIDA HQ</li>
+          <li><strong>Agra</strong>: Leather goods (Taj Export Processing Zone), footwear</li>
+          <li><strong>Varanasi</strong>: Banarasi silk (GI tag), tourism economy, BHU Research</li>
+          <li><strong>Meerut</strong>: Sports goods (80% national production), scissors</li>
+          <li><strong>Moradabad</strong>: Brass products (Peetal Nagri); export hub</li>
+          <li><strong>Aligarh</strong>: Locks capital of India (80% national production)</li>
+          <li><strong>Firozabad</strong>: Bangles/glass industry (Suhaag Nagri)</li>
+          <li><strong>Muzaffarnagar</strong>: Sugar mills (highest density in India)</li>
+        </ul>
+      </div>
+      <div class="mnemonic"><strong>🧠 ODDI Products of UP:</strong> <br>Kanpur=Leather | Aligarh=Lock | Meerut=Sports | Moradabad=Brass | Firozabad=Glass | Varanasi=Silk | Lucknow=Chikankari</div>
+    </div>
+
+    <!-- Other Industrial Regions -->
+    <div class="card" style="border-left: 4px solid var(--accent4);">
+      <div class="card-header"><div class="icon">🗺️</div><h2>Other Major Industrial Corridors</h2></div>
+      <div class="region-card purple" style="border:none;padding:0">
+        <ul>
+          <li><strong>Hugli Industrial Belt (WB)</strong>: Jute mills (Serampore to Budge Budge along Hugli); engineering</li>
+          <li><strong>Delhi-NCR</strong>: Electronics, garments, automobiles, software; largest urban industrial zone</li>
+          <li><strong>Bangalore</strong>: Silicon Valley of India; HAL, ISRO, BEL, aerospace</li>
+          <li><strong>Chennai Industrial</strong>: Automobile (Hyundai, Ford, BMW); TIDCO; export hub</li>
+          <li><strong>Hyderabad</strong>: Pharma capital (Genome Valley); IT; Cyberabad</li>
+          <li><strong>Bhopal-Indore (MP)</strong>: Pithampur auto hub; Mandideep industries</li>
+          <li><strong>DMIC</strong>: Delhi-Mumbai Industrial Corridor — passes through 6 states (UP, Haryana, Rajasthan, Gujarat, MP, Maharashtra)</li>
+          <li><strong>NE Industrial Zone</strong>: Numaligarh Refinery (Assam); Bongaigaon Refinery</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Minerals Map -->
+    <div class="card" style="border-left: 4px solid var(--gold);">
+      <div class="card-header"><div class="icon">💎</div><h2>Mineral → State Quick Map</h2></div>
+      <div style="overflow-x:auto">
+      <table class="data-table">
+        <tr><th>Mineral</th><th>Leading State</th><th>Key Location</th></tr>
+        <tr><td>⛏️ Iron Ore</td><td class="highlight">Odisha (1st)</td><td>Keonjhar, Sundargarh; Bailadila (CG)</td></tr>
+        <tr><td>🖤 Coal</td><td class="highlight3">Jharkhand (1st)</td><td>Jharia (largest), Bokaro; Raniganj (WB)</td></tr>
+        <tr><td>🔴 Bauxite</td><td class="highlight2">Odisha</td><td>Koraput, Kalahandi; Gujarat (Jamnagar)</td></tr>
+        <tr><td>🟡 Mica</td><td class="highlight">Jharkhand</td><td>Hazaribag, Giridih; Nellore (AP)</td></tr>
+        <tr><td>🟠 Copper</td><td class="highlight3">Rajasthan</td><td>Khetri (Rajasthan); Malanjkhand (MP)</td></tr>
+        <tr><td>🔵 Zinc (Lead)</td><td class="highlight">Rajasthan</td><td>Zawar, Rampura-Agucha (Bhilwara)</td></tr>
+        <tr><td>⚪ Limestone</td><td class="highlight2">MP + Rajasthan</td><td>Satna (MP), Jodhpur (Raj)</td></tr>
+        <tr><td>⚫ Manganese</td><td class="highlight">Odisha</td><td>Bonai, Barbil; Nagpur (Maharashtra)</td></tr>
+        <tr><td>🌟 Uranium</td><td class="highlight3">Jharkhand</td><td>Jaduguda (Jharkhand) — only mine in India</td></tr>
+        <tr><td>💎 Diamond</td><td class="highlight">MP</td><td>Panna (MP) — only diamond mine in India</td></tr>
+        <tr><td>🟤 Gold</td><td class="highlight2">Karnataka</td><td>Kolar Gold Fields (KGF), Hutti</td></tr>
+        <tr><td>🔷 Thorium</td><td class="highlight">Kerala</td><td>Kerala beach sands (Monazite)</td></tr>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== POWER SECTION ==================== -->
+<div id="sec-power" class="section">
+  <div class="sec-title"><span>⚡</span> Power Projects — State-wise</div>
+
+  <!-- Nuclear Plants -->
+  <div class="card">
+    <div class="card-header"><div class="icon">☢️</div><h2>Nuclear Power Plants (NPCIL)</h2><div class="badge">7 OPERATIONAL SITES</div></div>
+    <div class="power-grid">
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Tarapur, Maharashtra</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>India's 1st Nuclear Plant (1969)</li>
+          <li>Capacity: 1400 MW (TAPS 1-4)</li>
+          <li>Palghar district, Maharashtra</li>
+          <li>US collaboration (GE)</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Rawatbhata, Rajasthan</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Rajasthan Atomic Power Project (RAPP)</li>
+          <li>Chittorgarh district, Rajasthan</li>
+          <li>Capacity: 1180 MW</li>
+          <li>Canadian collaboration initially</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Kudankulam, Tamil Nadu</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Tirunelveli district, Tamil Nadu</li>
+          <li>Russia (Rosatom) collaboration</li>
+          <li>Largest nuclear plant (2000 MW operational)</li>
+          <li>2 more units under construction</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Kaiga, Karnataka</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Uttara Kannada district, Karnataka</li>
+          <li>Capacity: 880 MW</li>
+          <li>Western Ghats forest area</li>
+          <li>World record for continuous reactor operation</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Kakrapar, Gujarat</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Surat district, Gujarat</li>
+          <li>Tapi River bank</li>
+          <li>Capacity: 440+700 MW (units 3&4 added)</li>
+          <li>PHWR type reactor</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Narora, UP</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Bulandshahr district, UP</li>
+          <li>Ganga river bank</li>
+          <li>Capacity: 440 MW</li>
+          <li>UP's only nuclear plant!</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type nuclear">☢️ Nuclear</span> Kalpakkam, Tamil Nadu</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Chengalpattu district, TN (near Chennai)</li>
+          <li>MAPS (Madras APS) + Fast Breeder Reactor</li>
+          <li>India's 1st Fast Breeder Test Reactor</li>
+          <li>Capacity: 440 MW + under construction</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Nuclear Plants Mnemonic:</strong> "T-R-K-K-K-N-K" = <strong>T</strong>arapur(MH) + <strong>R</strong>awatbhata(RJ) + <strong>K</strong>udankulam(TN) + <strong>K</strong>aiga(KA) + <strong>K</strong>akrapar(GJ) + <strong>N</strong>arora(UP) + <strong>K</strong>alpakkam(TN) → "Try Reaching Kudankulam, Kaiga, Kakrapar, Narora, Kalpakkam!"</div>
+  </div>
+
+  <!-- Hydro Power -->
+  <div class="card">
+    <div class="card-header"><div class="icon">💧</div><h2>Major Hydroelectric Projects</h2><div class="badge">HIGH YIELD</div></div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>Project</th><th>River</th><th>State</th><th>Capacity</th><th>Special Note</th></tr>
+      <tr><td class="highlight3">Tehri Dam</td><td>Bhagirathi</td><td>Uttarakhand</td><td>2400 MW</td><td>India's tallest dam; Tehri district</td></tr>
+      <tr><td class="highlight3">Bhakra Nangal</td><td>Sutlej</td><td>HP/Punjab border</td><td>1325 MW</td><td>"Temple of Resurgent India" — Nehru; Gobind Sagar lake</td></tr>
+      <tr><td class="highlight3">Koyna</td><td>Koyna River</td><td>Maharashtra</td><td>1960 MW</td><td>Maharashtra's largest; Satara district</td></tr>
+      <tr><td class="highlight3">Sardar Sarovar</td><td>Narmada</td><td>Gujarat</td><td>1450 MW</td><td>Gujarat dam; NCA controversy; SSP project</td></tr>
+      <tr><td class="highlight3">Indira Sagar</td><td>Narmada</td><td>MP</td><td>1000 MW</td><td>Khandwa district; largest reservoir in India by capacity</td></tr>
+      <tr><td class="highlight3">Nagarjuna Sagar</td><td>Krishna</td><td>Telangana/AP</td><td>815.6 MW</td><td>Nalgonda district; world's largest masonry dam</td></tr>
+      <tr><td class="highlight3">Hirakud</td><td>Mahanadi</td><td>Odisha</td><td>347.5 MW</td><td>Sambalpur; India's longest dam (25.8 km)</td></tr>
+      <tr><td class="highlight3">Rihand (Govind Ballabh Pant Sagar)</td><td>Rihand</td><td>UP (Sonbhadra)</td><td>300 MW</td><td>UP's major hydro; Singrauli area; also linked to Obra thermal</td></tr>
+      <tr><td class="highlight3">Sharavathi (Jog Falls)</td><td>Sharavathi</td><td>Karnataka</td><td>891 MW</td><td>Near famous Jog Falls; Shivamogga</td></tr>
+      <tr><td class="highlight3">Idukki</td><td>Periyar</td><td>Kerala</td><td>780 MW</td><td>Arch dam (double curvature); Idukki district</td></tr>
+      <tr><td class="highlight3">Nathpa Jhakri</td><td>Sutlej</td><td>HP</td><td>1500 MW</td><td>Underground powerhouse; Shimla</td></tr>
+    </table>
+    </div>
+    <div class="mnemonic"><strong>🧠 Dams Mnemonic — "Tehri Bhakra Ko Sardar Indira Nagarjuna Hirakud Sharavathi Idukki Nathpa":</strong> Tehri(UK), Bhakra(HP-PB), Koyna(MH), Sardar Sarovar(GJ), Indira Sagar(MP), Nagarjuna Sagar(TS), Hirakud(OD), Sharavathi(KA), Idukki(KL), Nathpa(HP)</div>
+  </div>
+
+  <!-- Thermal Power -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🔥</div><h2>Major Thermal Power Stations</h2></div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>Plant</th><th>State / District</th><th>Capacity</th><th>Note</th></tr>
+      <tr><td class="highlight">Vindhyachal STPS</td><td>MP (Singrauli)</td><td>4760 MW</td><td>India's largest thermal plant (NTPC)</td></tr>
+      <tr><td class="highlight">Mundra UMPP</td><td>Gujarat (Kutch)</td><td>4620 MW</td><td>Adani Power; Ultra Mega Power Plant</td></tr>
+      <tr><td class="highlight">Sasan UMPP</td><td>MP (Singrauli)</td><td>3960 MW</td><td>Reliance Power; pit-head station</td></tr>
+      <tr><td class="highlight">Rihand STPS</td><td>UP (Sonbhadra)</td><td>3000 MW</td><td>NTPC; major UP power plant</td></tr>
+      <tr><td class="highlight">Talcher STPS</td><td>Odisha (Angul)</td><td>3000 MW</td><td>Near Talcher coalfield</td></tr>
+      <tr><td class="highlight">Anpara TPS</td><td>UP (Sonbhadra)</td><td>2630 MW</td><td>UPRVUNL; Singrauli coal supply</td></tr>
+      <tr><td class="highlight">Raichur TPS</td><td>Karnataka (Raichur)</td><td>1720 MW</td><td>KPCL; oldest major thermal of KA</td></tr>
+      <tr><td class="highlight">Obra TPS</td><td>UP (Sonbhadra)</td><td>1102 MW</td><td>UPRVUNL; Sonbhadra energy corridor</td></tr>
+    </table>
+    </div>
+    <div class="mnemonic"><strong>🧠 UP Thermal Triangle:</strong> Sonbhadra district = <strong>Rihand</strong> + <strong>Anpara</strong> + <strong>Obra</strong> — "RAO ke saath power" = Sonbhadra is UP's Power Hub!</div>
+  </div>
+
+  <!-- Solar Power -->
+  <div class="card">
+    <div class="card-header"><div class="icon">☀️</div><h2>Major Solar Power Zones</h2><div class="badge">TRENDING 2026</div></div>
+    <div class="power-grid">
+      <div class="power-card">
+        <h4><span class="power-type solar">☀️ Solar</span> Bhadla Solar Park, Rajasthan</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>World's largest solar park</li>
+          <li>Capacity: 2245 MW+</li>
+          <li>Location: Jodhpur district, Rajasthan</li>
+          <li>Thar Desert region</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type solar">☀️ Solar</span> Pavagada Solar, Karnataka</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Capacity: 2050 MW</li>
+          <li>Tumkur district, Karnataka</li>
+          <li>2nd largest in India</li>
+          <li>SECI project</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type solar">☀️ Solar</span> Kurnool Solar, Andhra Pradesh</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Capacity: 1000 MW</li>
+          <li>Kurnool district, AP</li>
+          <li>Largest single-location solar park (when built)</li>
+        </ul>
+      </div>
+      <div class="power-card">
+        <h4><span class="power-type solar">☀️ Solar</span> Rewa Solar, MP</h4>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Capacity: 750 MW</li>
+          <li>Rewa district, MP</li>
+          <li>Provides power to Delhi Metro</li>
+          <li>UN Champions of Earth award</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mnemonic"><strong>🧠 Solar States Leader:</strong> Rajasthan (1st) → Gujarat (2nd) → Karnataka (3rd) → Tamil Nadu (4th) → "RGKT = Rajasthan Got Karnataka Tamil" solar states ranking</div>
+  </div>
+</div>
+
+<!-- ==================== PORTS & RAILWAYS ==================== -->
+<div id="sec-ports" class="section">
+  <div class="sec-title"><span>⚓</span> Major Ports + Railway Zones</div>
+
+  <!-- PORTS -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🚢</div><h2>India's Major Ports (12 Major Ports)</h2><div class="badge">COAST WISE</div></div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px">India has 12 Major Ports (under Union List) + ~200 Minor Ports (under State List)</p>
+    <div style="margin-bottom:14px">
+      <span class="tag blue">West Coast → Arabian Sea</span>
+      <span class="tag green">East Coast → Bay of Bengal</span>
+    </div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>Port</th><th>State</th><th>Coast</th><th>Specialty / Key Fact</th></tr>
+      <tr><td class="highlight3">🚢 Kandla (Deendayal)</td><td>Gujarat (Kutch)</td><td>West</td><td>India's 1st SEZ (1965); handles most cargo; renamed 2017</td></tr>
+      <tr><td class="highlight3">🚢 Mumbai</td><td>Maharashtra</td><td>West</td><td>India's busiest natural harbour historically; passenger + cargo</td></tr>
+      <tr><td class="highlight3">🚢 JNPT (Nhava Sheva)</td><td>Maharashtra (Raigad)</td><td>West</td><td>India's largest container port; handles ~50% container traffic</td></tr>
+      <tr><td class="highlight3">🚢 Mormugao</td><td>Goa</td><td>West</td><td>Iron ore export hub; Vasco da Gama area</td></tr>
+      <tr><td class="highlight3">🚢 New Mangalore</td><td>Karnataka</td><td>West</td><td>MRPL oil refinery supply; coffee + cashew export</td></tr>
+      <tr><td class="highlight3">🚢 Kochi (Cochin)</td><td>Kerala</td><td>West</td><td>Natural harbour; International Container Transhipment Terminal (ICTT); tourism</td></tr>
+      <tr><td class="highlight2">🚢 Tuticorin (VOC Port)</td><td>Tamil Nadu</td><td>East</td><td>South India's main port; thermal plant nearby; closest to Sri Lanka</td></tr>
+      <tr><td class="highlight2">🚢 Chennai</td><td>Tamil Nadu</td><td>East</td><td>India's oldest artificial harbour; automobile export</td></tr>
+      <tr><td class="highlight2">🚢 Ennore (Kamarajar)</td><td>Tamil Nadu</td><td>East</td><td>Coal/LNG handling; India's 1st corporatized port</td></tr>
+      <tr><td class="highlight2">🚢 Visakhapatnam</td><td>Andhra Pradesh</td><td>East</td><td>India's deepest landlocked harbour; steel plant + refinery nearby</td></tr>
+      <tr><td class="highlight2">🚢 Paradip</td><td>Odisha</td><td>East</td><td>Mahanadi mouth; iron ore + coal; Indian Oil Refinery</td></tr>
+      <tr><td class="highlight2">🚢 Kolkata + Haldia</td><td>West Bengal</td><td>East</td><td>River port on Hugli; Haldia Dock Complex for large ships; inland navigation</td></tr>
+    </table>
+    </div>
+    <div class="mnemonic"><strong>🧠 West Coast Ports N→S:</strong> Kandla → Mumbai → JNPT → Mormugao → Mangalore → Kochi<br>
+    <strong>East Coast Ports N→S:</strong> Kolkata → Paradip → Visakhapatnam → Ennore → Chennai → Tuticorin<br>
+    <strong>Trick:</strong> "KMM-MK (West)" + "KPV-ECT (East)"</div>
+  </div>
+
+  <!-- RAILWAYS -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🚂</div><h2>Indian Railway Zones (18 Zones)</h2><div class="badge">UPPSC REGULAR</div></div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px">Indian Railways = World's 4th largest network; 18 Zones; Route length ~68,000 km</p>
+    <div class="zone-grid">
+      <div class="zone-card"><div class="zone-num">01</div><div class="zone-info"><h4>Northern Railway (NR)</h4><p>HQ: New Delhi | Covers: Delhi, UP, HP, Punjab, J&K</p></div></div>
+      <div class="zone-card"><div class="zone-num">02</div><div class="zone-info"><h4>North Central Railway (NCR)</h4><p>HQ: Prayagraj | Covers: UP (Agra, Jhansi), MP (Gwalior)</p></div></div>
+      <div class="zone-card"><div class="zone-num">03</div><div class="zone-info"><h4>North Eastern Railway (NER)</h4><p>HQ: Gorakhpur | Covers: Eastern UP, Bihar border</p></div></div>
+      <div class="zone-card"><div class="zone-num">04</div><div class="zone-info"><h4>Northeast Frontier Railway (NFR)</h4><p>HQ: Guwahati | Covers: Assam, Arunachal, NE states</p></div></div>
+      <div class="zone-card"><div class="zone-num">05</div><div class="zone-info"><h4>Eastern Railway (ER)</h4><p>HQ: Kolkata | Covers: WB, Bihar, Jharkhand</p></div></div>
+      <div class="zone-card"><div class="zone-num">06</div><div class="zone-info"><h4>East Central Railway (ECR)</h4><p>HQ: Hajipur | Covers: Bihar, Jharkhand, UP East</p></div></div>
+      <div class="zone-card"><div class="zone-num">07</div><div class="zone-info"><h4>East Coast Railway (ECoR)</h4><p>HQ: Bhubaneswar | Covers: Odisha, AP, Telangana</p></div></div>
+      <div class="zone-card"><div class="zone-num">08</div><div class="zone-info"><h4>South Eastern Railway (SER)</h4><p>HQ: Kolkata | Covers: WB-Odisha-Jharkhand corridor</p></div></div>
+      <div class="zone-card"><div class="zone-num">09</div><div class="zone-info"><h4>South East Central Railway (SECR)</h4><p>HQ: Bilaspur | Covers: Chhattisgarh, MP south</p></div></div>
+      <div class="zone-card"><div class="zone-num">10</div><div class="zone-info"><h4>Central Railway (CR)</h4><p>HQ: Mumbai (Chhatrapati Shivaji Terminus) | Covers: Mumbai, MP, TN</p></div></div>
+      <div class="zone-card"><div class="zone-num">11</div><div class="zone-info"><h4>Western Railway (WR)</h4><p>HQ: Mumbai (Churchgate) | Covers: Gujarat, Rajasthan, MP west</p></div></div>
+      <div class="zone-card"><div class="zone-num">12</div><div class="zone-info"><h4>North Western Railway (NWR)</h4><p>HQ: Jaipur | Covers: Rajasthan, Punjab, HP</p></div></div>
+      <div class="zone-card"><div class="zone-num">13</div><div class="zone-info"><h4>South Central Railway (SCR)</h4><p>HQ: Secunderabad | Covers: AP, Telangana, Karnataka</p></div></div>
+      <div class="zone-card"><div class="zone-num">14</div><div class="zone-info"><h4>Southern Railway (SR)</h4><p>HQ: Chennai | Covers: TN, Kerala, Karnataka south</p></div></div>
+      <div class="zone-card"><div class="zone-num">15</div><div class="zone-info"><h4>South Western Railway (SWR)</h4><p>HQ: Hubballi | Covers: Karnataka, Goa</p></div></div>
+      <div class="zone-card"><div class="zone-num">16</div><div class="zone-info"><h4>West Central Railway (WCR)</h4><p>HQ: Jabalpur | Covers: MP, UP south</p></div></div>
+      <div class="zone-card"><div class="zone-num">17</div><div class="zone-info"><h4>Metro Railway Kolkata (MR)</h4><p>HQ: Kolkata | India's 1st Metro (1984)</p></div></div>
+      <div class="zone-card"><div class="zone-num">18</div><div class="zone-info"><h4>South Coast Railway (SCoR)</h4><p>HQ: Visakhapatnam | Latest zone; Andhra Pradesh</p></div></div>
+    </div>
+    <div class="mnemonic" style="margin-top:14px"><strong>🧠 UP Railway Zones:</strong> UP is covered by <strong>3 zones</strong>: <br>
+    1. Northern Railway (NR) — Delhi to Mughalsarai<br>
+    2. North Central Railway (NCR) — Prayagraj HQ; Agra + Jhansi division<br>
+    3. North Eastern Railway (NER) — Gorakhpur HQ; Poorvanchal<br>
+    <br><strong>Trick: "3N for UP"</strong> = Northern + North Central + North Eastern</div>
+  </div>
+</div>
+
+<!-- ==================== UP SECTION ==================== -->
+<div id="sec-up" class="section">
+  <div class="sec-title"><span>🏛️</span> UP Economic Geography (UPPSC Special)</div>
+
+  <!-- UP Expressways -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🛣️</div><h2>UP Expressways — Complete List</h2><div class="badge">UP SPECIFIC</div></div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>#</th><th>Expressway</th><th>Length</th><th>Route</th><th>Significance</th></tr>
+      <tr><td>1</td><td class="highlight2">Yamuna Expressway</td><td>165 km</td><td>Greater Noida → Agra</td><td>First private expressway; YEIDA authority</td></tr>
+      <tr><td>2</td><td class="highlight2">Agra-Lucknow Expressway</td><td>302 km</td><td>Agra → Lucknow</td><td>Longest expressway built in one go; UP's 2nd largest</td></tr>
+      <tr><td>3</td><td class="highlight2">Purvanchal Expressway</td><td>341 km</td><td>Lucknow → Ghazipur</td><td>Longest expressway in UP; inaugurated by PM Modi 2021; 8-lane</td></tr>
+      <tr><td>4</td><td class="highlight2">Bundelkhand Expressway</td><td>296 km</td><td>Chitrakoot → Etawah</td><td>Inaugurated July 2022; defence corridor link; DMIC</td></tr>
+      <tr><td>5</td><td class="highlight2">Gorakhpur Link Expressway</td><td>91 km</td><td>Gorakhpur → Purvanchal EW</td><td>Links Gorakhpur to Purvanchal Expressway</td></tr>
+      <tr><td>6</td><td class="highlight2">Ganga Expressway</td><td>594 km</td><td>Meerut → Prayagraj</td><td>Longest planned expressway in India; under construction</td></tr>
+      <tr><td>7</td><td class="highlight2">Delhi-Meerut Expressway</td><td>96 km</td><td>Delhi → Meerut</td><td>Part of EDFC + 14-lane hybrid section</td></tr>
+    </table>
+    </div>
+    <div class="mnemonic"><strong>🧠 UP Expressways Mnemonic — "YAPBGG":</strong> <strong>Y</strong>amuna + <strong>A</strong>gra-Lucknow + <strong>P</strong>urvanchal + <strong>B</strong>undelkhand + <strong>G</strong>orakhpur Link + <strong>G</strong>anga = Six key expressways of UP</div>
+  </div>
+
+  <!-- UP Industrial Corridors -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🏗️</div><h2>Industrial Corridors in UP</h2></div>
+    <div class="region-grid">
+      <div class="corridor-card">
+        <h3>🏗️ Delhi-Mumbai Industrial Corridor (DMIC)</h3>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Passes through UP: Agra and Aligarh districts</li>
+          <li>Integrated Manufacturing Clusters (IMC) at Agra-Mathura</li>
+          <li>Smart Cities: Integrated Industrial Township Agra</li>
+          <li>Total length: 1504 km; 24 projects across 6 states</li>
+        </ul>
+      </div>
+      <div class="corridor-card">
+        <h3>🏗️ Defence Industrial Corridor UP</h3>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Two nodes: <strong>Lucknow</strong> and <strong>Kanpur–Agra–Aligarh–Jhansi–Chitrakoot</strong></li>
+          <li>Target: ₹50,000 Cr defence manufacturing by 2025</li>
+          <li>Brahmos, HAL, Bharat Dynamics, Bharat Forge investments</li>
+          <li>Bundelkhand Expressway is spine of this corridor</li>
+        </ul>
+      </div>
+      <div class="corridor-card">
+        <h3>🏗️ Eastern Dedicated Freight Corridor (EDFC)</h3>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>Ludhiana (Punjab) → Dankuni (WB) — 1856 km</li>
+          <li>Passes through: UP (Khurja, Kanpur, Allahabad, Varanasi)</li>
+          <li>Khurja = major junction in UP</li>
+          <li>Reduces pressure on existing rail lines</li>
+        </ul>
+      </div>
+      <div class="corridor-card">
+        <h3>🏗️ Noida-Greater Noida Tech Corridor</h3>
+        <ul class="region-card" style="border:none;padding:0">
+          <li>IT hubs: Sector 62 Noida, Knowledge Park Greater Noida</li>
+          <li>Samsung's largest manufacturing plant (Sector 81)</li>
+          <li>Film City Sector 21 (UP Film City announced 2022)</li>
+          <li>Jewar International Airport (upcoming)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ODOP Policy -->
+  <div class="card">
+    <div class="card-header"><div class="icon">🎯</div><h2>One District One Product (ODOP) — UP</h2><div class="badge">EXAM CRITICAL</div></div>
+    <div style="overflow-x:auto">
+    <table class="data-table">
+      <tr><th>District</th><th>ODOP Product</th><th>th>District</th><th>ODOP Product</th></tr>
+      <tr><td class="highlight2">Lucknow</td><td>Chikankari (Embroidery)</td><td class="highlight2">Varanasi</td><td>Banarasi Silk Saree</td></tr>
+      <tr><td class="highlight2">Agra</td><td>Leather Products</td><td class="highlight2">Aligarh</td><td>Locks & Hardware</td></tr>
+      <tr><td class="highlight2">Moradabad</td><td>Brass Handicrafts</td><td class="highlight2">Firozabad</td><td>Glass Bangles</td></tr>
+      <tr><td class="highlight2">Meerut</td><td>Sports Goods</td><td class="highlight2">Kanpur</td><td>Leather Products</td></tr>
+      <tr><td class="highlight2">Muzaffarnagar</td><td>Jaggery (Gur)</td><td class="highlight2">Gorakhpur</td><td>Terracotta (Pottery)</td></tr>
+      <tr><td class="highlight2">Bhadohi</td><td>Carpet Weaving</td><td class="highlight2">Bareilly</td><td>Zardozi Work</td></tr>
+      <tr><td class="highlight2">Rampur</td><td>Rampur Rampuri Knife</td><td class="highlight2">Siddharth Nagar</td><td>Kalanamak Rice</td></tr>
+      <tr><td class="highlight2">Pilibhit</td><td>Flute (Bansuri)</td><td class="highlight2">Mainpuri</td><td>Tarkashi Work</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- UP Population -->
+  <div class="card">
+    <div class="card-header"><div class="icon">👥</div><h2>UP Population & Census 2011 Highlights</h2></div>
+    <div class="region-grid">
+      <div class="region-card">
+        <h3>📊 UP Census 2011 Key Data</h3>
+        <ul>
+          <li>Population: <strong>19.98 Crore</strong> (1st in India)</li>
+          <li>Population Density: <strong>829/km²</strong> (India avg: 382)</li>
+          <li>Sex Ratio: <strong>912/1000</strong> (India: 943)</li>
+          <li>Literacy Rate: <strong>67.7%</strong> (India: 74%)</li>
+          <li>Urban Population: <strong>22.3%</strong> (India: 31.2%)</li>
+        </ul>
+      </div>
+      <div class="region-card blue">
+        <h3>📊 India Census 2011 Highlights</h3>
+        <ul>
+          <li>Total Population: <strong>121.07 Crore</strong></li>
+          <li>Decadal Growth: <strong>17.64%</strong> (2001-2011)</li>
+          <li>Most Populous State: <strong>UP</strong> (19.98 Cr)</li>
+          <li>Least Populous: <strong>Sikkim</strong> (6.1 lakh)</li>
+          <li>Highest Density: <strong>Bihar</strong> (1106/km²)</li>
+          <li>Lowest Density: <strong>Arunachal Pradesh</strong> (17/km²)</li>
+          <li>Best Sex Ratio: <strong>Kerala</strong> (1084)</li>
+          <li>Worst Sex Ratio: <strong>Haryana</strong> (879)</li>
+        </ul>
+      </div>
+      <div class="region-card green">
+        <h3>📊 UP Districts — Extremes</h3>
+        <ul>
+          <li>Most Populous District: <strong>Allahabad (Prayagraj)</strong></li>
+          <li>Largest Area: <strong>Lakhimpur Kheri</strong></li>
+          <li>Highest Literacy: <strong>Gautam Buddha Nagar</strong></li>
+          <li>Lowest Literacy: <strong>Shrawasti</strong></li>
+          <li>Highest Sex Ratio: <strong>Jaunpur</strong></li>
+          <li>Highest Urban %: <strong>Ghaziabad</strong></li>
+          <li>Total Districts: <strong>75</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MCQ SECTION ==================== -->
+<div id="sec-mcq" class="section">
+  <div class="sec-title"><span>📝</span> MCQ Practice — Economic Geography</div>
+
+  <div class="score-bar">
+    <div>
+      <div class="score-display" id="scoreDisplay">0/10</div>
+      <div class="score-label">Questions Answered</div>
+    </div>
+    <button class="reset-btn" onclick="resetMCQ()">🔄 Reset All</button>
+  </div>
+
+  <div class="mcq-container" id="mcqContainer">
+
+    <div class="mcq-card" data-answer="b">
+      <div class="mcq-q"><span class="mcq-num">1</span><span class="mcq-q-text">Which of the following is called the "Granary of South India"?</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,1)"><span class="mcq-opt-key">(a)</span> Krishna Delta (AP)</div>
+        <div class="mcq-opt" onclick="selectOpt(this,1)"><span class="mcq-opt-key">(b)</span> Thanjavur (Tamil Nadu)</div>
+        <div class="mcq-opt" onclick="selectOpt(this,1)"><span class="mcq-opt-key">(c)</span> Bardhaman (West Bengal)</div>
+        <div class="mcq-opt" onclick="selectOpt(this,1)"><span class="mcq-opt-key">(d)</span> Kuttanad (Kerala)</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,1)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Thanjavur (TN)</strong> is the "Granary of South India" due to Kaveri delta rice cultivation. Bardhaman (WB) = Rice Bowl of India. Kuttanad = below sea level farming.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="c">
+      <div class="mcq-q"><span class="mcq-num">2</span><span class="mcq-q-text">India's largest container port is —</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,2)"><span class="mcq-opt-key">(a)</span> Mumbai Port</div>
+        <div class="mcq-opt" onclick="selectOpt(this,2)"><span class="mcq-opt-key">(b)</span> Kandla Port</div>
+        <div class="mcq-opt" onclick="selectOpt(this,2)"><span class="mcq-opt-key">(c)</span> JNPT (Nhava Sheva), Maharashtra</div>
+        <div class="mcq-opt" onclick="selectOpt(this,2)"><span class="mcq-opt-key">(d)</span> Chennai Port</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,2)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>JNPT (Jawaharlal Nehru Port Trust)</strong> in Raigad district, Maharashtra handles ~50% of India's container traffic. Kandla handles maximum total cargo tonnage.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="a">
+      <div class="mcq-q"><span class="mcq-num">3</span><span class="mcq-q-text">UP's only Nuclear Power Plant is located at —</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,3)"><span class="mcq-opt-key">(a)</span> Narora, Bulandshahr</div>
+        <div class="mcq-opt" onclick="selectOpt(this,3)"><span class="mcq-opt-key">(b)</span> Kakrapar, Sonbhadra</div>
+        <div class="mcq-opt" onclick="selectOpt(this,3)"><span class="mcq-opt-key">(c)</span> Tarapur, Palghar</div>
+        <div class="mcq-opt" onclick="selectOpt(this,3)"><span class="mcq-opt-key">(d)</span> Rawatbhata, Agra</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,3)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Narora Atomic Power Station (NAPS)</strong> is in Bulandshahr district, UP on the Ganga river bank. Capacity: 440 MW. Kakrapar is in Gujarat (Surat), Tarapur in Maharashtra, Rawatbhata in Rajasthan.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="d">
+      <div class="mcq-q"><span class="mcq-num">4</span><span class="mcq-q-text">Which railway zone has its headquarters at Prayagraj?</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,4)"><span class="mcq-opt-key">(a)</span> Northern Railway</div>
+        <div class="mcq-opt" onclick="selectOpt(this,4)"><span class="mcq-opt-key">(b)</span> North Eastern Railway</div>
+        <div class="mcq-opt" onclick="selectOpt(this,4)"><span class="mcq-opt-key">(c)</span> East Central Railway</div>
+        <div class="mcq-opt" onclick="selectOpt(this,4)"><span class="mcq-opt-key">(d)</span> North Central Railway</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,4)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>North Central Railway (NCR)</strong> has HQ at Prayagraj. Northern Railway = New Delhi. North Eastern Railway = Gorakhpur. East Central Railway = Hajipur.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="b">
+      <div class="mcq-q"><span class="mcq-num">5</span><span class="mcq-q-text">India's longest dam (Hirakud Dam) is built on which river?</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,5)"><span class="mcq-opt-key">(a)</span> Godavari River</div>
+        <div class="mcq-opt" onclick="selectOpt(this,5)"><span class="mcq-opt-key">(b)</span> Mahanadi River</div>
+        <div class="mcq-opt" onclick="selectOpt(this,5)"><span class="mcq-opt-key">(c)</span> Damodar River</div>
+        <div class="mcq-opt" onclick="selectOpt(this,5)"><span class="mcq-opt-key">(d)</span> Brahmani River</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,5)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Hirakud Dam</strong> is built on <strong>Mahanadi River</strong>, near Sambalpur, Odisha. It is India's longest dam at 25.8 km. Power capacity: 347.5 MW.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="c">
+      <div class="mcq-q"><span class="mcq-num">6</span><span class="mcq-q-text">The "Diamond City" of India — where 90% of world's diamonds are polished — is:</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,6)"><span class="mcq-opt-key">(a)</span> Ahmedabad, Gujarat</div>
+        <div class="mcq-opt" onclick="selectOpt(this,6)"><span class="mcq-opt-key">(b)</span> Panna, Madhya Pradesh</div>
+        <div class="mcq-opt" onclick="selectOpt(this,6)"><span class="mcq-opt-key">(c)</span> Surat, Gujarat</div>
+        <div class="mcq-opt" onclick="selectOpt(this,6)"><span class="mcq-opt-key">(d)</span> Rajkot, Gujarat</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,6)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Surat (Gujarat)</strong> = Diamond polishing capital of world. ~90% of world's rough diamonds are cut & polished here. Panna (MP) = India's only diamond mine.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="a">
+      <div class="mcq-q"><span class="mcq-num">7</span><span class="mcq-q-text">World's largest solar power park — Bhadla Solar Park — is located in which district?</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,7)"><span class="mcq-opt-key">(a)</span> Jodhpur, Rajasthan</div>
+        <div class="mcq-opt" onclick="selectOpt(this,7)"><span class="mcq-opt-key">(b)</span> Jaisalmer, Rajasthan</div>
+        <div class="mcq-opt" onclick="selectOpt(this,7)"><span class="mcq-opt-key">(c)</span> Tumkur, Karnataka</div>
+        <div class="mcq-opt" onclick="selectOpt(this,7)"><span class="mcq-opt-key">(d)</span> Kutch, Gujarat</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,7)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Bhadla Solar Park</strong> (2245 MW+) is in <strong>Jodhpur district, Rajasthan</strong> in the Thar Desert. Pavagada Solar Park (2050 MW) is in Tumkur, Karnataka.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="d">
+      <div class="mcq-q"><span class="mcq-num">8</span><span class="mcq-q-text">India's first SEZ (Special Economic Zone) was established at:</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,8)"><span class="mcq-opt-key">(a)</span> JNPT, Maharashtra</div>
+        <div class="mcq-opt" onclick="selectOpt(this,8)"><span class="mcq-opt-key">(b)</span> Vizag, Andhra Pradesh</div>
+        <div class="mcq-opt" onclick="selectOpt(this,8)"><span class="mcq-opt-key">(c)</span> Noida, Uttar Pradesh</div>
+        <div class="mcq-opt" onclick="selectOpt(this,8)"><span class="mcq-opt-key">(d)</span> Kandla, Gujarat</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,8)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Kandla SEZ (Gujarat)</strong> was India's first SEZ established in <strong>1965</strong>. Kandla port is now renamed "Deendayal Port." The SEZ Act came later in 2005 expanding the concept.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="b">
+      <div class="mcq-q"><span class="mcq-num">9</span><span class="mcq-q-text">India's only diamond mine is located in:</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,9)"><span class="mcq-opt-key">(a)</span> Sindhudurg, Maharashtra</div>
+        <div class="mcq-opt" onclick="selectOpt(this,9)"><span class="mcq-opt-key">(b)</span> Panna, Madhya Pradesh</div>
+        <div class="mcq-opt" onclick="selectOpt(this,9)"><span class="mcq-opt-key">(c)</span> Kolar, Karnataka</div>
+        <div class="mcq-opt" onclick="selectOpt(this,9)"><span class="mcq-opt-key">(d)</span> Hazaribag, Jharkhand</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,9)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Panna (MP)</strong> has India's only diamond mine. Kolar (Karnataka) = Gold mine (KGF). Jaduguda (Jharkhand) = Uranium mine. Hazaribag = Mica.</div>
+    </div>
+
+    <div class="mcq-card" data-answer="c">
+      <div class="mcq-q"><span class="mcq-num">10</span><span class="mcq-q-text">UP's Purvanchal Expressway connects Lucknow to:</span></div>
+      <div class="mcq-opts">
+        <div class="mcq-opt" onclick="selectOpt(this,10)"><span class="mcq-opt-key">(a)</span> Allahabad (Prayagraj)</div>
+        <div class="mcq-opt" onclick="selectOpt(this,10)"><span class="mcq-opt-key">(b)</span> Gorakhpur</div>
+        <div class="mcq-opt" onclick="selectOpt(this,10)"><span class="mcq-opt-key">(c)</span> Ghazipur</div>
+        <div class="mcq-opt" onclick="selectOpt(this,10)"><span class="mcq-opt-key">(d)</span> Varanasi</div>
+      </div>
+      <div class="mcq-footer"><button class="check-btn" onclick="checkMCQ(this,10)">Check Answer</button></div>
+      <div class="mcq-explanation">✅ <strong>Purvanchal Expressway</strong> (341 km) connects <strong>Lucknow to Ghazipur</strong>. It is the longest expressway in UP, inaugurated by PM Modi in November 2021. It passes through Sultanpur, Ayodhya, Ambedkar Nagar, Azamgarh, Mau.</div>
+    </div>
+
+  </div><!-- end mcq-container -->
+</div><!-- end sec-mcq -->
+
+</div><!-- end content -->
+
+<script>
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// MCQ Logic
+let answers = {};
+let scores = {};
+
+function selectOpt(el, qNum) {
+  const card = el.closest('.mcq-card');
+  card.querySelectorAll('.mcq-opt').forEach(o => {
+    o.classList.remove('selected');
+    o.style.background = '';
+    o.style.borderColor = '';
+  });
+  el.style.background = '#e8f0fe';
+  el.style.borderColor = '#4a90d9';
+  answers[qNum] = el;
+}
+
+function checkMCQ(btn, qNum) {
+  const card = btn.closest('.mcq-card');
+  const correct = card.dataset.answer;
+  const selectedEl = answers[qNum];
+  const explanation = card.querySelector('.mcq-explanation');
+
+  if (!selectedEl) {
+    btn.textContent = '⚠️ Select an option first!';
+    setTimeout(() => btn.textContent = 'Check Answer', 1500);
+    return;
+  }
+
+  const opts = card.querySelectorAll('.mcq-opt');
+  const keys = ['a','b','c','d'];
+  opts.forEach((opt, i) => {
+    opt.style.background = '';
+    opt.style.borderColor = '';
+    opt.style.pointerEvents = 'none';
+    if (keys[i] === correct) {
+      opt.classList.add('correct');
+    }
+  });
+
+  const selectedKey = keys[Array.from(opts).indexOf(selectedEl)];
+  if (selectedKey !== correct) {
+    selectedEl.classList.add('wrong');
+  }
+
+  explanation.classList.add('show');
+  btn.style.display = 'none';
+
+  if (!scores[qNum]) {
+    scores[qNum] = (selectedKey === correct) ? 1 : 0;
+    updateScore();
+  }
+}
+
+function updateScore() {
+  const total = Object.keys(scores).length;
+  const correct = Object.values(scores).filter(v => v === 1).length;
+  document.getElementById('scoreDisplay').textContent = correct + '/' + total;
+}
+
+function resetMCQ() {
+  answers = {};
+  scores = {};
+  document.getElementById('scoreDisplay').textContent = '0/10';
+  document.querySelectorAll('.mcq-card').forEach(card => {
+    card.querySelectorAll('.mcq-opt').forEach(opt => {
+      opt.classList.remove('correct', 'wrong');
+      opt.style.background = '';
+      opt.style.borderColor = '';
+      opt.style.pointerEvents = '';
+    });
+    card.querySelector('.mcq-explanation').classList.remove('show');
+    const btn = card.querySelector('.check-btn');
+    btn.style.display = '';
+    btn.textContent = 'Check Answer';
+  });
+}
+</script>
+</body>
+</html>
