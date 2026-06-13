@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌧️ UPPSC 2026 — India Climate & Monsoon Toolkit</title>
+<style>
+  :root {
+    --bg: #f7f9fc;
+    --surface: #ffffff;
+    --surface2: #f0f4f8;
+    --border: #dde3ec;
+    --primary: #1a56db;
+    --primary-light: #e8f0fe;
+    --accent: #0891b2;
+    --accent-light: #e0f7fa;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --orange: #d97706;
+    --orange-light: #fef3c7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --text: #1e293b;
+    --text2: #475569;
+    --text3: #64748b;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #0f4c81 0%, #1a56db 50%, #0891b2 100%);
+    color: white;
+    padding: 32px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .hero p { font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .hero-stat span { display: block; font-size: 11px; font-weight: 400; opacity: 0.8; }
+
+  /* ── NAV TABS ── */
+  .nav-scroll {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 2px;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text3);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-tab:hover { color: var(--primary); background: var(--primary-light); border-radius: 8px 8px 0 0; }
+  .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 20px; }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media(max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── INFO BOXES ── */
+  .info-box {
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .info-blue { background: var(--primary-light); border-left: 4px solid var(--primary); color: #1e3a8a; }
+  .info-green { background: var(--green-light); border-left: 4px solid var(--green); color: #064e3b; }
+  .info-orange { background: var(--orange-light); border-left: 4px solid var(--orange); color: #78350f; }
+  .info-red { background: var(--red-light); border-left: 4px solid var(--red); color: #7f1d1d; }
+  .info-purple { background: var(--purple-light); border-left: 4px solid var(--purple); color: #4c1d95; }
+  .info-teal { background: var(--accent-light); border-left: 4px solid var(--accent); color: #164e63; }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .tag-blue { background: var(--primary-light); color: var(--primary); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-orange { background: var(--orange-light); color: var(--orange); }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+
+  /* ── TABLES ── */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .data-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .data-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .data-table tr:nth-child(even) { background: var(--surface2); }
+  .data-table tr:hover { background: var(--primary-light); }
+
+  /* ── SEASON TIMELINE ── */
+  .season-bar {
+    display: flex;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin: 12px 0;
+    height: 48px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .season-seg {
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 4px;
+    color: white;
+    transition: transform 0.2s;
+  }
+  .season-seg:hover { transform: scaleY(1.1); z-index: 1; }
+
+  /* ── MCQ ── */
+  .mcq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+  }
+  .mcq-card:hover { box-shadow: var(--shadow-lg); }
+  .mcq-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .mcq-q {
+    display: flex; align-items: flex-start;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media(max-width:500px) { .options { grid-template-columns: 1fr; } }
+  .option {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .option:hover { background: var(--primary-light); border-color: var(--primary); }
+  .option.correct { background: var(--green-light); border-color: var(--green); color: #064e3b; }
+  .option.wrong { background: var(--red-light); border-color: var(--red); color: #7f1d1d; }
+  .option-key {
+    width: 22px; height: 22px;
+    background: var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .option.correct .option-key { background: var(--green); color: white; }
+  .option.wrong .option-key { background: var(--red); color: white; }
+  .explanation {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--green-light);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--green);
+    font-size: 13px;
+    color: #064e3b;
+  }
+  .explanation.show { display: block; }
+  .mcq-score {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .score-big { font-size: 40px; font-weight: 800; }
+  .score-label { font-size: 14px; opacity: 0.85; }
+
+  /* ── KEY FACT ── */
+  .kf {
+    display: flex; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+    align-items: flex-start;
+  }
+  .kf:last-child { border-bottom: none; }
+  .kf-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .kf strong { color: var(--primary); }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px; top: 44px;
+    width: 2px; height: calc(100% - 20px);
+    background: var(--border);
+  }
+  .flow-dot {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .flow-content { flex: 1; }
+  .flow-title { font-weight: 700; font-size: 14.5px; color: var(--text); margin-bottom: 3px; }
+  .flow-desc { font-size: 13.5px; color: var(--text2); }
+
+  /* ── MONSOON MAP SVG ── */
+  .map-container {
+    background: var(--surface2);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .progress-label { min-width: 140px; color: var(--text2); }
+  .progress-bar-wrap { flex: 1; background: var(--border); border-radius: 6px; height: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; transition: width 1s ease; }
+  .progress-val { min-width: 52px; text-align: right; font-weight: 700; color: var(--text); }
+
+  /* ── UP SPECIAL ── */
+  .up-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #fbbf24;
+    color: #78350f;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ── CYCLONE ── */
+  .cyclone-compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-top: 12px;
+  }
+  @media(max-width:520px) { .cyclone-compare { grid-template-columns: 1fr; } }
+  .cyclone-box {
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-size: 13.5px;
+  }
+  .cyclone-bay { background: #e0f7fa; border: 1.5px solid var(--accent); }
+  .cyclone-ara { background: #fef3c7; border: 1.5px solid var(--orange); }
+  .cyclone-box h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+
+  /* ── ACCORDION ── */
+  .acc-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .acc-header {
+    background: var(--surface);
+    padding: 13px 16px;
+    font-weight: 600;
+    font-size: 14.5px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .acc-header:hover { background: var(--primary-light); }
+  .acc-header.open { background: var(--primary-light); color: var(--primary); }
+  .acc-body {
+    display: none;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .acc-body.open { display: block; }
+  .acc-arrow { transition: transform 0.2s; }
+  .acc-header.open .acc-arrow { transform: rotate(180deg); }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .sec-header-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .sec-header h2 { font-size: 20px; font-weight: 800; color: var(--text); }
+  .sec-header p { font-size: 13px; color: var(--text3); }
+
+  /* ── RESET BTN ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+  .btn-outline:hover { background: var(--primary-light); }
+
+  ul.fancy { list-style: none; padding: 0; }
+  ul.fancy li { padding: 5px 0 5px 20px; position: relative; font-size: 14px; }
+  ul.fancy li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+
+  .highlight { background: #fef9c3; padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+
+  .two-col { columns: 2; column-gap: 20px; }
+  @media(max-width:520px) { .two-col { columns: 1; } }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🎯 Top 10 Rank Preparation · SDM Level</div>
+  <h1>🌧️ India Climate & Monsoon System</h1>
+  <p>UPPSC 2026 · Physical Geography Deep Analysis Toolkit</p>
+  <div class="hero-stats">
+    <div class="hero-stat">9 Topics <span>Fully Covered</span></div>
+    <div class="hero-stat">10 MCQs <span>UPPSC Pattern</span></div>
+    <div class="hero-stat">UP Special <span>State Focus</span></div>
+    <div class="hero-stat">Premium Notes <span>Rank-Ready</span></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-scroll">
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showTab('factors')">🌐 Factors</div>
+    <div class="nav-tab" onclick="showTab('swm')">🌊 SW Monsoon</div>
+    <div class="nav-tab" onclick="showTab('nem')">🍂 NE Monsoon</div>
+    <div class="nav-tab" onclick="showTab('seasons')">📅 Seasons</div>
+    <div class="nav-tab" onclick="showTab('rainfall')">🌦️ Rainfall</div>
+    <div class="nav-tab" onclick="showTab('cyclones')">🌀 Cyclones</div>
+    <div class="nav-tab" onclick="showTab('climate-change')">🌡️ Climate Change</div>
+    <div class="nav-tab" onclick="showTab('up-climate')">🏙️ UP Climate</div>
+    <div class="nav-tab" onclick="showTab('drought-flood')">⚠️ Drought/Flood</div>
+    <div class="nav-tab" onclick="showTab('mcqs')">📝 MCQs</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════
+     TAB 1: FACTORS AFFECTING INDIA'S CLIMATE
+     ════════════════════════════════════════ -->
+<div id="factors" class="section active">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#e8f0fe">🌐</div>
+    <div><h2>Factors Affecting India's Climate</h2><p>6 Major Controlling Factors</p></div>
+  </div>
+
+  <div class="info-box info-blue">
+    <strong>📌 UPPSC Key Concept:</strong> India's climate is essentially a <strong>Tropical Monsoon Climate</strong> (Koppen: Aw/Cw types), but shows enormous regional diversity due to these controlling factors.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🌍</span> 1. Latitude</div>
+      <div class="kf"><span class="kf-icon">📍</span><span>India spans <strong>8°4'N to 37°6'N</strong> — tropical to sub-tropical</span></div>
+      <div class="kf"><span class="kf-icon">☀️</span><span>Tropic of Cancer (23.5°N) divides India into <strong>tropical south</strong> and <strong>sub-tropical north</strong></span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span>Southern India (Kerala, TN) = high temp year-round; Northern India = extremes</span></div>
+      <div class="kf"><span class="kf-icon">🎯</span><span><span class="tag tag-orange">UPPSC Fact</span> States south of Tropic of Cancer: Kerala, TN, AP, Karnataka, Goa, Maharashtra (part), MP (part), Rajasthan (part)</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">⛰️</span> 2. Himalayas (Most Critical)</div>
+      <div class="kf"><span class="kf-icon">🛡️</span><span><strong>Barrier function</strong>: Prevents cold Siberian winds from entering India — keeps India warmer than similar latitudes globally</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span><strong>Orographic rainfall</strong>: Forces SW monsoon winds to rise, causing heavy rainfall on windward side (Western Himalayas, NE India)</span></div>
+      <div class="kf"><span class="kf-icon">❄️</span><span>Leeward side (Tibet, Central Asia) = rain shadow = arid</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span>Traps monsoon moisture in Indian subcontinent</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> 3. Indian Ocean & Seas</div>
+      <div class="kf"><span class="kf-icon">🔵</span><span>India surrounded by <strong>Arabian Sea (W)</strong>, <strong>Bay of Bengal (E)</strong>, <strong>Indian Ocean (S)</strong></span></div>
+      <div class="kf"><span class="kf-icon">💧</span><span>Provides moisture for SW Monsoon — source of precipitation</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span><strong>Moderating effect</strong>: Coastal areas have moderate temp (Mumbai vs Delhi — same latitude)</span></div>
+      <div class="kf"><span class="kf-icon">🌀</span><span>Bay of Bengal: warmer, more cyclone-prone; Arabian Sea: fewer cyclones</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📏</span> 4. Distance from Sea (Continentality)</div>
+      <div class="kf"><span class="kf-icon">📌</span><span>Interior locations (Delhi, Nagpur, Jodhpur) = <strong>continental climate</strong> — extreme temperatures</span></div>
+      <div class="kf"><span class="kf-icon">🏖️</span><span>Coastal locations (Mumbai, Chennai, Kochi) = <strong>maritime climate</strong> — moderate temperatures</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span>Delhi: max temp 45°C, min -1°C; Mumbai: 38°C to 12°C (much narrower range)</span></div>
+      <div class="kf"><span class="kf-icon">💧</span><span>Interior areas get less rainfall from sea winds</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🏔️</span> 5. Altitude / Relief</div>
+      <div class="kf"><span class="kf-icon">❄️</span><span>Temperature decreases <strong>6.5°C per 1000m</strong> rise in altitude</span></div>
+      <div class="kf"><span class="kf-icon">🌨️</span><span>Shimla (2200m) = snow in winter; Mussorie, Darjeeling = hill stations</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span><strong>Orographic rain</strong>: Western Ghats windward = Kerala, coastal Karnataka gets 300+ cm rainfall; leeward (Deccan) = rain shadow</span></div>
+      <div class="kf"><span class="kf-icon">📊</span><span>Cherrapunji & Mawsynram (Meghalaya) = highest rainfall in world due to orographic effect</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">💨</span> 6. Upper Air Circulation (Jet Streams)</div>
+      <div class="kf"><span class="kf-icon">🌬️</span><span><strong>Subtropical Westerly Jet Stream</strong>: Flows south of Himalayas in winter; bifurcates in May-June triggering monsoon</span></div>
+      <div class="kf"><span class="kf-icon">🔄</span><span><strong>Tibetan Anticyclone</strong>: Develops over Tibet plateau in summer; drives upper-level easterlies over India</span></div>
+      <div class="kf"><span class="kf-icon">⚡</span><span><strong>ITCZ</strong> (Inter-Tropical Convergence Zone): Moves north to ~25°N in summer, triggering SW monsoon onset</span></div>
+      <div class="kf"><span class="kf-icon">🎯</span><span><span class="tag tag-orange">UPPSC 2021 Q</span> Western disturbances cause winter rainfall in NW India — brought by mid-latitude westerlies</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span> Additional Factors — Quick Reference</div>
+    <table class="data-table">
+      <thead><tr><th>Factor</th><th>Mechanism</th><th>Impact Region</th><th>UPPSC Relevance</th></tr></thead>
+      <tbody>
+        <tr><td>🌀 El Niño / La Niña</td><td>Warming of central Pacific Ocean</td><td>All India</td><td>Drought years (1987, 2002, 2009, 2023)</td></tr>
+        <tr><td>🌊 IOD (Indian Ocean Dipole)</td><td>Temp difference E & W Indian Ocean</td><td>South India</td><td>Positive IOD → good monsoon for India</td></tr>
+        <tr><td>🌡️ Mascarene High</td><td>High pressure in S Indian Ocean</td><td>Peninsular India</td><td>Drives SW monsoon winds northward</td></tr>
+        <tr><td>❄️ Siberian High</td><td>Cold high pressure in Central Asia</td><td>North India</td><td>Brings cold wave in winter (Jan-Feb)</td></tr>
+        <tr><td>🏔️ Western Ghats</td><td>North-South mountain barrier</td><td>Peninsular India</td><td>Divides Kerala/Karnataka vs Deccan climate</td></tr>
+        <tr><td>💧 Soil moisture & vegetation</td><td>Evapotranspiration feedback</td><td>UP, MP, Bihar</td><td>Determines local humidity & rain patterns</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 2: SOUTHWEST MONSOON
+     ════════════════════════════════════════ -->
+<div id="swm" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#e0f7fa">🌊</div>
+    <div><h2>Southwest Monsoon — Complete Analysis</h2><p>Onset, Mechanism, Retreat — UPPSC Level Deep Dive</p></div>
+  </div>
+
+  <div class="info-box info-teal">
+    <strong>🌧️ Key Fact:</strong> SW Monsoon brings <strong>75-90% of India's annual rainfall</strong> from <strong>June to September</strong>. It's the lifeline of Indian agriculture and economy.
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚙️</span> Mechanism of SW Monsoon — Step by Step</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-dot">1</div>
+        <div class="flow-content">
+          <div class="flow-title">☀️ Differential Heating (April-May)</div>
+          <div class="flow-desc">Asian landmass heats up rapidly. Low pressure develops over NW India (Thar Desert), Pakistan, and Northwest India. Ocean heats slowly — high pressure remains over Indian Ocean. This creates <strong>pressure gradient from sea to land</strong>.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">2</div>
+        <div class="flow-content">
+          <div class="flow-title">🌊 ITCZ Migration (May-June)</div>
+          <div class="flow-desc">Inter-Tropical Convergence Zone (ITCZ) shifts northward from Equator to ~25°N over the Indian subcontinent. Trade winds from Southern Hemisphere cross Equator, deflected rightward by Coriolis effect — become SW winds.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">3</div>
+        <div class="flow-content">
+          <div class="flow-title">💨 Jet Stream Bifurcation (May)</div>
+          <div class="flow-desc">Subtropical Westerly Jet Stream, which flows south of Himalayas in winter, <strong>splits into two arms</strong>: one north of Himalayas and one south. This triggers monsoon onset. Tibetan Plateau heats up creating anticyclone aloft — drives Easterly Jet Stream over India.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">4</div>
+        <div class="flow-content">
+          <div class="flow-title">🌬️ Monsoon Onset — Two Branches</div>
+          <div class="flow-desc"><strong>Arabian Sea Branch</strong>: Hits Kerala coast first → splits into 3 sub-branches (Konkan, Gujarat-Maharashtra; Western Ghats-Central India; Goa-Karnataka). <strong>Bay of Bengal Branch</strong>: Moves along Arakan coast → hits NE India first → moves westward along Ganga plains.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">5</div>
+        <div class="flow-content">
+          <div class="flow-title">⛰️ Orographic & Convergence Rainfall</div>
+          <div class="flow-desc">Both branches converge over Indo-Gangetic plains. Orographic barriers (Western Ghats, NE hills) force air upward → cooling → condensation → rainfall. Tamil Nadu coast lies in rain shadow of Arabian Sea branch and parallel to BoB branch — gets less SW monsoon rain.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📅</span> Onset & Retreat Dates — State-wise</div>
+    <div class="info-box info-orange" style="margin-bottom:12px">⚠️ UPPSC loves asking: "Which state does SW Monsoon reach LAST?" → Answer: <strong>Rajasthan (Western) — around July 15</strong></div>
+    <table class="data-table">
+      <thead><tr><th>Region / State</th><th>Onset Date</th><th>Retreat Date</th><th>Branch</th></tr></thead>
+      <tbody>
+        <tr><td>🌴 Kerala (Trivandrum)</td><td><strong>June 1</strong> (±7 days)</td><td>Oct 20</td><td>Arabian Sea</td></tr>
+        <tr><td>Karnataka, Goa</td><td>June 5-10</td><td>Oct 15</td><td>Arabian Sea</td></tr>
+        <tr><td>Mumbai (Maharashtra)</td><td>June 10-12</td><td>Oct 10</td><td>Arabian Sea</td></tr>
+        <tr><td>🌿 NE India (Assam, Meghalaya)</td><td>June 1-5</td><td>Oct 10</td><td>Bay of Bengal</td></tr>
+        <tr><td>West Bengal, Odisha</td><td>June 10-15</td><td>Oct 1-5</td><td>Bay of Bengal</td></tr>
+        <tr><td>⭐ Uttar Pradesh (Eastern)</td><td>June 15-20</td><td>Sept 20-25</td><td>Bay of Bengal + convergence</td></tr>
+        <tr><td>⭐ Uttar Pradesh (Western)</td><td>June 25-July 1</td><td>Sept 15-20</td><td>Convergence zone</td></tr>
+        <tr><td>Delhi</td><td>June 29 (avg)</td><td>Sept 25</td><td>Both branches</td></tr>
+        <tr><td>Punjab, Haryana</td><td>July 1-5</td><td>Sept 15-20</td><td>Both branches (weakened)</td></tr>
+        <tr><td>🏜️ Rajasthan (NW)</td><td>July 10-15</td><td>Sept 1-5</td><td>Weakened Arabian Sea</td></tr>
+        <tr><td>Tamil Nadu coast</td><td>June (weak) / Oct-Nov (NE monsoon)</td><td>—</td><td>NE Monsoon (main)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> Arabian Sea Branch</div>
+      <div class="kf"><span class="kf-icon">📍</span><span>Hits <strong>Kerala coast → June 1</strong></span></div>
+      <div class="kf"><span class="kf-icon">🔱</span><span>Splits into 3 sub-branches:<br>① Goa-Karnataka-Maharashtra<br>② Gujarat-Rajasthan (arid areas)<br>③ Central India (MP, Chhattisgarh)</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span>Western Ghats: <strong>orographic rainfall</strong> — windward side 200-400cm; leeward (Deccan) 40-60cm</span></div>
+      <div class="kf"><span class="kf-icon">💧</span><span>Carries <em>more moisture</em> — Arabian Sea is warmer</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> Bay of Bengal Branch</div>
+      <div class="kf"><span class="kf-icon">📍</span><span>Hits <strong>NE India first</strong> (Assam, Meghalaya)</span></div>
+      <div class="kf"><span class="kf-icon">🏔️</span><span>Blocked by <strong>Meghalaya Plateau</strong> → causes world's heaviest rainfall at Cherrapunji / Mawsynram</span></div>
+      <div class="kf"><span class="kf-icon">➡️</span><span>Moves westward along Himalayan foothills and Ganga plains towards Punjab</span></div>
+      <div class="kf"><span class="kf-icon">⭐</span><span><span class="up-badge">📍 UP</span> Eastern UP gets rain from this branch first; Western UP later from convergence of both branches</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔙</span> Retreat of SW Monsoon</div>
+    <div class="info-box info-purple">The retreat is <strong>NOT reverse of onset</strong>. It is slow, begins from NW India in September.</div>
+    <table class="data-table">
+      <thead><tr><th>Date</th><th>Area Retreated From</th><th>Cause</th></tr></thead>
+      <tbody>
+        <tr><td>Sept 1</td><td>Rajasthan, Kutch (NW)</td><td>Land cools → Low pressure weakens</td></tr>
+        <tr><td>Sept 15-20</td><td>Punjab, Haryana, Delhi</td><td>Western disturbances begin → monsoon retreats</td></tr>
+        <tr><td>Sept 25</td><td>UP (Western)</td><td>Jet stream reversal</td></tr>
+        <tr><td>Oct 10</td><td>MP, Bihar, Bengal, Jharkhand</td><td>Gradually moves SE</td></tr>
+        <tr><td>Oct 20</td><td>Odisha, North AP</td><td>NE monsoon begins to establish</td></tr>
+        <tr><td>Nov 30 - Dec 15</td><td>Southern tip (Kerala, TN)</td><td>Complete retreat from mainland</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box info-green" style="margin-top:12px">🌧️ <strong>"Retreating Monsoon" Season</strong>: As SW monsoon retreats, it causes <strong>October rains</strong> in Coromandel Coast (TN, South AP). Bay of Bengal gets disturbed — cyclones form → Tamil Nadu gets heavy rainfall from NE monsoon.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 3: NORTHEAST MONSOON
+     ════════════════════════════════════════ -->
+<div id="nem" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#fef3c7">🍂</div>
+    <div><h2>Northeast (Retreating) Monsoon</h2><p>Tamil Nadu's lifeline — October to December</p></div>
+  </div>
+
+  <div class="info-box info-orange">
+    <strong>🔑 Core Concept:</strong> NE Monsoon blows from <strong>land to sea</strong> (NE → SW), picks up moisture from Bay of Bengal, and gives <strong>Tamil Nadu its primary rainfall season</strong> (Oct-Dec).
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">⚙️</span> Mechanism</div>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-dot" style="background:var(--orange)">1</div>
+          <div class="flow-content">
+            <div class="flow-title">Land cools rapidly (Oct-Nov)</div>
+            <div class="flow-desc">After SW monsoon retreat, continental India cools; ocean retains heat → <strong>High pressure over land, Low pressure over sea</strong></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot" style="background:var(--orange)">2</div>
+          <div class="flow-content">
+            <div class="flow-title">Winds reverse direction</div>
+            <div class="flow-desc">Cold, dry winds blow from NE India and Central Asia → move towards low pressure over Indian Ocean. Direction: <strong>NE → SW</strong> (hence "Northeast Monsoon")</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot" style="background:var(--orange)">3</div>
+          <div class="flow-content">
+            <div class="flow-title">Moisture pickup over Bay of Bengal</div>
+            <div class="flow-desc">Winds pass over warm Bay of Bengal → pick up moisture → hit Tamil Nadu's Coromandel Coast as <strong>moist, rain-bearing winds</strong></div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot" style="background:var(--orange)">4</div>
+          <div class="flow-content">
+            <div class="flow-title">Rainfall on TN, SE AP, Puducherry</div>
+            <div class="flow-desc">Eastern coast of Tamil Nadu, SE Andhra Pradesh, Puducherry, and southern Andaman Islands receive rainfall from <strong>October to December</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> Key Facts — NE Monsoon</div>
+      <div class="kf"><span class="kf-icon">🗓️</span><span><strong>Duration:</strong> October to December (peak Nov-Dec)</span></div>
+      <div class="kf"><span class="kf-icon">📍</span><span><strong>States affected:</strong> Tamil Nadu (primary), SE Andhra Pradesh, Puducherry, South Karnataka coast, Andaman & Nicobar</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span><strong>TN contribution:</strong> 60% of Tamil Nadu's total annual rainfall comes from NE monsoon (vs 25% from SW)</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span><strong>Dry nature initially:</strong> Winds start as dry, cold continental winds; become moist only after crossing Bay of Bengal</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>Cyclones:</strong> Bay of Bengal most active during NE monsoon (Oct-Dec) — Chennai Cyclone 2015, Cyclone Nilam, etc.</span></div>
+      <div class="kf"><span class="kf-icon">❓</span><span><strong>Why TN gets less SW monsoon?</strong> Tamil Nadu coast is parallel to BoB branch (no orographic barrier) + in rain shadow of Arabian Sea branch (Western Ghats block)</span></div>
+      <div class="info-box info-orange" style="margin-top:10px">
+        🎯 <strong>UPPSC 2023 Q54:</strong> Tamil Nadu coast remains dry during SW monsoon because it is parallel to BoB branch AND in rain shadow of Arabian Sea branch. <strong>Answer: (d)</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span> SW vs NE Monsoon — Comparison</div>
+    <table class="data-table">
+      <thead><tr><th>Feature</th><th>🌊 SW Monsoon</th><th>🍂 NE Monsoon</th></tr></thead>
+      <tbody>
+        <tr><td>Direction</td><td>SW → NE (sea to land)</td><td>NE → SW (land to sea)</td></tr>
+        <tr><td>Season</td><td>June to September</td><td>October to December</td></tr>
+        <tr><td>Moisture source</td><td>Arabian Sea + Bay of Bengal</td><td>Bay of Bengal</td></tr>
+        <tr><td>Coverage</td><td>Whole India (90%+ area)</td><td>SE coastal India only</td></tr>
+        <tr><td>India's rainfall %</td><td>~75-90%</td><td>~10-15% (for TN: 60%)</td></tr>
+        <tr><td>Nature</td><td>Warm, humid</td><td>Initially dry, moist after BoB</td></tr>
+        <tr><td>Cyclones</td><td>Few in BoB (June)</td><td>Maximum cyclones (Oct-Dec)</td></tr>
+        <tr><td>Primary beneficiary</td><td>All India</td><td>Tamil Nadu, SE AP</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 4: SEASONS OF INDIA
+     ════════════════════════════════════════ -->
+<div id="seasons" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#d1fae5">📅</div>
+    <div><h2>Four Seasons of India</h2><p>IMD Classification with dates, features & UPPSC facts</p></div>
+  </div>
+
+  <!-- Season Timeline -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span> Annual Climate Calendar</div>
+    <div class="season-bar">
+      <div class="season-seg" style="width:25%; background:linear-gradient(135deg,#3b82f6,#1d4ed8)">❄️ Winter<br>Dec-Feb</div>
+      <div class="season-seg" style="width:17%; background:linear-gradient(135deg,#f59e0b,#d97706)">🌸 Pre-Monsoon<br>Mar-May</div>
+      <div class="season-seg" style="width:33%; background:linear-gradient(135deg,#059669,#047857)">🌧️ SW Monsoon<br>Jun-Sep</div>
+      <div class="season-seg" style="width:25%; background:linear-gradient(135deg,#0891b2,#0e7490)">🍂 Retreating<br>Oct-Nov</div>
+    </div>
+    <p style="font-size:12px; color:var(--text3); text-align:center; margin-top:6px">Each segment represents its duration relative to the year</p>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      ❄️ Season 1: Cold Weather (Winter) — December to February
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="grid-2">
+        <div>
+          <div class="kf"><span class="kf-icon">🌡️</span><span><strong>Temperature:</strong> North India 10-15°C; NW plains 5-10°C; Rajasthan/UP nights can drop to -5°C</span></div>
+          <div class="kf"><span class="kf-icon">💨</span><span><strong>Winds:</strong> NE Trade Winds; dry and cold NW winds from Siberian High</span></div>
+          <div class="kf"><span class="kf-icon">🌧️</span><span><strong>Rainfall:</strong> NW India gets <strong>Western Disturbance rainfall</strong> (Punjab, Haryana, UP, Uttarakhand) — Rabi crops depend on this (<em>"Mawath"</em>)</span></div>
+          <div class="kf"><span class="kf-icon">🌊</span><span>Tamil Nadu continues NE monsoon rainfall (Oct-Dec overflow)</span></div>
+          <div class="kf"><span class="kf-icon">🏔️</span><span>Himachal Pradesh, Uttarakhand, J&K — heavy snowfall</span></div>
+        </div>
+        <div>
+          <div class="info-box info-blue">
+            <strong>🌬️ Western Disturbances:</strong><br>
+            Extra-tropical cyclones from Mediterranean region, travel eastward along mid-latitude westerlies (45-60°N), descend to 25-35°N and bring rainfall to NW India.<br><br>
+            <span class="tag tag-blue">Punjab</span><span class="tag tag-blue">Haryana</span><span class="tag tag-blue">Western UP</span><span class="tag tag-blue">Uttarakhand</span><span class="tag tag-blue">J&K</span>
+          </div>
+          <div class="info-box info-teal">
+            <strong>⭐ UP Winter Facts:</strong><br>
+            • Dense fog (November-February): IGP<br>
+            • Cold waves: Bareilly, Kanpur, Allahabad<br>
+            • <em>Mawath</em> (Western Disturbance rain): Western UP, Agra, Meerut division
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      🌸 Season 2: Hot Weather / Pre-Monsoon (Summer) — March to May
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="grid-2">
+        <div>
+          <div class="kf"><span class="kf-icon">🌡️</span><span><strong>Hottest Season:</strong> April-May; Rajasthan/UP plains can reach 45-48°C</span></div>
+          <div class="kf"><span class="kf-icon">💨</span><span><strong>Loo:</strong> Hot, dry, dusty wind blowing from W/NW direction across UP, Bihar, Rajasthan (May-June)</span></div>
+          <div class="kf"><span class="kf-icon">🌪️</span><span><strong>Dust storms (Andhi):</strong> Common in UP, Rajasthan — occur in afternoons</span></div>
+          <div class="kf"><span class="kf-icon">⛈️</span><span><strong>Local thunderstorms:</strong> Nor'westers (Kalbaisakhi) — West Bengal & Assam; important for Jute & Tea</span></div>
+          <div class="kf"><span class="kf-icon">🥭</span><span><strong>Mango showers:</strong> Pre-monsoon showers in Kerala & Karnataka — important for mango crop</span></div>
+          <div class="kf"><span class="kf-icon">☕</span><span><strong>Coffee blossoms showers / Blossom showers:</strong> Kerala</span></div>
+        </div>
+        <div>
+          <div class="info-box info-red">
+            <strong>🌡️ Loo (UP/Rajasthan):</strong><br>
+            Hot, dry, desiccating wind; temperature 45-48°C; very low humidity; deadly heat wave conditions in UP, Bihar, Rajasthan — May & June.<br><br>
+            <span class="tag tag-orange">UPPSC 2024 Q39</span> Loo blows across Punjab to Bihar
+          </div>
+          <table class="data-table" style="margin-top:10px">
+            <thead><tr><th>Storm</th><th>Location</th></tr></thead>
+            <tbody>
+              <tr><td>🌩️ Kalbaisakhi / Nor'westers</td><td>West Bengal, Assam</td></tr>
+              <tr><td>🥭 Mango Showers</td><td>Kerala, Karnataka</td></tr>
+              <tr><td>☕ Blossom Showers</td><td>Kerala (coffee)</td></tr>
+              <tr><td>🌾 Cherry Blossoms</td><td>Himachal Pradesh</td></tr>
+              <tr><td>💨 Loo</td><td>UP, Rajasthan, Bihar, Punjab to Bihar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      🌧️ Season 3: Southwest Monsoon (Rainy) — June to September
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="kf"><span class="kf-icon">💧</span><span><strong>75-90% of India's annual rainfall</strong> — foundation of Indian agriculture</span></div>
+      <div class="kf"><span class="kf-icon">📅</span><span>Onset: Kerala June 1 → Delhi ~June 29 → Punjab July 1-5 → Rajasthan (NW) July 15</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span>Two branches: Arabian Sea branch (west) + Bay of Bengal branch (east)</span></div>
+      <div class="kf"><span class="kf-icon">🏔️</span><span>Western Ghats: 200-400 cm; NE India: 200-500 cm; Rajasthan (NW): <25 cm</span></div>
+      <div class="kf"><span class="kf-icon">⭐</span><span><span class="up-badge">📍 UP</span> Eastern UP: June 15-20; Western UP: June 25-July 1; Total annual rainfall: 650-1000mm in Eastern UP, 650-800mm in Western UP</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>Breaks in monsoon:</strong> When ITCZ moves north of Himalayas or Bay of Bengal activity weakens — drought-like conditions for 2-3 weeks mid-season</span></div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      🍂 Season 4: Retreating Monsoon / Post-Monsoon — October to November
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="kf"><span class="kf-icon">🔙</span><span>SW monsoon retreats from <strong>NW India in Sept</strong> → complete withdrawal by Nov-Dec</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span><strong>October heat:</strong> Humidity + high temperature = oppressive "October heat" in central/south India</span></div>
+      <div class="kf"><span class="kf-icon">🌀</span><span><strong>Bay of Bengal cyclones:</strong> Most active Oct-Dec; affect Tamil Nadu, AP, Odisha</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span>NE monsoon begins for Tamil Nadu — 60% of TN's annual rainfall in these months</span></div>
+      <div class="kf"><span class="kf-icon">⭐</span><span><span class="up-badge">📍 UP</span> Monsoon retreats from Western UP by Sept 15-20; clear skies return; Kharif harvest season begins</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 5: RAINFALL DISTRIBUTION
+     ════════════════════════════════════════ -->
+<div id="rainfall" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#d1fae5">🌦️</div>
+    <div><h2>Rainfall Distribution in India</h2><p>Regional patterns, causes & contrasts</p></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span> Annual Rainfall — Region-wise</div>
+    <div class="progress-row"><div class="progress-label">🌿 NE India (Meghalaya)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:100%;background:linear-gradient(90deg,#059669,#10b981)"></div></div><div class="progress-val">>1000 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🌴 W. Ghats (Windward)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:85%;background:linear-gradient(90deg,#059669,#10b981)"></div></div><div class="progress-val">200-400 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🌊 West Coast (Kerala)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:75%;background:#0891b2"></div></div><div class="progress-val">200-300 cm</div></div>
+    <div class="progress-row"><div class="progress-label">⭐ East UP / Bihar</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:45%;background:#3b82f6"></div></div><div class="progress-val">100-120 cm</div></div>
+    <div class="progress-row"><div class="progress-label">⭐ West UP / Delhi</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:35%;background:#6366f1"></div></div><div class="progress-val">65-90 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🌾 Punjab / Haryana</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:28%;background:#8b5cf6"></div></div><div class="progress-val">50-75 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🏜️ W. Rajasthan (Thar)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:10%;background:#f59e0b"></div></div><div class="progress-val"><25 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🏝️ Ladakh/Leh (Cold Desert)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:4%;background:#dc2626"></div></div><div class="progress-val"><10 cm</div></div>
+    <div class="progress-row"><div class="progress-label">🏔️ Deccan (Rain Shadow)</div><div class="progress-bar-wrap"><div class="progress-fill" style="width:25%;background:#d97706"></div></div><div class="progress-val">40-70 cm</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🌧️</span> Why High Rainfall Areas Get More</div>
+      <div class="kf"><span class="kf-icon">🏔️</span><span><strong>Cherrapunji/Mawsynram (Meghalaya)</strong>: Funnel-shaped valley + Meghalaya Plateau blocks BoB branch → forced orographic uplift → 1141-1192 cm/year</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>Western Ghats (windward)</strong>: Perpendicular to Arabian Sea branch → orographic + convective rain → Kerala gets 300cm</span></div>
+      <div class="kf"><span class="kf-icon">🌿</span><span><strong>Andaman & Nicobar</strong>: SW monsoon hits May 15 (earliest!) — surrounded by warm sea</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🏜️</span> Why Low Rainfall / Dry Areas</div>
+      <div class="kf"><span class="kf-icon">🌵</span><span><strong>Rajasthan (Thar)</strong>: Aravallis run parallel to Arabian Sea branch (no orographic barrier); hot surface = convective sinking</span></div>
+      <div class="kf"><span class="kf-icon">🏔️</span><span><strong>Deccan Plateau (Leeward)</strong>: Rain shadow of Western Ghats; Pune, Solapur, Latur = 50-70 cm only</span></div>
+      <div class="kf"><span class="kf-icon">❄️</span><span><strong>Ladakh</strong>: Double rain shadow (Himalayas from south + Karakoram from north); cold desert</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>Tamil Nadu (SW season)</strong>: Parallel to BoB branch + Western Ghats rain shadow (Arabian Sea)</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> Rainfall Distribution — State Overview</div>
+    <table class="data-table">
+      <thead><tr><th>State</th><th>Avg Rainfall</th><th>Category</th><th>Primary Source</th></tr></thead>
+      <tbody>
+        <tr><td>Meghalaya</td><td><strong>>1000 cm</strong></td><td><span class="tag tag-blue">Highest</span></td><td>Bay of Bengal (orographic)</td></tr>
+        <tr><td>Kerala, Goa</td><td>200-300 cm</td><td><span class="tag tag-blue">Very Heavy</span></td><td>Arabian Sea branch</td></tr>
+        <tr><td>West Bengal, Assam</td><td>150-200 cm</td><td><span class="tag tag-green">Heavy</span></td><td>Bay of Bengal</td></tr>
+        <tr><td>Odisha, Bihar</td><td>100-150 cm</td><td><span class="tag tag-green">Moderate-High</span></td><td>Bay of Bengal</td></tr>
+        <tr><td>⭐ Eastern UP</td><td>90-100 cm</td><td><span class="tag tag-green">Moderate</span></td><td>BoB branch (westward)</td></tr>
+        <tr><td>⭐ Western UP</td><td>65-90 cm</td><td><span class="tag tag-orange">Moderate-Low</span></td><td>Convergence zone</td></tr>
+        <tr><td>Delhi, Haryana</td><td>60-75 cm</td><td><span class="tag tag-orange">Low-Moderate</span></td><td>Both branches (weakened)</td></tr>
+        <tr><td>Tamil Nadu</td><td>90-130 cm</td><td><span class="tag tag-orange">NE Monsoon</span></td><td>NE Monsoon (Oct-Dec)</td></tr>
+        <tr><td>Rajasthan (East)</td><td>40-60 cm</td><td><span class="tag tag-red">Low</span></td><td>Weakened Arabian Sea</td></tr>
+        <tr><td>Rajasthan (West/NW)</td><td><20 cm</td><td><span class="tag tag-red">Very Low</span></td><td>Negligible</td></tr>
+        <tr><td>Ladakh</td><td><10 cm</td><td><span class="tag tag-red">Lowest</span></td><td>Western disturbances (snow)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 6: CYCLONES
+     ════════════════════════════════════════ -->
+<div id="cyclones" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#ede9fe">🌀</div>
+    <div><h2>Tropical Cyclones — Bay of Bengal vs Arabian Sea</h2><p>Formation, frequency & impact</p></div>
+  </div>
+
+  <div class="info-box info-purple">
+    <strong>🌀 Definition:</strong> Tropical cyclones are intense low-pressure systems with sustained winds >63 km/h (Cyclonic Storm) or >89 km/h (Severe Cyclonic Storm). They form over warm tropical oceans (SST > 26-27°C).
+  </div>
+
+  <div class="cyclone-compare">
+    <div class="cyclone-box cyclone-bay">
+      <h4>🌊 Bay of Bengal</h4>
+      <div class="kf"><span class="kf-icon">📊</span><span><strong>Frequency: ~80%</strong> of all Indian cyclones from BoB</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span>Warmer SST, shallower sea → ideal cyclone formation</span></div>
+      <div class="kf"><span class="kf-icon">🗓️</span><span>Peak seasons: <strong>Oct-Nov</strong> (post-monsoon) & May-June (pre-monsoon)</span></div>
+      <div class="kf"><span class="kf-icon">📍</span><span>States affected: Tamil Nadu, Andhra Pradesh, Odisha, West Bengal, Bangladesh</span></div>
+      <div class="kf"><span class="kf-icon">💥</span><span>More destructive — warm deep ocean maintains intensity until landfall</span></div>
+      <div class="kf"><span class="kf-icon">🌀</span><span>Major: Cyclone Fani (2019, Odisha), Amphan (2020, Bengal), Yaas (2021), Biparjoy (2023)</span></div>
+    </div>
+    <div class="cyclone-box cyclone-ara">
+      <h4>☀️ Arabian Sea</h4>
+      <div class="kf"><span class="kf-icon">📊</span><span><strong>Frequency: ~20%</strong> of Indian cyclones from Arabian Sea</span></div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span>Cooler upwelling waters in S Arabia → less favorable; BUT warming trend now!</span></div>
+      <div class="kf"><span class="kf-icon">🗓️</span><span>Peak: <strong>May-June</strong> (pre-monsoon); occasional post-monsoon</span></div>
+      <div class="kf"><span class="kf-icon">📍</span><span>States affected: Gujarat (most), Maharashtra, Goa, Kerala</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span>Weakens faster — drier air intrusion from Arabian Peninsula</span></div>
+      <div class="kf"><span class="kf-icon">🌀</span><span>Major: Cyclone Tauktae (2021, Gujarat), Biparjoy (2023), Vayu (2019)</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-title"><span class="icon">📋</span> Cyclone Classification (IMD System)</div>
+    <table class="data-table">
+      <thead><tr><th>Category</th><th>Wind Speed</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Low Pressure Area</td><td>&lt;31 km/h</td><td>Pre-cyclonic formation</td></tr>
+        <tr><td>Depression</td><td>31-49 km/h</td><td>Common in BoB</td></tr>
+        <tr><td>Deep Depression</td><td>49-62 km/h</td><td>Causes moderate rainfall</td></tr>
+        <tr><td>Cyclonic Storm</td><td>63-88 km/h</td><td>Named storms begin here</td></tr>
+        <tr><td>Severe Cyclonic Storm</td><td>89-117 km/h</td><td>Significant damage</td></tr>
+        <tr><td>Very Severe Cyclonic Storm</td><td>118-167 km/h</td><td>Major destruction</td></tr>
+        <tr><td>Extremely Severe</td><td>168-221 km/h</td><td>Cyclone Fani 2019</td></tr>
+        <tr><td>Super Cyclonic Storm</td><td>>222 km/h</td><td>Rare — Odisha 1999</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box info-teal" style="margin-top:12px">
+      🌀 <strong>Cyclone Naming:</strong> India follows WMO naming convention. Regional Specialized Meteorological Centre (RSMC) for North Indian Ocean is IMD, New Delhi. The naming panel includes: Bangladesh, India, Iran, Maldives, Myanmar, Oman, Pakistan, Sri Lanka, Thailand, UAE, Yemen.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚠️</span> Odisha — India's Most Cyclone-Prone State</div>
+    <div class="info-box info-red">
+      Odisha has been hit by <strong>major cyclones in 1999, 2013 (Phailin), 2014 (Hudhud), 2019 (Fani)</strong>. Reasons: shallow continental shelf + funnel-shaped BoB + low coastal elevation.
+    </div>
+    <div class="two-col">
+      <div class="kf"><span class="kf-icon">📍</span><span>Most vulnerable districts: Kendrapara, Bhadrak, Jagatsinghpur, Balasore, Puri</span></div>
+      <div class="kf"><span class="kf-icon">🏛️</span><span>IMD cyclone warning system: 3-day advance warning; 4-stage alert (Yellow → Orange → Red)</span></div>
+      <div class="kf"><span class="kf-icon">🌿</span><span>Mangrove forests (Bhitarkanika) act as natural cyclone barriers</span></div>
+      <div class="kf"><span class="kf-icon">🏗️</span><span>India has Odisha Disaster Rapid Action Force (ODRAF) — model disaster response</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 7: CLIMATE CHANGE
+     ════════════════════════════════════════ -->
+<div id="climate-change" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#fee2e2">🌡️</div>
+    <div><h2>Climate Change & Indian Monsoon</h2><p>Impacts, trends & policy response</p></div>
+  </div>
+
+  <div class="info-box info-red">
+    <strong>📌 Key Fact:</strong> India's average temperature has risen by <strong>~0.6°C since 1901</strong>. IMD data shows <strong>increasing frequency of extreme weather events</strong> (droughts, floods, cyclones) since 1970s.
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📉</span> Observed Changes in Indian Monsoon</div>
+    <table class="data-table">
+      <thead><tr><th>Parameter</th><th>Observed Trend</th><th>Implication</th></tr></thead>
+      <tbody>
+        <tr><td>🌡️ Mean Temperature</td><td>+0.6°C since 1901; accelerating</td><td>More extreme heat waves (Rajasthan, UP, Bihar)</td></tr>
+        <tr><td>🌧️ Total Monsoon Rainfall</td><td>No significant long-term change, but <strong>more spatial variability</strong></td><td>Some regions get more, some less; unpredictability</td></tr>
+        <tr><td>⚡ Extreme Rainfall Events</td><td>Increasing frequency (Mumbai 2005, 2017, 2024)</td><td>Flash floods in urban areas</td></tr>
+        <tr><td>🏜️ Drought Frequency</td><td>Increasing (El Niño years: 2002, 2009, 2014, 2023)</td><td>Food security threat; UP, Bundelkhand vulnerable</td></tr>
+        <tr><td>🌀 Cyclone Intensity</td><td>Arabian Sea cyclones more frequent & intense</td><td>Gujarat, Maharashtra, Kerala at risk</td></tr>
+        <tr><td>❄️ Himalayan Glaciers</td><td>Retreating 23m/year (avg)</td><td>Initially more Himalayan river flow, then reduction</td></tr>
+        <tr><td>🌊 Sea Level Rise</td><td>+1.3mm/year in Indian coast</td><td>Threatens Mumbai, Chennai, Kolkata, Sunderban</td></tr>
+        <tr><td>🌸 Monsoon Onset Date</td><td>Becoming more erratic (±2 weeks)</td><td>Agriculture planning disrupted</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> El Niño & Indian Monsoon</div>
+      <div class="kf"><span class="kf-icon">🌡️</span><span><strong>El Niño</strong>: Warming of central/eastern Pacific → Walker Circulation weakens → Indian Ocean becomes relatively cooler → <strong>Weakens Indian monsoon</strong></span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span>El Niño years with weak monsoon: 1987, 1997, 2002, 2009, 2014-15, 2023</span></div>
+      <div class="kf"><span class="kf-icon">💧</span><span><strong>La Niña</strong>: Cooling of Pacific → stronger Walker Circulation → <strong>Enhances Indian monsoon</strong> → flood years</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>IOD (Indian Ocean Dipole)</strong>: Positive IOD (W Indian Ocean warmer) → more rainfall; Negative IOD → deficit rainfall</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🏛️</span> India's Policy Response</div>
+      <div class="kf"><span class="kf-icon">📋</span><span><strong>NAPCC 2008:</strong> National Action Plan on Climate Change — 8 missions including National Water Mission, Solar Mission</span></div>
+      <div class="kf"><span class="kf-icon">🌿</span><span><strong>Green India Mission:</strong> Increase forest cover by 5 million ha; carbon sink</span></div>
+      <div class="kf"><span class="kf-icon">☀️</span><span><strong>Paris Agreement (2015):</strong> India's NDC — 45% reduction in emission intensity by 2030; 50% renewable energy</span></div>
+      <div class="kf"><span class="kf-icon">🌱</span><span><strong>ISA (International Solar Alliance):</strong> India-France initiative; HQ Gurugram</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span><strong>CDRI:</strong> Coalition for Disaster Resilient Infrastructure — India led, 2019</span></div>
+      <div class="info-box info-orange" style="margin-top:8px"><strong>🎯 UPPSC 2018:</strong> India's 1st National Action Plan on Climate Change = <strong>2008</strong></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏔️</span> Climate Change in Himalayas & Himalayan Rivers</div>
+    <div class="info-box info-blue">
+      IPCC warns: <strong>Hindu Kush Himalayan (HKH) region warming 2x faster</strong> than global average. By 2100, 2/3 of Himalayan glaciers could disappear under high-emission scenario.
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="kf"><span class="kf-icon">❄️</span><span>Gangotri Glacier retreating ~22m/year</span></div>
+        <div class="kf"><span class="kf-icon">💧</span><span>Short term: More glacial melt → more river flow; Long term: rivers reduce (Ganga at risk)</span></div>
+        <div class="kf"><span class="kf-icon">⚠️</span><span><strong>GLOF</strong> (Glacial Lake Outburst Floods): Uttarakhand 2021 Chamoli disaster</span></div>
+      </div>
+      <div>
+        <div class="kf"><span class="kf-icon">🌡️</span><span>Snowline rising → Himalayan snow pack reducing → affects spring flow (rabi irrigation in UP)</span></div>
+        <div class="kf"><span class="kf-icon">🌧️</span><span>Rainfall patterns shifting from winter snowfall to summer rain → increased flood risk</span></div>
+        <div class="kf"><span class="kf-icon">🌿</span><span>Tree line shifting upward; Himalayan biodiversity under stress</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 8: UP CLIMATE
+     ════════════════════════════════════════ -->
+<div id="up-climate" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#fef9c3">🏙️</div>
+    <div><h2>Uttar Pradesh — Climate Deep Dive</h2><p>Complete UP-specific climate analysis for UPPSC</p></div>
+  </div>
+
+  <div class="info-box info-orange">
+    <span class="up-badge">📍 UP Special</span> <strong>UP's climate</strong> = Sub-tropical monsoon climate, continental in nature. Extreme temperatures, seasonal rainfall. IMD divides UP into <strong>5 agro-climatic zones</strong>.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🗺️</span> UP Agro-Climatic Zones</div>
+      <table class="data-table">
+        <thead><tr><th>Zone</th><th>Districts</th><th>Rainfall</th></tr></thead>
+        <tbody>
+          <tr><td>Upper Gangetic Plain (Western)</td><td>Meerut, Agra, Aligarh</td><td>65-80 cm</td></tr>
+          <tr><td>Upper Gangetic Plain (Central)</td><td>Kanpur, Lucknow, Fatehpur</td><td>80-95 cm</td></tr>
+          <tr><td>Middle Gangetic Plain</td><td>Allahabad, Varanasi, Jaunpur</td><td>90-110 cm</td></tr>
+          <tr><td>Lower Gangetic Plain</td><td>Gorakhpur, Basti, Azamgarh</td><td>100-120 cm</td></tr>
+          <tr><td>Vindhyan Hills (Bundelkhand)</td><td>Jhansi, Banda, Chitrakoot</td><td>70-90 cm</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📅</span> UP Seasonal Pattern</div>
+      <div class="kf"><span class="kf-icon">❄️</span><span><strong>Winter (Dec-Feb):</strong> 5-15°C; dense fog; cold waves; <em>Mawath</em> rainfall (Western disturbances) in W. UP</span></div>
+      <div class="kf"><span class="kf-icon">🌸</span><span><strong>Summer (Mar-May):</strong> 35-48°C; <em>Loo</em> winds; dust storms (Andhi); heat waves</span></div>
+      <div class="kf"><span class="kf-icon">🌧️</span><span><strong>Monsoon (Jun-Sep):</strong> 65-120 cm rainfall; onset E. UP June 15; W. UP July 1; retreat Sept 15-25</span></div>
+      <div class="kf"><span class="kf-icon">🍂</span><span><strong>Post-Monsoon (Oct-Nov):</strong> Clear skies; harvest season; pleasant temperatures 15-30°C</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌡️</span> UP Temperature Extremes</div>
+    <table class="data-table">
+      <thead><tr><th>Region</th><th>Summer Max (°C)</th><th>Winter Min (°C)</th><th>Annual Range</th></tr></thead>
+      <tbody>
+        <tr><td>Western UP (Agra, Jhansi)</td><td>45-48</td><td>3-7</td><td>~40°C (continental)</td></tr>
+        <tr><td>Central UP (Lucknow, Kanpur)</td><td>42-45</td><td>5-8</td><td>~37°C</td></tr>
+        <tr><td>Eastern UP (Varanasi, Gorakhpur)</td><td>40-43</td><td>7-10</td><td>~33°C</td></tr>
+        <tr><td>Bundelkhand (Banda, Jhansi)</td><td>46-48</td><td>5-8</td><td>~40°C (most extreme)</td></tr>
+        <tr><td>Tarai (Bahraich, Lakhimpur)</td><td>38-41</td><td>8-12</td><td>~30°C (humid)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">💨</span> UP-Specific Winds & Phenomena</div>
+      <div class="kf"><span class="kf-icon">🌬️</span><span><strong>Loo (लू):</strong> Hot, dry, desiccating wind from W/NW; blows in afternoon; May-June; 45-48°C; deadly; Punjab to Bihar (UPPSC 2024)</span></div>
+      <div class="kf"><span class="kf-icon">🌪️</span><span><strong>Andhi (आंधी):</strong> Pre-monsoon dust storms; April-June; W. UP & Rajasthan; sudden temperature drop</span></div>
+      <div class="kf"><span class="kf-icon">🌫️</span><span><strong>Dense Fog (कोहरा):</strong> Nov-Feb; Ganga plains; IGP fog belt; disrupts air/rail transport</span></div>
+      <div class="kf"><span class="kf-icon">❄️</span><span><strong>Cold Wave (शीत लहर):</strong> Dec-Jan; Bare valleys (Kanpur, Lucknow, Allahabad) drop to 2-5°C; fog + cold = "Dense Cold Wave"</span></div>
+      <div class="kf"><span class="kf-icon">⛈️</span><span><strong>Thunderstorms:</strong> Pre-monsoon (April-May) & active monsoon; UP averages 25-30 thunder days/year</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🌧️</span> UP Monsoon Specifics</div>
+      <div class="kf"><span class="kf-icon">📅</span><span>Monsoon onset: Eastern UP (Gorakhpur, Varanasi) — <strong>June 15-20</strong></span></div>
+      <div class="kf"><span class="kf-icon">📅</span><span>Central UP (Lucknow, Kanpur) — <strong>June 20-25</strong></span></div>
+      <div class="kf"><span class="kf-icon">📅</span><span>Western UP (Agra, Meerut) — <strong>June 25 - July 1</strong></span></div>
+      <div class="kf"><span class="kf-icon">📅</span><span>Retreat: Western UP — Sept 15; Eastern UP — Sept 25</span></div>
+      <div class="kf"><span class="kf-icon">💧</span><span>Total Monsoon Rainfall: 65cm (NW UP) to 120cm (E. UP/Tarai)</span></div>
+      <div class="kf"><span class="kf-icon">🌊</span><span>Flood-prone rivers: Ganga, Ghaghra (Saryu), Rapti, Gandak; Districts: Gorakhpur, Lakhimpur, Bahraich, Ballia</span></div>
+      <div class="kf"><span class="kf-icon">🏜️</span><span>Drought-prone: Bundelkhand (Jhansi, Banda, Lalitpur, Hamirpur) — erratic rainfall, rocky terrain</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌾</span> UP Climate & Agriculture Linkage</div>
+    <div class="info-box info-green">
+      <strong>📌 UPPSC Mains Importance:</strong> UP is India's largest food producing state. Climate directly impacts Kharif (June-Oct) and Rabi (Nov-April) crops.
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Season</th><th>Crops</th><th>Climate Dependence</th><th>Vulnerable Districts</th></tr></thead>
+      <tbody>
+        <tr><td>🌧️ Kharif (Jun-Oct)</td><td>Paddy, Maize, Bajra, Jowar, Soybean</td><td>SW Monsoon rainfall (>75cm needed)</td><td>Bundelkhand (deficit rainfall)</td></tr>
+        <tr><td>❄️ Rabi (Nov-Apr)</td><td>Wheat, Mustard, Barley, Peas</td><td>Winter rain (Mawath) + fog beneficial for wheat</td><td>Minimal — well-irrigated</td></tr>
+        <tr><td>☀️ Zaid (Mar-Jun)</td><td>Muskmelon, Watermelon, Cucumber</td><td>Hot, dry weather + irrigation</td><td>Agra, Mathura doab region</td></tr>
+        <tr><td>🎋 Sugarcane (annual)</td><td>Sugarcane (#1 producer in India)</td><td>High rainfall + hot humid summer</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box info-blue" style="margin-top:10px">
+      <span class="up-badge">📍 UP Fact</span> UP Upper Gangetic agro-climatic zone: <strong>irrigation intensity >130%, cropping intensity >140%</strong> (UPPSC 2024 Q41 — Both statements correct)
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 9: DROUGHT & FLOOD PRONE AREAS
+     ════════════════════════════════════════ -->
+<div id="drought-flood" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#fee2e2">⚠️</div>
+    <div><h2>Drought-Prone & Flood-Prone Areas</h2><p>State-wise vulnerability + management</p></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🏜️</span> Drought-Prone Areas</div>
+      <div class="info-box info-orange">
+        Areas receiving <strong>&lt;75 cm annual rainfall</strong> with high variability (>25% deviation) are classified as drought-prone.
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Region/State</th><th>Type</th><th>Cause</th></tr></thead>
+        <tbody>
+          <tr><td>Rajasthan (W & NW)</td><td>Meteorological + Hydrological</td><td>Low rainfall, sandy soil</td></tr>
+          <tr><td>⭐ Bundelkhand (UP + MP)</td><td>Meteorological</td><td>Rocky terrain, erratic monsoon</td></tr>
+          <tr><td>Marathwada (Maharashtra)</td><td>Meteorological</td><td>Rain shadow of W. Ghats</td></tr>
+          <tr><td>Vidarbha (Maharashtra)</td><td>Agricultural</td><td>Cotton monoculture, poor irrigation</td></tr>
+          <tr><td>Telangana (NW part)</td><td>Hydrological</td><td>Rain shadow, overexploitation of GW</td></tr>
+          <tr><td>Karnataka (N-Interior)</td><td>Meteorological</td><td>Bimodal rainfall; erratic distribution</td></tr>
+          <tr><td>Odisha (KBK region)</td><td>Agricultural</td><td>Tribal areas; poor irrigation infrastructure</td></tr>
+          <tr><td>Gujarat (Kutch/Saurashtra)</td><td>Meteorological</td><td>Rain shadow, saline soils</td></tr>
+          <tr><td>Jharkhand (Palamu)</td><td>Agricultural</td><td>Undulating terrain; groundwater inaccessible</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box info-red" style="margin-top:10px">
+        <span class="up-badge">📍 UP</span> <strong>Bundelkhand:</strong> Districts — Jhansi, Banda, Chitrakoot, Hamirpur, Mahoba, Lalitpur. Major drought crisis 2007, 2015. Central Govt Bundelkhand Package ₹7,266 Cr.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> Flood-Prone Areas</div>
+      <div class="info-box info-blue">
+        India has ~40 million ha flood-prone area. Rivers: Ganga, Brahmaputra, Mahanadi, Krishna, Godavari most flood-prone.
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Region/State</th><th>Rivers</th><th>Nature</th></tr></thead>
+        <tbody>
+          <tr><td>Bihar (most flood-prone)</td><td>Kosi, Gandak, Bagmati, Mahananda</td><td>Annual floods; Kosi = "Sorrow of Bihar"</td></tr>
+          <tr><td>Assam</td><td>Brahmaputra, Barak</td><td>Annual catastrophic floods</td></tr>
+          <tr><td>⭐ UP (Tarai + E. UP)</td><td>Ganga, Ghaghra (Saryu), Rapti, Gandak</td><td>Monsoon floods; Gorakhpur most affected</td></tr>
+          <tr><td>West Bengal (N. Bengal)</td><td>Damodar, Teesta, Mahananda</td><td>Flash floods + coastal floods</td></tr>
+          <tr><td>Odisha</td><td>Mahanadi, Brahmani, Baitarni</td><td>Cyclone + river floods</td></tr>
+          <tr><td>Brahmaputra Valley</td><td>Brahmaputra</td><td>Braided river; char islands flood annually</td></tr>
+          <tr><td>Punjab, Haryana</td><td>Sutlej, Beas, Chenab</td><td>Flash floods; SW monsoon + glacier melt</td></tr>
+          <tr><td>Mumbai (Urban)</td><td>Mithi River</td><td>Urban floods; 2005 (94 cm/26 July)</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box info-red" style="margin-top:10px">
+        <span class="up-badge">📍 UP</span> <strong>Flood-prone districts:</strong> Gorakhpur, Lakhimpur Kheri, Bahraich, Ballia, Deoria, Siddharthnagar, Basti, Sant Kabir Nagar. <strong>Ghaghra</strong> is UP's most flood-prone river.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span> India's Natural Disaster Statistics</div>
+    <table class="data-table">
+      <thead><tr><th>Disaster</th><th>% of Area Prone</th><th>Most Affected States</th><th>Peak Season</th></tr></thead>
+      <tbody>
+        <tr><td>🌊 Floods</td><td>~12% of total area</td><td>Bihar, Assam, UP, Bengal</td><td>Jul-Sep</td></tr>
+        <tr><td>🏜️ Drought</td><td>~30% of total area</td><td>Rajasthan, Maharashtra, Karnataka, UP (Bundelkhand)</td><td>May-Sept</td></tr>
+        <tr><td>🌀 Cyclones</td><td>Coastal 7600 km coastline</td><td>Odisha, AP, TN, WB, Gujarat</td><td>Oct-Dec, Apr-Jun</td></tr>
+        <tr><td>⛰️ Landslides</td><td>Himalayan states + W. Ghats</td><td>Uttarakhand, HP, NE states, Kerala</td><td>Jul-Sep</td></tr>
+        <tr><td>🏔️ Earthquakes</td><td>60% area seismically active</td><td>J&K, Himachal, Uttarakhand, NE India</td><td>Any time</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏛️</span> Disaster Management Framework</div>
+    <div class="grid-2">
+      <div>
+        <div class="kf"><span class="kf-icon">📋</span><span><strong>DM Act 2005:</strong> Established NDMA (National Disaster Management Authority) — PM as chairperson</span></div>
+        <div class="kf"><span class="kf-icon">🚁</span><span><strong>NDRF:</strong> National Disaster Response Force — 16 battalions; deployed for floods/cyclones</span></div>
+        <div class="kf"><span class="kf-icon">💰</span><span><strong>NDRF fund:</strong> National Disaster Response Fund (Union) + SDRF (State)</span></div>
+      </div>
+      <div>
+        <div class="kf"><span class="kf-icon">🏙️</span><span><strong>UP SDRF:</strong> UP State Disaster Response Fund; UP SDMA at state level</span></div>
+        <div class="kf"><span class="kf-icon">🌊</span><span><strong>Flood management:</strong> Embankments, dredging, early warning (CWC); Ganga flood forecasting</span></div>
+        <div class="kf"><span class="kf-icon">💧</span><span><strong>Drought management:</strong> PMKSY (irrigation), MGNREGS, PMFBY (crop insurance)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     TAB 10: MCQs
+     ════════════════════════════════════════ -->
+<div id="mcqs" class="section">
+  <div class="sec-header">
+    <div class="sec-header-icon" style="background:#ede9fe">📝</div>
+    <div><h2>UPPSC Pattern MCQs — Climate</h2><p>10 High-Quality Questions · UPPSC 2026 Level</p></div>
+  </div>
+
+  <div class="mcq-score" id="scoreCard" style="display:none">
+    <div class="score-big" id="scoreNum">0/10</div>
+    <div class="score-label">Your Score</div>
+    <div style="margin-top:12px; font-size:13px; opacity:0.9" id="scoreMsg"></div>
+  </div>
+
+  <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+    <button class="btn btn-outline" onclick="resetQuiz()">🔄 Reset All</button>
+    <button class="btn btn-primary" onclick="showAllAnswers()">✅ Show All Answers</button>
+  </div>
+
+  <!-- Q1 -->
+  <div class="mcq-card" id="q1">
+    <div class="mcq-q"><span class="mcq-num">1</span> Which of the following correctly describes the mechanism of Southwest Monsoon onset over India?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q1','b')"><span class="option-key">a</span> Cooling of Tibetan Plateau causes monsoon winds</div>
+      <div class="option" onclick="checkAnswer(this,'q1','b')"><span class="option-key">b</span> Differential heating of land and sea + ITCZ migration northward + bifurcation of Subtropical Westerly Jet Stream</div>
+      <div class="option" onclick="checkAnswer(this,'q1','b')"><span class="option-key">c</span> High pressure over Arabian Sea drives winds towards land</div>
+      <div class="option" onclick="checkAnswer(this,'q1','b')"><span class="option-key">d</span> Southeast trade winds from Southern Hemisphere directly enter India</div>
+    </div>
+    <div class="explanation" id="q1-exp">✅ <strong>Answer: (b)</strong> SW Monsoon is caused by: (1) Low pressure over NW India due to intense heating of Thar Desert, (2) ITCZ migration to ~25°N, (3) SE Trade winds cross Equator → deflected right by Coriolis → SW winds, (4) Bifurcation of Subtropical Westerly Jet Stream in May-June triggers rapid monsoon onset. The Tibetan Plateau HEATS up in summer (not cools), creating anticyclone aloft and Easterly Jet Stream.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="mcq-card" id="q2">
+    <div class="mcq-q"><span class="mcq-num">2</span> Arrange the following in the correct order of Southwest Monsoon onset (earliest to latest):</div>
+    <div style="margin: -8px 0 10px 36px; font-size:13.5px; color:var(--text2)">1. Delhi &nbsp; 2. Kerala &nbsp; 3. NE India (Assam) &nbsp; 4. Rajasthan (NW) &nbsp; 5. Andaman & Nicobar</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q2','a')"><span class="option-key">a</span> 5 → 2 → 3 → 1 → 4</div>
+      <div class="option" onclick="checkAnswer(this,'q2','a')"><span class="option-key">b</span> 2 → 5 → 3 → 1 → 4</div>
+      <div class="option" onclick="checkAnswer(this,'q2','a')"><span class="option-key">c</span> 3 → 2 → 5 → 1 → 4</div>
+      <div class="option" onclick="checkAnswer(this,'q2','a')"><span class="option-key">d</span> 5 → 3 → 2 → 1 → 4</div>
+    </div>
+    <div class="explanation" id="q2-exp">✅ <strong>Answer: (a)</strong> Andaman & Nicobar Islands (May 15) → Kerala (June 1) → NE India/Assam (June 1-5) → Delhi (June 29) → NW Rajasthan (July 10-15). A&N Islands get monsoon earliest in India!</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="mcq-card" id="q3">
+    <div class="mcq-q"><span class="mcq-num">3</span> Consider the following statements about Northeast Monsoon:<br><br>1. It blows from NE to SW direction.<br>2. It is the primary source of rainfall for Tamil Nadu (about 60%).<br>3. It is moisture-laden from the start as it originates over the Arabian Sea.<br>4. It is most active during October to December.<br><br>Which of the above statements are CORRECT?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q3','c')"><span class="option-key">a</span> 1, 2 and 4 only</div>
+      <div class="option" onclick="checkAnswer(this,'q3','c')"><span class="option-key">b</span> 2, 3 and 4 only</div>
+      <div class="option" onclick="checkAnswer(this,'q3','c')"><span class="option-key">c</span> 1, 2 and 4 only</div>
+      <div class="option" onclick="checkAnswer(this,'q3','c')"><span class="option-key">d</span> All four are correct</div>
+    </div>
+    <div class="explanation" id="q3-exp">✅ <strong>Answer: (c) → Statements 1, 2 and 4 are correct.</strong> Statement 3 is WRONG: NE monsoon originates as dry, cold continental winds from NE India/Central Asia. It picks up moisture only AFTER crossing the Bay of Bengal, not at origin. Statements 1 (direction NE→SW), 2 (60% TN rainfall), and 4 (Oct-Dec) are all correct.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="mcq-card" id="q4">
+    <div class="mcq-q"><span class="mcq-num">4</span> Which of the following is the CORRECT reason why Cherrapunji/Mawsynram receives the highest rainfall in the world?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q4','d')"><span class="option-key">a</span> It is located at the highest elevation in NE India</div>
+      <div class="option" onclick="checkAnswer(this,'q4','d')"><span class="option-key">b</span> It lies at the junction of both Arabian Sea and Bay of Bengal branches</div>
+      <div class="option" onclick="checkAnswer(this,'q4','d')"><span class="option-key">c</span> It has the maximum number of lakes and wetlands</div>
+      <div class="option" onclick="checkAnswer(this,'q4','d')"><span class="option-key">d</span> It lies on the southern edge of Meghalaya Plateau facing Bay of Bengal, creating funnel-shaped orographic uplift</div>
+    </div>
+    <div class="explanation" id="q4-exp">✅ <strong>Answer: (d)</strong> Cherrapunji and Mawsynram are located on the southern slopes of the Meghalaya Plateau. The plateau acts like a funnel — BoB branch monsoon winds rush into this funnel-shaped valley and are forced upward rapidly. This intense orographic lifting causes condensation and extraordinary rainfall (1141-1492 cm/year). It's not about elevation alone — it's about the funnel geometry of the terrain.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="mcq-card" id="q5">
+    <div class="mcq-q"><span class="mcq-num">5</span> 'Loo' is a hot, dry wind which blows in summer. Which of the following correctly describes it?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q5','b')"><span class="option-key">a</span> It blows from East to West; affects only Rajasthan</div>
+      <div class="option" onclick="checkAnswer(this,'q5','b')"><span class="option-key">b</span> It blows from West/NW to East; affects Punjab to Bihar including UP; blows in May-June afternoons</div>
+      <div class="option" onclick="checkAnswer(this,'q5','b')"><span class="option-key">c</span> It is a cold wind that brings relief from summer heat</div>
+      <div class="option" onclick="checkAnswer(this,'q5','b')"><span class="option-key">d</span> It is a local wind only in Rajasthan and Gujarat</div>
+    </div>
+    <div class="explanation" id="q5-exp">✅ <strong>Answer: (b)</strong> Loo is a hot, dry, desiccating wind that blows from West/NW direction across the Indo-Gangetic plains, covering Punjab, Haryana, Uttar Pradesh, Bihar, and Rajasthan. Temperature during Loo: 45-48°C; very low relative humidity; blows in afternoons; peak May-June. It is responsible for deadly heat wave deaths in UP and Bihar. UPPSC 2024 specifically asked about Loo and its geographic extent "Punjab to Bihar."</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="mcq-card" id="q6">
+    <div class="mcq-q"><span class="mcq-num">6</span> Which of the following statements regarding cyclones is INCORRECT?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q6','c')"><span class="option-key">a</span> Bay of Bengal accounts for about 80% of Indian cyclones</div>
+      <div class="option" onclick="checkAnswer(this,'q6','c')"><span class="option-key">b</span> Cyclones in Bay of Bengal are more frequent during October-December</div>
+      <div class="option" onclick="checkAnswer(this,'q6','c')"><span class="option-key">c</span> Arabian Sea cyclones are more frequent and intense than Bay of Bengal cyclones</div>
+      <div class="option" onclick="checkAnswer(this,'q6','c')"><span class="option-key">d</span> Sea Surface Temperature above 26-27°C is necessary for cyclone formation</div>
+    </div>
+    <div class="explanation" id="q6-exp">✅ <strong>Answer: (c)</strong> This statement is INCORRECT. Bay of Bengal cyclones are both MORE FREQUENT (~80% of Indian cyclones) and historically MORE INTENSE than Arabian Sea cyclones. Arabian Sea has fewer cyclones due to drier air intrusion from Arabian Peninsula and cooler upwelling waters. However, in recent years (due to climate change) Arabian Sea cyclone frequency is INCREASING (Tauktae 2021, Biparjoy 2023) — but BoB still dominates.</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="mcq-card" id="q7">
+    <div class="mcq-q"><span class="mcq-num">7</span> India's first National Action Plan on Climate Change (NAPCC) was launched in which year?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q7','b')"><span class="option-key">a</span> 2000</div>
+      <div class="option" onclick="checkAnswer(this,'q7','b')"><span class="option-key">b</span> 2008</div>
+      <div class="option" onclick="checkAnswer(this,'q7','b')"><span class="option-key">c</span> 2012</div>
+      <div class="option" onclick="checkAnswer(this,'q7','b')"><span class="option-key">d</span> 2015</div>
+    </div>
+    <div class="explanation" id="q7-exp">✅ <strong>Answer: (b) 2008</strong> — This was a direct question in UPPSC 2018 (Q126). India's NAPCC was launched on June 30, 2008 by PM Manmohan Singh. It has 8 national missions: Solar Mission, Enhanced Energy Efficiency, Sustainable Habitat, Water Mission, Sustaining Himalayan Ecosystem, Green India Mission, Sustainable Agriculture, Strategic Knowledge for Climate Change.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="mcq-card" id="q8">
+    <div class="mcq-q"><span class="mcq-num">8</span> Consider the following about rainfall distribution in India:<br><br>1. Western Rajasthan receives less than 25 cm of annual rainfall.<br>2. Tamil Nadu coast gets maximum rainfall during Southwest Monsoon season.<br>3. Mawsynram (Meghalaya) receives average annual rainfall of about 1000 cm+.<br>4. Leeward side of Western Ghats (Deccan Plateau) receives more than 100 cm of rainfall.<br><br>How many of the above statements are CORRECT?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q8','b')"><span class="option-key">a</span> Only one</div>
+      <div class="option" onclick="checkAnswer(this,'q8','b')"><span class="option-key">b</span> Only two (1 and 3)</div>
+      <div class="option" onclick="checkAnswer(this,'q8','b')"><span class="option-key">c</span> Only three</div>
+      <div class="option" onclick="checkAnswer(this,'q8','b')"><span class="option-key">d</span> All four</div>
+    </div>
+    <div class="explanation" id="q8-exp">✅ <strong>Answer: (b) Only two — Statements 1 and 3 are correct.</strong><br>Statement 1 ✅: W. Rajasthan gets &lt;25 cm (Jaisalmer ~15 cm).<br>Statement 2 ❌: Tamil Nadu coast gets MINIMUM rainfall during SW Monsoon — it's in rain shadow. It gets maximum rain in NE Monsoon (Oct-Dec).<br>Statement 3 ✅: Mawsynram receives ~1492 cm/year — highest in world.<br>Statement 4 ❌: Leeward/eastern Deccan side gets only 40-70 cm — it's in the rain shadow zone.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="mcq-card" id="q9">
+    <div class="mcq-q"><span class="mcq-num">9</span> Which one of the following is CORRECTLY matched (Local Storm — Region)?<br><em>[UPPSC 2024 Pattern]</em></div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q9','c')"><span class="option-key">a</span> Kalbaisakhi (Nor'westers) — Punjab</div>
+      <div class="option" onclick="checkAnswer(this,'q9','c')"><span class="option-key">b</span> Mango Showers — Bihar</div>
+      <div class="option" onclick="checkAnswer(this,'q9','c')"><span class="option-key">c</span> Blossom Showers — Kerala (coffee estates)</div>
+      <div class="option" onclick="checkAnswer(this,'q9','c')"><span class="option-key">d</span> Loo — Coastal Tamil Nadu</div>
+    </div>
+    <div class="explanation" id="q9-exp">✅ <strong>Answer: (c)</strong> Blossom Showers occur in Kerala and are associated with coffee blossom (flowering) season — these pre-monsoon showers trigger coffee blossoming. <br>❌ Kalbaisakhi/Nor'westers = West Bengal & Assam (not Punjab).<br>❌ Mango Showers = Kerala & Karnataka (not Bihar).<br>❌ Loo = UP, Rajasthan, Bihar, Punjab-Bihar belt (not coastal TN — coastal areas are humid).</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="mcq-card" id="q10">
+    <div class="mcq-q"><span class="mcq-num">10</span> With reference to Uttar Pradesh's climate and its Bundelkhand region, consider the following statements:<br><br>1. Bundelkhand region (Jhansi, Banda, Chitrakoot) is categorized as drought-prone due to erratic monsoon and rocky terrain.<br>2. The districts of Gorakhpur, Lakhimpur, and Bahraich in UP are prone to floods from the Ghaghra/Saryu river system.<br>3. SW Monsoon retreats from Western UP by October 15, later than Eastern UP.<br>4. UP receives all its rainfall from the Bay of Bengal branch of SW Monsoon alone.<br><br>Which of the above statements are CORRECT?</div>
+    <div class="options">
+      <div class="option" onclick="checkAnswer(this,'q10','a')"><span class="option-key">a</span> 1 and 2 only</div>
+      <div class="option" onclick="checkAnswer(this,'q10','a')"><span class="option-key">b</span> 2 and 3 only</div>
+      <div class="option" onclick="checkAnswer(this,'q10','a')"><span class="option-key">c</span> 1, 2 and 4 only</div>
+      <div class="option" onclick="checkAnswer(this,'q10','a')"><span class="option-key">d</span> All four</div>
+    </div>
+    <div class="explanation" id="q10-exp">✅ <strong>Answer: (a) 1 and 2 only.</strong><br>Statement 1 ✅: Bundelkhand is drought-prone — confirmed fact.<br>Statement 2 ✅: Gorakhpur, Lakhimpur, Bahraich are flood-prone from Ghaghra (Saryu) and its tributaries.<br>Statement 3 ❌: Monsoon retreats from WESTERN UP FIRST (~Sept 15-20), not last. Eastern UP's monsoon retreats later (~Sept 25). The retreat moves from NW to SE.<br>Statement 4 ❌: Western UP gets rainfall from CONVERGENCE of both Arabian Sea and Bay of Bengal branches; not BoB alone.</div>
+  </div>
+
+  <div style="text-align:center; padding:20px 0;">
+    <button class="btn btn-primary" onclick="calculateScore()" style="font-size:15px; padding:12px 28px;">📊 Calculate My Score</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+  🎯 UPPSC 2026 · SDM Rank Preparation · India Climate & Monsoon Toolkit<br>
+  <span style="color:var(--primary)">Quality over Quantity — Depth Matters</span> · 9 Topics · 10 MCQs
+</footer>
+
+<script>
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const tabIds = ['factors','swm','nem','seasons','rainfall','cyclones','climate-change','up-climate','drought-flood','mcqs'];
+  const idx = tabIds.indexOf(id);
+  if(idx >= 0) tabs[idx].classList.add('active');
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+// Accordion
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  header.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// MCQ Logic
+const answers = {};
+const correctAnswers = {
+  q1:'b', q2:'a', q3:'c', q4:'d', q5:'b',
+  q6:'c', q7:'b', q8:'b', q9:'c', q10:'a'
+};
+
+function checkAnswer(el, qId, correct) {
+  if(answers[qId]) return; // already answered
+  const options = el.closest('.options').querySelectorAll('.option');
+  const idx = Array.from(options).indexOf(el);
+  const keys = ['a','b','c','d'];
+  const chosen = keys[idx];
+  const isCorrect = chosen === correct;
+  
+  options.forEach((opt, i) => {
+    if(keys[i] === correct) opt.classList.add('correct');
+    else if(opt === el && !isCorrect) opt.classList.add('wrong');
+    opt.style.cursor = 'default';
+  });
+  
+  answers[qId] = isCorrect;
+  const exp = document.getElementById(qId + '-exp');
+  if(exp) exp.classList.add('show');
+}
+
+function showAllAnswers() {
+  const qIds = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  qIds.forEach(qId => {
+    if(!answers[qId]) {
+      const card = document.getElementById(qId);
+      const options = card.querySelectorAll('.option');
+      const keys = ['a','b','c','d'];
+      const correct = correctAnswers[qId];
+      options.forEach((opt, i) => {
+        if(keys[i] === correct) opt.classList.add('correct');
+        opt.style.cursor = 'default';
+      });
+      answers[qId] = false;
+      const exp = document.getElementById(qId + '-exp');
+      if(exp) exp.classList.add('show');
+    }
+  });
+  calculateScore();
+}
+
+function calculateScore() {
+  let correct = 0;
+  Object.values(answers).forEach(v => { if(v) correct++; });
+  const total = Object.keys(answers).length;
+  const scoreCard = document.getElementById('scoreCard');
+  const scoreNum = document.getElementById('scoreNum');
+  const scoreMsg = document.getElementById('scoreMsg');
+  scoreCard.style.display = 'block';
+  scoreNum.textContent = correct + '/' + total;
+  const pct = (correct/10)*100;
+  if(pct >= 90) scoreMsg.textContent = '🏆 Excellent! SDM Rank Ready!';
+  else if(pct >= 70) scoreMsg.textContent = '👍 Good! Revise weak areas once more.';
+  else if(pct >= 50) scoreMsg.textContent = '📚 Needs more revision. Focus on UPPSC-specific facts.';
+  else scoreMsg.textContent = '📖 Please re-read the chapters carefully and retry.';
+  scoreCard.scrollIntoView({behavior:'smooth'});
+}
+
+function resetQuiz() {
+  const qIds = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+  qIds.forEach(qId => {
+    const card = document.getElementById(qId);
+    card.querySelectorAll('.option').forEach(opt => {
+      opt.classList.remove('correct','wrong');
+      opt.style.cursor = 'pointer';
+    });
+    const exp = document.getElementById(qId + '-exp');
+    if(exp) exp.classList.remove('show');
+  });
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.getElementById('scoreCard').style.display = 'none';
+}
+
+// Animate progress bars on tab show
+function animateBars() {
+  document.querySelectorAll('.progress-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w; }, 100);
+  });
+}
+document.querySelector('.nav-tab[onclick*="rainfall"]').addEventListener('click', () => setTimeout(animateBars, 100));
+</script>
+</body>
+</html>
